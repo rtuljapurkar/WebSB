@@ -1,0 +1,15 @@
+export const CREATE_POST = 'CREATE_POST';
+export const CREATE_POST_SUCCESS = 'CREATE_POST_SUCCESS';
+
+export const LOAD_VENUES_SUCCESS = 'LOAD_VENUES_SUCCESS';
+
+export const LOAD_TEAMS_SUCCESS = 'LOAD_TEAMS_SUCCESS';
+
+export const LOAD_POSTS_SUCCESS = 'LOAD_POSTS_SUCCESS';
+
+export const LOG_IN_SUCCESS = 'LOG_IN_SUCCESS';
+export const LOG_IN_FAILED = 'LOG_IN_FAILED';
+export const LOG_OUT = 'LOG_OUT';
+
+export const BEGIN_AJAX_CALL = 'BEGIN_AJAX_CALL';
+export const AJAX_CALL_ERROR = 'AJAX_CALL_ERROR';
