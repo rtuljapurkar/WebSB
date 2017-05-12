@@ -25,7 +25,7 @@ export default {
     new webpack.NoErrorsPlugin(),
     new webpack.DefinePlugin({
       'process.env': {
-        'API_HOST': JSON.stringify('https://devsbapi01.azurewebsites.net/api')
+        'API_HOST': JSON.stringify('../api')
       }
     })
   ],
