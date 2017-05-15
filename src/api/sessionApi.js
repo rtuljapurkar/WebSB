@@ -2,7 +2,7 @@ class SessionApi {
 
   static login(credentials) {
     let request = "" ;
-    const url = `${process.env.API_HOST}/sb_users/count?where={"PEmailA1": "","PPassword": ""}`;
+    const url = `${process.env.API_HOST}/sb_users/count?where={"PEmailA1": "456@test.com","PPassword": "e10adc3949ba59abbe56e057f20f883e"}`;
 //    debugger;
     // try
     // {
