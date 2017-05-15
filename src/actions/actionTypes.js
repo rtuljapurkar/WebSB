@@ -13,3 +13,6 @@ export const LOG_OUT = 'LOG_OUT';
 
 export const BEGIN_AJAX_CALL = 'BEGIN_AJAX_CALL';
 export const AJAX_CALL_ERROR = 'AJAX_CALL_ERROR';
+
+export const SORT_VENUES_DATA = 'SORT_VENUES_DATA';
+export const FILTER_VENUES_DATA = 'FILTER_VENUES_DATA';
