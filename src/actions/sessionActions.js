@@ -19,6 +19,8 @@ export function loginUser(credentials) {
       if(response && response.count && response.count === 1)
       {
           sessionStorage.setItem('jwt', response.count);
+          //debugger;
+          sessionStorage.setItem('username', credentials.PEmailA1);
           dispatch(loginSuccess());
       }
       else {

@@ -7,6 +7,7 @@ import AboutPage from './components/About/AboutPage';
 import VenuesPage from './components/Venues/VenuePage';
 import TeamsPage from './components/Teams/TeamPage';
 import PostsPage from './components/Posts/PostsPage';
+import ManagePostPage from './components/Posts/ManagePostPage';
 import LogInPage from './components/Authentication/LoginPage';
 import auth from './auth/authenticator';
 
@@ -17,10 +18,9 @@ export default (
     <Route path="/login" component={LogInPage} />
     <Route path="/venues" component={VenuesPage} onEnter={requireAuth}/>
     <Route path="/teams" component={TeamsPage} onEnter={requireAuth}/>
-    <Route path="/posts" component={PostsPage} onEnter={requireAuth}>
-      {/* <Route path="/posts/new" component={NewPostPage} />
-      <Route path="/posts/:id" component={PostPage} /> */}
-    </Route>
+    <Route path="/posts" component={PostsPage} onEnter={requireAuth}/>
+    <Route path="/posts/add/:venueId" component={ManagePostPage} onEnter={requireAuth}/>
+
     <Route path="/about" component={AboutPage} />
   </Route>
 );
