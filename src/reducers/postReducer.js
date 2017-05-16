@@ -33,15 +33,12 @@ export default function postReducer(state =initialState.posts, action) {
               return Object.assign({}, state, {
                 filterString: action.filterString.toLowerCase()
               });
-          case types.ADDPOST_VENUE_LOAD:            
+          case types.ADDPOST_VENUE_LOAD:
               return Object.assign({}, state, {
                 venue: action.data
               });
           case types.CREATE_POST_SUCCESS:
-              return [
-                ...state,
-                Object.assign({}, action.post)
-              ];
+              return state;
          default:
           return state;
       }

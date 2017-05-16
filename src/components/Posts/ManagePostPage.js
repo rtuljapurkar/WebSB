@@ -127,7 +127,7 @@ function getPostById(posts, id) {
 
 function mapStateToProps(state, ownProps) {
   const venueId = ownProps.params.id; // from the path `/post/:id`
-  let post = {Text: '', VenueID: '', UserName:'', Stars:''};
+  let post = {Text: '', VenueID: '', UserName:'', Stars:'', UploadTime: ''};
   let venue = {id: '', VName: '', VDescription: '', VCity: '', VImage: '' };
   if(state.posts.venue == null || state.posts.venue.id =="")
   {
@@ -140,6 +140,10 @@ function mapStateToProps(state, ownProps) {
   {
         post.VenueID = state.posts.venue.id;
         post.UserName = sessionStorage.username;
+        let currentDate = new Date();
+        post.UploadTime =  (currentDate.getMonth() + 1) + "/" + currentDate.getDate()
+                            + "/" + currentDate.getFullYear() + " " +
+                            currentDate.getHours() + ":" + currentDate.getMinutes();
         console.log(" mapStateToProps "    );
         console.log(post  );
         return {

@@ -4,6 +4,7 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import * as sessionActions from '../../actions/sessionActions';
 import {Link, browserHistory} from 'react-router';
+import {Button, Glyphicon} from 'react-bootstrap';
 
 class LogInPage extends React.Component {
   constructor(props) {
@@ -28,8 +29,9 @@ class LogInPage extends React.Component {
   }
 
   render() {
-
-        if(this.props.session === true)
+       //console.log("login_render");
+        //console.log(this.props);
+        if(this.props.session.isUserLoggedIn === true)
         {
             browserHistory.push('/venues');
             return (<h1>Welcome to SB</h1>);
@@ -56,7 +58,19 @@ class LogInPage extends React.Component {
                           className="btn btn-primary"
                           onClick={this.onSave}/>
                           {" "}
+
+
+                          <div style={{"paddingTop":"15px"}}>
+                              <label>Need An Account?&nbsp;&nbsp;</label>
+                              <a href={"/register"}>
+                                  <Button bsize="xsmall" className="btn btn-primary">
+                                      Register <Glyphicon glyph="Register"/>
+                                  </Button>
+                              </a>
+                          </div>
                       </form>
+
+
                   </div>
               );
             }
@@ -65,7 +79,7 @@ class LogInPage extends React.Component {
 
 LogInPage.propTypes = {
     actions: React.PropTypes.object.isRequired,
-    session: React.PropTypes.bool.isRequired
+    session: React.PropTypes.object.isRequired
 };
 
 function mapDispatchToProps(dispatch) {
@@ -74,6 +88,8 @@ function mapDispatchToProps(dispatch) {
   };
 }
 function mapStateToProps(state, ownProps) {
+    //console.log("login_mapstate");
+    //console.log(state);
     return {
         session: state.session
     };

@@ -1,6 +1,7 @@
 function handleErrors(response) {
-    console.log("in handleErrors");
+    //console.log("in handleErrors");
      if (!response.ok) {
+         //debugger;
          throw Error(response.statusText);
      }
      return response;
@@ -8,7 +9,7 @@ function handleErrors(response) {
 
 class PostsApi {
   static getAllPosts() {
-        console.log("in getAllposts api call");
+        //console.log("in getAllposts api call");
         const host = `${process.env.API_HOST}`;
         const request = new Request(`${process.env.API_HOST}/sb_post_venue`, {
           method: 'GET'
@@ -17,7 +18,7 @@ class PostsApi {
         return fetch(request)
         .then(handleErrors)
         .then(response => {
-            console.log(response);
+                //console.log(response);
                 return response.json();
             }).catch(error => {
                 throw error;
@@ -41,21 +42,20 @@ class PostsApi {
               }
 
         static savePost(post) {
-            debugger;
+                //debugger;
                 let request = "" ;
                 const url = `${process.env.API_HOST}/sb_post_venue`;
-                fetch(url, {
-                     method: 'post',
+                return fetch(url, {
+                     method: 'POST',
                      headers: {
-                       'Accept': 'application/json',
                        'Content-Type': 'application/json'
                      },
                      body: JSON.stringify(post)
-                 }).then(response => {
-                    debugger;
+                 }).then(handleErrors)
+                 .then(response => {
                   return response.json();
                 }).catch(error => {
-                  return error;
+                  throw error;
                 });
               }
 

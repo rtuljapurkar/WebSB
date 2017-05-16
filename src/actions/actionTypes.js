@@ -15,8 +15,8 @@ export const ADDPOST_VENUE_LOAD = 'ADDPOST_VENUE_LOAD';
 
 
 export const LOG_IN_SUCCESS = 'LOG_IN_SUCCESS';
-export const LOG_IN_FAILED = 'LOG_IN_FAILED';
-export const LOG_OUT = 'LOG_OUT';
+export const LOG_OUT = 'LOG_OUT_SUCCESS';
+export const USER_CREATE_SUCCESS = 'USER_CREATE_SUCCESS';
 
 export const BEGIN_AJAX_CALL = 'BEGIN_AJAX_CALL';
 export const AJAX_CALL_ERROR = 'AJAX_CALL_ERROR';

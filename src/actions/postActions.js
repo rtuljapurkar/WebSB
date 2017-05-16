@@ -52,11 +52,11 @@ export function loadPosts() {
   }
 
 
-  export function savePost(post) {      
+  export function savePost(post) {
     return function (dispatch, getState) {
       dispatch(beginAjaxCall());
       return postsApi.savePost(post).then(post => {
-        post.id ? dispatch(updatePostSuccess(post)) :
+         // debugger;          
           dispatch(createPostSuccess(post));
       }).catch(error => {
         dispatch(ajaxCallError(error));

@@ -8,6 +8,7 @@ import VenuesPage from './components/Venues/VenuePage';
 import TeamsPage from './components/Teams/TeamPage';
 import PostsPage from './components/Posts/PostsPage';
 import ManagePostPage from './components/Posts/ManagePostPage';
+import RegisterPage from './components/Authentication/RegisterPage';
 import LogInPage from './components/Authentication/LoginPage';
 import auth from './auth/authenticator';
 
@@ -16,6 +17,7 @@ export default (
   <Route path="/" onUpdate={() => window.scrollTo(0, 0)} component={App}>
     <IndexRoute component={HomePage} />
     <Route path="/login" component={LogInPage} />
+    <Route path="/register" component={RegisterPage} />
     <Route path="/venues" component={VenuesPage} onEnter={requireAuth}/>
     <Route path="/teams" component={TeamsPage} onEnter={requireAuth}/>
     <Route path="/posts" component={PostsPage} onEnter={requireAuth}/>
