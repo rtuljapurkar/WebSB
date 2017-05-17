@@ -5,15 +5,23 @@ import {connect} from 'react-redux';
 import * as sessionActions from '../../actions/sessionActions';
 import {Link, browserHistory} from 'react-router';
 import {Button, Glyphicon} from 'react-bootstrap';
+import toastr from 'toastr';
 
 class LogInPage extends React.Component {
-  constructor(props) {
-    super(props);
+  constructor(props, context) {
+    super(props, context);
     this.state = {credentials: {PEmailA1: '', PPassword: ''}};
     this.onChange = this.onChange.bind(this);
     this.onSave = this.onSave.bind(this);
   }
 
+  componentWillMount() {
+    if(this.props.session.isUserLoggedIn === true)
+    {
+        browserHistory.push('/venues');
+        return (<h1>Welcome to SB</h1>);
+    }
+  }
   onChange(event) {
     const field = event.target.name;
     const credentials = this.state.credentials;
@@ -24,20 +32,26 @@ class LogInPage extends React.Component {
   onSave(event) {
     event.preventDefault();
     //debugger;
-    this.props.actions.loginUser(this.state.credentials);
+    this.props.actions.loginUser(this.state.credentials)
+    .then(() => this.redirect())
+    .catch(error => {
+      toastr.error(error);
+      this.setState({saving: false});
+    });
 
   }
+
+    redirect() {
+      this.setState({saving: false});
+      toastr.success('Login Successful');
+      this.context.router.push('/home');
+    }
+
 
   render() {
        //console.log("login_render");
         //console.log(this.props);
-        if(this.props.session.isUserLoggedIn === true)
-        {
-            browserHistory.push('/venues');
-            return (<h1>Welcome to SB</h1>);
-        }
-        else {
-            return (
+        return (
                     <div className="row .top-buffer" >
                       <form>
                         <TextInput
@@ -74,12 +88,16 @@ class LogInPage extends React.Component {
                   </div>
               );
             }
-  }
+
 }
 
 LogInPage.propTypes = {
     actions: React.PropTypes.object.isRequired,
     session: React.PropTypes.object.isRequired
+};
+
+LogInPage.contextTypes = {
+  router: PropTypes.object
 };
 
 function mapDispatchToProps(dispatch) {

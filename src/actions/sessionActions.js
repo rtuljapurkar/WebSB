@@ -19,6 +19,9 @@ export function loginUser(credentials) {
               sessionStorage.setItem('username', credentials.PEmailA1);
               dispatch(loginSuccess());
           }
+          else {
+            throw("Multiple Accounts Found");
+          }
     }).catch(error => {
       //debugger;
       throw(error);
@@ -72,9 +75,9 @@ export function saveUser(user) {
     dispatch(beginAjaxCall());
     return sessionApi.saveUser(user)
     .then(response => {
-        debugger;
+        //debugger;
         sessionStorage.setItem('jwt', true);
-        sessionStorage.setItem('username', user.PEmailA1);
+        sessionStorage.setItem('username', user.PUserName);
         dispatch(userCreateSuccess(user));
     }).catch(error => {
       dispatch(ajaxCallError(error));

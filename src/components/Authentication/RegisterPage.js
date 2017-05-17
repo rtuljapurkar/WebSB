@@ -5,16 +5,14 @@ import * as sessionActions from '../../actions/sessionActions';
 import RegisterForm from './RegisterForm';
 import toastr from 'toastr';
 
-export class RegisterPage extends React.Component {
+class RegisterPage extends React.Component {
   constructor(props, context) {
     super(props, context);
 
     this.state = {
       user: Object.assign({}, props.user),
       errors: {},
-      saving: false,
-      emailTaken: false,
-      usernameTaken: false
+      saving: false
 
     };
 
@@ -71,7 +69,6 @@ export class RegisterPage extends React.Component {
     this.props.actions.isEmailTaken(this.state.user.PEmailA1)
     .then(resp => {
          if(resp) {
-             this.state.emailTaken = true;
              errors.PEmailA1 = 'Email is already registered';
              console.log('Email is already registered');
              this.setState({errors: errors});
@@ -87,9 +84,8 @@ export class RegisterPage extends React.Component {
     this.props.actions.isUserNameTaken(this.state.user.PUserName)
     .then(resp => {
          if(resp) {
-             this.state.usernameTaken = true;
              errors.PUserName = 'Username is already registered';
-             console.log('Email is already registered');
+             console.log('Username is already registered');
              this.setState({errors: errors});
              formIsValid = false;
          }
@@ -112,21 +108,27 @@ export class RegisterPage extends React.Component {
         console.log("userNameAndOrEmailTaken failed");
       return;
     }
+    else {
+      console.log("userNameAndOrEmailTaken success");
+    }
     console.log("here");
+
+    console.log("Registration commented out");
+    //debugger;
       //debugger;
-    this.setState({saving: true});
-    this.props.actions.saveUser(this.state.user)
-      .then(() => this.redirect())
-      .catch(error => {
-        toastr.error(error);
-        this.setState({saving: false});
-      });
+    // this.setState({saving: true});
+    // this.props.actions.saveUser(this.state.user)
+    //   .then(() => this.redirect())
+    //   .catch(error => {
+    //     toastr.error(error);
+    //     this.setState({saving: false});
+    //   });
   }
 
   redirect() {
     this.setState({saving: false});
     toastr.success('Registration Successful');
-    this.context.router.push('/login');
+    this.context.router.push('/home');
   }
 
   render() {

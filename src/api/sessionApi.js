@@ -1,7 +1,7 @@
 const md5 = require('md5');
 
 function handleErrors(response) {
-    debugger;
+    //debugger;
      if (!response.ok) {
          throw Error(response.statusText);
      }
@@ -13,8 +13,8 @@ class SessionApi {
             let obj = credentials;
             obj.PEmailA1 = obj.PEmailA1.toLowerCase();
             obj.PPassword =  md5(obj.PPassword);
-            obj.PEmailA1 = "456@test.com";
-            obj.PPassword ="e10adc3949ba59abbe56e057f20f883e";
+            // obj.PEmailA1 = "456@test.com";
+            // obj.PPassword ="e10adc3949ba59abbe56e057f20f883e";
 
             const url = `${process.env.API_HOST}/sb_users/count?where=` + JSON.stringify(obj);
             return fetch(url)
@@ -55,12 +55,12 @@ class SessionApi {
           }
 
           static saveUser(user) {
-              debugger;
+            //  debugger;
               let submitUser = Object.assign({}, user);
               submitUser.PPassword = md5(user.PPassword);
               submitUser.PEmailA1 = user.PEmailA1.toLowerCase();
               submitUser.PUserName = user.PUserName.toLowerCase();
-              debugger;
+            //  debugger;
               const url = `${process.env.API_HOST}/sb_users`;
               return fetch(url, {
                    method: 'POST',
@@ -71,7 +71,7 @@ class SessionApi {
                })
                .then(handleErrors)
                .then(response => {
-                    debugger;
+                  //  debugger;
                     return response.json();
               }).catch(error => {
                     throw error;
