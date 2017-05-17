@@ -4,28 +4,17 @@ import {bindActionCreators} from 'redux';
 import * as sessionActions from '../../actions/sessionActions';
 import RegisterForm from './RegisterForm';
 import toastr from 'toastr';
+import {Link, browserHistory} from 'react-router';
 
 class RegisterPage extends React.Component {
   constructor(props, context) {
     super(props, context);
-
     this.state = {
       user: Object.assign({}, props.user),
       errors: {},
-      saving: false
-
-    };
-
+      saving: false};
     this.updateUserState = this.updateUserState.bind(this);
     this.saveUser = this.saveUser.bind(this);
-  }
-
-  componentWillMount() {
-      console.log("RegisterPage componentWillMount" );
-      console.log(this.props);
-  }
-
-  componentWillReceiveProps(nextProps) {
   }
 
   updateUserState(event) {
@@ -38,7 +27,6 @@ class RegisterPage extends React.Component {
   userFormIsValid() {
     let formIsValid = true;
     let errors = {};
-
     if (this.state.user.PEmailA1 == "") {
       errors.PEmailA1 = 'Valid email address must be entered';
       formIsValid = false;
@@ -47,9 +35,7 @@ class RegisterPage extends React.Component {
       errors.PUserName = 'Username must be entered';
       formIsValid = false;
     }
-    if ((this.state.user.PPassword == "") || (this.state.user.PPassword.length < 7)
-        || (this.state.user.PPassword.length > 15))
-    {
+    if ((this.state.user.PPassword == "") || (this.state.user.PPassword.length < 7)|| (this.state.user.PPassword.length > 15)){
       errors.PPassword = 'Password must be between 7 and 15 characters';
       formIsValid = false;
     }
@@ -68,27 +54,37 @@ class RegisterPage extends React.Component {
 
     this.props.actions.isEmailTaken(this.state.user.PEmailA1)
     .then(resp => {
-         if(resp) {
-             errors.PEmailA1 = 'Email is already registered';
-             console.log('Email is already registered');
-             this.setState({errors: errors});
-             formIsValid = false;
-         }
-     })
-    .catch(error => {
-        formIsValid = false;
-        toastr.error(error);
-        this.setState({saving: false});
-    });
+             if(resp) {
+                         errors.PEmailA1 = 'Email is already registered';
+                         console.log('Email is already registered');
+                         this.setState({errors: errors});
+                         formIsValid = false;
+                     }
+              this.props.actions.isUserNameTaken(this.state.user.PUserName)
+              .then(resp2 => {
+                               if(resp2) {
+                                   errors.PUserName = 'Username is already registered';
+                                   console.log('Username is already registered');
+                                   this.setState({errors: errors});
+                                   formIsValid = false;
+                                    }
+                               if(formIsValid){
+                                       console.log("Registering here");
+                                       this.props.actions.saveUser(this.state.user)
+                                       .then(() => this.redirect())
+                                       .catch(error => {
+                                           toastr.error(error);
+                                           this.setState({saving: false});
+                                        });
+                                 }
+                             }
+                    )
+                     .catch(error => {
+                         formIsValid = false;
+                         toastr.error(error);
+                         this.setState({saving: false});
+                     });
 
-    this.props.actions.isUserNameTaken(this.state.user.PUserName)
-    .then(resp => {
-         if(resp) {
-             errors.PUserName = 'Username is already registered';
-             console.log('Username is already registered');
-             this.setState({errors: errors});
-             formIsValid = false;
-         }
      })
     .catch(error => {
         formIsValid = false;
@@ -100,20 +96,20 @@ class RegisterPage extends React.Component {
 
   saveUser(event) {
     event.preventDefault();
-    //debugger;
     if (!this.userFormIsValid()) {
       return;
     }
+    this.setState({saving: true});
     if (!this.userNameAndOrEmailTaken()) {
-        console.log("userNameAndOrEmailTaken failed");
+            console.log("userNameAndOrEmailTaken failed");
       return;
     }
     else {
-      console.log("userNameAndOrEmailTaken success");
+            console.log("userNameAndOrEmailTaken success");
     }
     console.log("here");
-
-    console.log("Registration commented out");
+    this.setState({saving: false});
+    //console.log("Registration commented out");
     //debugger;
       //debugger;
     // this.setState({saving: true});
@@ -128,7 +124,7 @@ class RegisterPage extends React.Component {
   redirect() {
     this.setState({saving: false});
     toastr.success('Registration Successful');
-    this.context.router.push('/home');
+    browserHistory.push('/venues');
   }
 
   render() {

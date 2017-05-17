@@ -5,6 +5,7 @@ import * as postActions from '../../actions/postActions';
 import PostForm from './PostForm';
 import toastr from 'toastr';
 
+
 export class ManagePostPage extends React.Component {
   constructor(props, context) {
     super(props, context);
@@ -17,6 +18,7 @@ export class ManagePostPage extends React.Component {
 
     this.updatePostState = this.updatePostState.bind(this);
     this.savePost = this.savePost.bind(this);
+    this.cancelPost = this.cancelPost.bind(this);
   }
 
   componentWillMount() {
@@ -54,11 +56,12 @@ export class ManagePostPage extends React.Component {
     let formIsValid = true;
     let errors = {};
     if (this.state.post.Text == "") {
-      errors.title = 'Post text must be filled';
+      errors.Text = 'Post text must be filled';
       formIsValid = false;
     }
-    if (this.state.post.Stars == "") {
-      errors.title = 'Post Star must be a number';
+    if (this.state.post.Stars == "" || isNaN(this.state.post.Stars) ||
+            (this.state.post.Stars > 5 || this.state.post.Stars < 1) ) {
+      errors.Stars = 'Post Star must be a number between 1 and 5';
       formIsValid = false;
     }
 
@@ -83,6 +86,10 @@ export class ManagePostPage extends React.Component {
       });
   }
 
+cancelPost(event){
+    event.preventDefault();
+    this.context.router.push('/venues');
+}
   redirect() {
     this.setState({saving: false});
     toastr.success('Post saved');
@@ -101,6 +108,7 @@ export class ManagePostPage extends React.Component {
         post={this.state.post}
         errors={this.state.errors}
         saving={this.state.saving}
+        onCancel={this.cancelPost}
       />
     );
   }

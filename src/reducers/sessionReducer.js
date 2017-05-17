@@ -10,13 +10,15 @@ export default function sessionReducer(state = initialState.session, action) {
            isUserLoggedIn: !!sessionStorage.jwt
          });
     case types.LOG_OUT:
-      browserHistory.push('/');
-      //return !!sessionStorage.jwt
-      return Object.assign({}, state, {
+        browserHistory.push('/');
+        //return !!sessionStorage.jwt
+        return Object.assign({}, state, {
          isUserLoggedIn: !!sessionStorage.jwt
-       });
+        });
     case types.USER_CREATE_SUCCESS:
-        return !!sessionStorage.jwt
+        return Object.assign({}, state, {
+           isUserLoggedIn: !!sessionStorage.jwt
+         });
     default:
       return state;
   }

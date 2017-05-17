@@ -1,5 +1,4 @@
-function handleErrors(response) {
-    console.log("in handleErrors");
+function handleErrors(response) {    
      if (!response.ok) {
          throw Error(response.statusText);
      }
@@ -39,6 +38,36 @@ class VenuesApi {
               });
           }
 
+          static getAllAmenities(venueID) {
+                let obj = {"VenueID": 0};
+                obj.VenueID = venueID;
+                const host = `${process.env.API_HOST}`;
+                const request = new Request(`${process.env.API_HOST}/sb_amenity?where=` + JSON.stringify(obj), {
+                  method: 'GET'
+                });
+
+                return fetch(request)
+                .then(handleErrors)
+                .then(response => {
+                        return response.json();
+                    }).catch(error => {
+                        throw error;
+                    });
+                }
+
+            static getVenueByID(ID) {
+              const host = `${process.env.API_HOST}`;
+              const request = new Request(`${process.env.API_HOST}/sb_venue/`+ ID, {
+                method: 'GET'
+              });
+              return fetch(request)
+              .then(handleErrors)
+              .then(response => {
+                      return response.json();
+                  }).catch(error => {
+                      throw error;
+                  });
+              }
 }
 
 export default VenuesApi;

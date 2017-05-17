@@ -19,9 +19,15 @@ export function loginUser(credentials) {
               sessionStorage.setItem('username', credentials.PEmailA1);
               dispatch(loginSuccess());
           }
-          else {
-            throw("Multiple Accounts Found");
-          }
+          else
+          {
+             if(response && response.count && response.count > 1){
+                 throw("Multiple Accounts Found");
+             }
+             else {
+                 throw("Login Email/Password incorrect");
+             }
+           }
     }).catch(error => {
       //debugger;
       throw(error);

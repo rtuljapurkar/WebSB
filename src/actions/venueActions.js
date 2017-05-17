@@ -25,7 +25,5 @@ export function loadVenues() {
              dispatch(ajaxCallError(error));
              throw(error);
          });
-
-
-  };
-}
+     };
+ }

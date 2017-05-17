@@ -5,6 +5,7 @@ import App from './components/app';
 import HomePage from './components/Home/HomePage';
 import AboutPage from './components/About/AboutPage';
 import VenuesPage from './components/Venues/VenuePage';
+import AmenitiesPage from './components/Venues/AmenitiesPage';
 import TeamsPage from './components/Teams/TeamPage';
 import PostsPage from './components/Posts/PostsPage';
 import ManagePostPage from './components/Posts/ManagePostPage';
@@ -23,6 +24,7 @@ export default (
     <Route path="/teams" component={TeamsPage} onEnter={requireAuth}/>
     <Route path="/posts" component={PostsPage} onEnter={requireAuth}/>
     <Route path="/posts/add/:venueId" component={ManagePostPage} onEnter={requireAuth}/>
+    <Route path="/amenities/:venueId" component={AmenitiesPage} onEnter={requireAuth}/>
 
     <Route path="/about" component={AboutPage} />
   </Route>

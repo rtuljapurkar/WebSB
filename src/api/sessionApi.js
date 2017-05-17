@@ -12,10 +12,7 @@ class SessionApi {
           static login(credentials) {
             let obj = credentials;
             obj.PEmailA1 = obj.PEmailA1.toLowerCase();
-            obj.PPassword =  md5(obj.PPassword);
-            // obj.PEmailA1 = "456@test.com";
-            // obj.PPassword ="e10adc3949ba59abbe56e057f20f883e";
-
+            obj.PPassword =  md5(obj.PPassword);          // obj.PEmailA1 = "456@test.com"; // obj.PPassword ="e10adc3949ba59abbe56e057f20f883e";
             const url = `${process.env.API_HOST}/sb_users/count?where=` + JSON.stringify(obj);
             return fetch(url)
             .then(handleErrors)
@@ -60,7 +57,7 @@ class SessionApi {
               submitUser.PPassword = md5(user.PPassword);
               submitUser.PEmailA1 = user.PEmailA1.toLowerCase();
               submitUser.PUserName = user.PUserName.toLowerCase();
-            //  debugger;
+            //debugger;
               const url = `${process.env.API_HOST}/sb_users`;
               return fetch(url, {
                    method: 'POST',
@@ -102,3 +99,26 @@ class SessionApi {
     // {
     //     debugger;
     // }
+
+
+            //   static isEmailTaken(email) {
+            //     let obj = {"PEmailA1": ""};
+            //     obj.PEmailA1 = email.toLowerCase();
+            //     //debugger;
+            //     const url = `${process.env.API_HOST}/sb_users/count?where=` + JSON.stringify(obj);
+              //
+            //     let obj2 = {"PUserName": ""};
+            //     obj2.PUserName = "asdasdasd".toLowerCase();
+            //     //debugger;
+            //     const url2 = `${process.env.API_HOST}/sb_users/count?where=` + JSON.stringify(obj) ;
+            //         debugger
+              //
+            //     async.parallel({
+            //         email: fetch(url),
+            //         username: fetch(url2)
+            //     }, function(err, results) {
+            //         console.log(results.email);
+            //         console.log(results.username);
+            //     });
+            //         return true;
+            //   }

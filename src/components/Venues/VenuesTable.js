@@ -27,32 +27,50 @@ function SortHeaderCell ({children, sortBy, sortKey, sortDesc, columnKey}) {
 function MixedCell ({data, rowIndex, columnKey}) {
     let id = data[rowIndex]["id"];
  return  (<Cell>
-             <table style={{"border":"solid 1px #000", "tableLayout": "fixed", "paddingRight": "10px" }}>
+             <table style={{"tableLayout": "fixed", "paddingRight": "10px" }}>
              <tbody>
-               <tr style={{"backgroundColor": "black"}} >
+               <tr  >
                  <td style={{"fontWeight": "bold", "color": "white", "paddingLeft": "10px", "fontSize": "14px",
-                     "wordWrap":"break-word",  "fontFamily": "Helvetica",  "width":"600px"}}>
+                     "wordWrap":"break-word", "fontFamily": "Helvetica",  "width":"700px","backgroundColor": "black"}}>
                    {data[rowIndex]["VName"]} <br/>
                    {data[rowIndex]["VCity"]}
                  </td>
                  <td rowSpan="3"  style={{"paddingLeft": "15px"}}>
-                   <img src={data[rowIndex]["VImage"]} height="200" alt="" width="200" />
+                   <img src={data[rowIndex]["VImage"]} height="200" width="200" alt=""   />
                  </td>
                </tr>
+
                <tr style={{"backgroundColor": "black" }}>
                  <td style={{"color": "white", "paddingLeft": "10px", "fontFamily": "Helvetica", "fontSize": "14px",
-                                "wordWrap":"break-word"}}>
+                                "wordWrap":"break-word", "width":"700px"}}>
                    {data[rowIndex]["VDescription"]}
                  </td>
                </tr>
+
                <tr style={{"backgroundColor": "black" }}>
-                 <td style={{"color": "white", "paddingLeft": "10px", "fontFamily": "Helvetica", "fontSize": "14px",
+                 <td style={{"color": "white", "paddingLeft": "10px", "paddingRight": "10px", "fontFamily": "Helvetica", "fontSize": "14px",
                                 "wordWrap":"break-word"}}>
-                                <a href={"/posts/add/"+id}>
-                                    <Button bsize="xsmall" >
-                                        Review this Stadium <Glyphicon glyph="Review this Stadium"/>
-                                    </Button>
-                                </a>
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td style={{"textAlign": "left" , "width":"700px" }}>
+                                    <a href={"/posts/add/"+id}>
+                                        <Button bsStyle="primary" bsSize="small" >
+                                            <Glyphicon glyph="pencil" />  Review this Stadium
+                                        </Button>
+                                    </a>
+                                </td>
+                                <td style={{"textAlign": "right" }}>
+                                    <a href={"/amenities/"+id}>
+                                        <Button bsStyle="primary" bsSize="small"  >
+                                            <Glyphicon glyph="pencil" />  Amenities
+                                        </Button>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
                  </td>
                </tr>
              </tbody>
@@ -129,8 +147,8 @@ class VenuesTable extends React.Component {
           rowHeight={200}
           rowWidth={200}
           headerHeight={80}
-          height={600}
-          width={800}
+          height={700}
+          width={900}
           rowsCount={localData.length}>
           <Column
             columnKey="VName"

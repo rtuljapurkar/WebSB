@@ -1,8 +1,9 @@
 import React from 'react';
 import TextInput from '../common/TextInput';
 import {Button, Glyphicon} from 'react-bootstrap';
+import {Link, browserHistory} from 'react-router';
 
-const PostForm = ({post, onSave, onChange, saving, errors, venue}) => {
+const PostForm = ({post, onSave, onChange, saving, errors, venue, onCancel}) => {
   return (
     <form>
       <h1>Add Post</h1>
@@ -60,6 +61,12 @@ const PostForm = ({post, onSave, onChange, saving, errors, venue}) => {
         value={saving ? 'Saving...' : 'Save'}
         className="btn btn-primary"
         onClick={onSave}/>
+        &nbsp;&nbsp;
+        <input style={{"width":"80px"}}
+          disabled={saving}
+          value={'Cancel'}
+          className="btn btn-danger"
+          onClick={onCancel}/>
     </form>
   );
 };

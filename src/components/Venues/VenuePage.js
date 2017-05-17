@@ -2,7 +2,7 @@ import React, {PropTypes} from 'react';
 import {Link, browserHistory} from 'react-router';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import VenueList from './VenueList';
+//import VenueList from './VenueList';
 import * as actions from '../../actions/venueActions';
 import LoadingDots from '../common/LoadingDots';
 import toastr from 'toastr';

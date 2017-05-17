@@ -15,7 +15,7 @@ export default {
           sortDesc: true,
           sortKey: 'id',
           filterString: '',
-          venue: null
+          venue:null
 
   },
   ajaxCallsInProgress: 0,
@@ -28,5 +28,39 @@ export default {
                         "PLoginSessionAccessToken": uuidV1(),
                         "PUserLastLogin": dateNow
                     }
-           }
+           },
+    amenities: {
+                    sortDesc: false,
+                    sortKey: 'AName',
+                    venue: {
+                                id:0,
+                                VName:'',
+                                VCity:'',
+                                VImage:'',
+                                VDescription:''
+                            },
+                    filterString: '',
+                    data: [{
+                            "VenueID": "",
+                             "AName": "",
+                             "AType": "",
+                             "AMainFood": "",
+                             "AVeggieFood": "",
+                             "AVeganFood": null,
+                             "AGFFood": "",
+                             "ABeverages": "",
+                             "ADomesticBeer": "",
+                             "ACraftBeer": "",
+                             "AMixedDrinks": null,
+                             "ANearestGates": "",
+                             "ATags": "",
+                             "ACost": null,
+                             "ADistance": null,
+                             "AWalkingTime": null,
+                             "ALotLocation": null,
+                             "Active": "",
+                             "AImage": "",
+                             "id": 0
+                            }]
+                }
 };

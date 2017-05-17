@@ -3,6 +3,7 @@ import posts from './postReducer';
 import session from './sessionReducer';
 import venues from './venueReducer';
 import teams from './teamReducer';
+import amenities from './amenityReducer';
 import ajaxCallsInProgress from './ajaxStatusReducer';
 import initialState from './initialState';
 import { routerReducer } from "react-router-redux";
@@ -12,6 +13,7 @@ const appReducer = combineReducers({
     session: session,
     venues: venues,
     teams: teams,
+    amenities: amenities,
     ajaxCallsInProgress: ajaxCallsInProgress,
     posts: posts
 });
