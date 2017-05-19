@@ -15,13 +15,12 @@ export function sortBy (sortKey) {
 }
 
 export function loadVenues() {
-  // make async call to api, handle promise, dispatch action when promise is resolved
+  // make async call to api
   return function(dispatch) {
         dispatch( beginAjaxCall());
         return venuesApi.getAllVenues().then(data => {
              dispatch(loadVenuesSuccess(data));
          }).catch(error => {
-            // console.log("error getting venues");
              dispatch(ajaxCallError(error));
              throw(error);
          });

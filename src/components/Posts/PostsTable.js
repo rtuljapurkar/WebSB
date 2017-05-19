@@ -12,13 +12,11 @@ import '../../styles/fixed-data-table.css';
 // Stateless cell components for Table component
 
 function renderSortArrow (sortKey, sortDesc, sortId) {
-//  debugger;
   return sortKey === sortId ? (sortDesc ? '↓' : '↑') : '';
 }
 
 function SortHeaderCell ({children, sortBy, sortKey, sortDesc, columnKey}) {
     const clickFunc = () => sortBy(columnKey);
-//debugger;
   return (
     <Cell >
       <a onClick={clickFunc}>
@@ -35,6 +33,35 @@ SortHeaderCell.propTypes = {
   children: PropTypes.element.isRequired
 };
 
+function timeSince(date) {
+
+  var seconds = Math.floor((new Date() - date) / 1000);
+
+  var interval = Math.floor(seconds / 31536000);
+
+  if (interval > 1) {
+    return interval + " years ago";
+  }
+  interval = Math.floor(seconds / 2592000);
+  if (interval > 1) {
+    return interval + " months ago";
+  }
+  interval = Math.floor(seconds / 86400);
+  if (interval > 1) {
+    return interval + " days ago";
+  }
+  interval = Math.floor(seconds / 3600);
+  if (interval > 1) {
+    return interval + " hours ago";
+  }
+  interval = Math.floor(seconds / 60);
+  if (interval > 1) {
+    return interval + " minutes ago";
+  }
+  return Math.floor(seconds) + " seconds ago";
+}
+
+
 function MixedCell ({data, rowIndex, columnKey}) {
     let ONE_DAY = 1000 * 60 * 60 * 24;
     // Convert both dates to milliseconds
@@ -44,6 +71,9 @@ function MixedCell ({data, rowIndex, columnKey}) {
     let difference_ms = Math.abs(currentDate - postDate);
     // Convert back to days and return
     let days = Math.round(difference_ms/ONE_DAY);
+    let postDate1 = new Date(data[rowIndex]["UploadTime"])
+    let postedTime = timeSince(postDate1);
+
  return  (<Cell>
              <table style={{"border":"solid 1px #000", "tableLayout": "fixed", "paddingRight": "10px" }}>
              <tbody>
@@ -66,7 +96,7 @@ function MixedCell ({data, rowIndex, columnKey}) {
                <tr style={{"backgroundColor": "black"}}>
                  <td style={{"color": "white", "paddingLeft": "10px", "fontFamily": "Helvetica", "fontSize": "14px",
                                 "wordWrap":"break-word"}}>
-                   Posted {days} days ago
+                   Posted {postedTime}
                  </td>
                </tr>
              </tbody>
@@ -102,9 +132,7 @@ class PostsTable extends React.Component {
   }
 
   filterData (localData) {
-    //const data = [...this.props.posts.data] ;
     const {filterString} = this.props.posts;
-    //debugger;
     const str = filterString.toLowerCase();
     return str !== ''
       ? localData.filter((r) => Object.values(r).some(this.doesMatch(str)))
@@ -112,7 +140,6 @@ class PostsTable extends React.Component {
   }
 
   sortData () {
-    //  debugger;
     const data = [...this.props.posts.data] ;
     const {sortKey, sortDesc} = this.props.posts;
     const multiplier = sortDesc ? -1 : 1;
@@ -128,10 +155,8 @@ class PostsTable extends React.Component {
     const { filterString, sortKey, sortDesc } = this.props.posts;
     const {sortBy} = this.props.actions;
     const headerCellProps = { sortBy, sortKey, sortDesc };
-//debugger;
     let localData = this.sortData();
     localData = this.filterData(localData);
-//debugger;
     return (
       <div>
         <input className="filter-input" value={filterString}

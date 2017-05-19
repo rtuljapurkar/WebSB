@@ -6,8 +6,6 @@ function actionTypeEndsInSuccess(type) {
 }
 
 export default function ajaxStatusReducer(state = initialState.ajaxCallsInProgress, action) {
-    console.log("in venueReducer");
-    console.log(action.type);
   if (action.type == types.BEGIN_AJAX_CALL) {
     return 1;
   } else if (action.type == types.AJAX_CALL_ERROR ||

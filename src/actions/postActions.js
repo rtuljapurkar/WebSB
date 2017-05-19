@@ -30,7 +30,6 @@ export function loadPosts() {
         return postsApi.getAllPosts().then(data => {
              dispatch(loadPostsSuccess(data));
          }).catch(error => {
-            // console.log("error getting posts");
              dispatch(ajaxCallError(error));
              throw(error);
          });
@@ -44,7 +43,6 @@ export function loadPosts() {
          return postsApi.getVenueByID(ID).then(data => {
               dispatch(addPostVenueLoadSuccess(data));
           }).catch(error => {
-             // console.log("error getting posts");
               dispatch(ajaxCallError(error));
               throw(error);
           });
@@ -55,8 +53,7 @@ export function loadPosts() {
   export function savePost(post) {
     return function (dispatch, getState) {
       dispatch(beginAjaxCall());
-      return postsApi.savePost(post).then(post => {
-         // debugger;          
+      return postsApi.savePost(post).then(post => {        
           dispatch(createPostSuccess(post));
       }).catch(error => {
         dispatch(ajaxCallError(error));

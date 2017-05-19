@@ -1,5 +1,6 @@
 import * as types from './actionTypes';
 import sessionApi from '../api/sessionApi';
+import mockApi from '../api/mockApi';
 import auth from '../auth/authenticator';
 import {beginAjaxCall, ajaxCallError} from './ajaxStatusActions';
 
@@ -15,8 +16,8 @@ export function loginUser(credentials) {
     return sessionApi.login(credentials).then(response => {
           if(response && response.count && response.count === 1)
           {
-              sessionStorage.setItem('jwt', response.count);
-              sessionStorage.setItem('username', credentials.PEmailA1);
+              localStorage.setItem('jwt', response.count);
+              localStorage.setItem('username', credentials.PEmailA1);
               dispatch(loginSuccess());
           }
           else
@@ -29,18 +30,16 @@ export function loginUser(credentials) {
              }
            }
     }).catch(error => {
-      //debugger;
       throw(error);
     });
   };
 }
 
 export function isEmailTaken(email) {
-  // make async call to api, handle promise, dispatch action when promise is resolved
+  // make async call to api
   return function(dispatch) {
         dispatch( beginAjaxCall());
         return sessionApi.isEmailTaken(email).then(response => {
-            //debugger;
             if(response && response.count && response.count > 0){
                 return true;
             }
@@ -48,7 +47,6 @@ export function isEmailTaken(email) {
                 return false;
             }
          }).catch(error => {
-            // console.log("error getting posts");
              dispatch(ajaxCallError(error));
              throw(error);
          });
@@ -60,7 +58,6 @@ export function isEmailTaken(email) {
    return function(dispatch) {
          dispatch( beginAjaxCall());
          return sessionApi.isUserNameTaken(username).then(response => {
-            // debugger;
              if(response && response.count && response.count > 0){
                  return true;
              }
@@ -68,7 +65,6 @@ export function isEmailTaken(email) {
                  return false;
              }
           }).catch(error => {
-             // console.log("error getting posts");
               dispatch(ajaxCallError(error));
               throw(error);
           });
@@ -81,9 +77,8 @@ export function saveUser(user) {
     dispatch(beginAjaxCall());
     return sessionApi.saveUser(user)
     .then(response => {
-        //debugger;
-        sessionStorage.setItem('jwt', true);
-        sessionStorage.setItem('username', user.PUserName);
+        localStorage.setItem('jwt', true);
+        localStorage.setItem('username', user.PUserName);
         dispatch(userCreateSuccess(user));
     }).catch(error => {
       dispatch(ajaxCallError(error));

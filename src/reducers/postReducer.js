@@ -5,8 +5,6 @@ import PropTypes from 'prop-types';
 
 
 export default function postReducer(state =initialState.posts, action) {
-     console.log("in postReducer");
-     console.log(action.type);
       switch(action.type) {
         case types.LOAD_POSTS_SUCCESS:
         {
@@ -14,8 +12,7 @@ export default function postReducer(state =initialState.posts, action) {
                 data: action.data
               });
         }
-        case types.SORT_POSTS_DATA:
-        //debugger;
+        case types.SORT_POSTS_DATA:    
         if (state.sortKey === action.sortKey)
         {
           return Object.assign({}, state, {

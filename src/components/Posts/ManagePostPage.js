@@ -19,28 +19,21 @@ export class ManagePostPage extends React.Component {
     this.updatePostState = this.updatePostState.bind(this);
     this.savePost = this.savePost.bind(this);
     this.cancelPost = this.cancelPost.bind(this);
+    this.onStarRatingChange = this.onStarRatingChange.bind(this);
   }
 
   componentWillMount() {
-      console.log("ManagePostPage componentWillMount" );
-      console.log(this.props.venue);
-      //debugger;
     if (this.props.venue.id =="") {
-        console.log("ManagePostPage calling getVenuebyId");
         this.props.actions.addPostVenueLoad(this.props.params.venueId)
         .then()
         .catch( error => {
-          console.log("in error");
                     toastr.error(error);
         });
-        //console.log(this.props);
-
     }
   }
 
   componentWillReceiveProps(nextProps) {
     if (this.props.post.VenueID != nextProps.post.VenueID) {
-      // Necessary to populate form when existing post is loaded directly.
       this.setState({post: Object.assign({}, nextProps.post)});
     }
   }
@@ -48,7 +41,15 @@ export class ManagePostPage extends React.Component {
   updatePostState(event) {
     const field = event.target.name;
     let post = this.state.post;
+    // console.log(event.target.value);
     post[field] = event.target.value;
+    return this.setState({post: post});
+  }
+
+  onStarRatingChange(newRating) {
+    let post = this.state.post;
+    console.log(newRating);
+    post["Stars"] = newRating;
     return this.setState({post: post});
   }
 
@@ -72,11 +73,10 @@ export class ManagePostPage extends React.Component {
 
   savePost(event) {
     event.preventDefault();
-    //debugger;
     if (!this.postFormIsValid()) {
       return;
     }
-      //debugger;
+
     this.setState({saving: true});
     this.props.actions.savePost(this.state.post)
       .then(() => this.redirect())
@@ -97,9 +97,6 @@ cancelPost(event){
   }
 
   render() {
-      //const posts = this.props.posts;
-      console.log("render: ");
-      console.log(this.state.post);
     return (
       <PostForm
         venue={this.props.venue}
@@ -109,6 +106,7 @@ cancelPost(event){
         errors={this.state.errors}
         saving={this.state.saving}
         onCancel={this.cancelPost}
+        onStarRatingChange={this.onStarRatingChange}
       />
     );
   }
@@ -135,7 +133,7 @@ function getPostById(posts, id) {
 
 function mapStateToProps(state, ownProps) {
   const venueId = ownProps.params.id; // from the path `/post/:id`
-  let post = {Text: '', VenueID: '', UserName:'', Stars:'', UploadTime: ''};
+  let post = {Text: '', VenueID: '', UserName:'', Stars:0, UploadTime: '', Active: "1"};
   let venue = {id: '', VName: '', VDescription: '', VCity: '', VImage: '' };
   if(state.posts.venue == null || state.posts.venue.id =="")
   {
@@ -147,13 +145,12 @@ function mapStateToProps(state, ownProps) {
   else
   {
         post.VenueID = state.posts.venue.id;
-        post.UserName = sessionStorage.username;
+        post.UserName = localStorage.username;
         let currentDate = new Date();
-        post.UploadTime =  (currentDate.getMonth() + 1) + "/" + currentDate.getDate()
-                            + "/" + currentDate.getFullYear() + " " +
-                            currentDate.getHours() + ":" + currentDate.getMinutes();
-        console.log(" mapStateToProps "    );
-        console.log(post  );
+        // post.UploadTime =  (currentDate.getMonth() + 1) + "/" + currentDate.getDate()
+        //                     + "/" + currentDate.getFullYear() + " " +
+        //                     currentDate.getHours() + ":" + currentDate.getMinutes();
+        post.UploadTime = new Date();
         return {
         venue: state.posts.venue,
         post:post

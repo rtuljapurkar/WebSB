@@ -12,27 +12,18 @@ class TeamsPage extends React.Component {
 
 
   componentWillMount() {
-      console.log("componentWillMount" );
-    //   console.log(this.props.teams);
-     // console.log(this.props.teams.length);
     if (this.props.teams == 'undefined' || this.props.teams.length == 1) {
-        console.log("TeamsPage calling loadTeams");
         this.props.actions.loadTeams()
         .then()
         .catch( error => {
                     toastr.error(error);
         });
-        //console.log(this.props);
     }
   }
 
 
   render() {
     const teams = this.props.teams;
-    console.log("TeamsPage render" );
-    //console.log(this.props);
-    //console.log("here" + teams.length);
-    //debugger;
     return (
       <div className="col-md-12">
         <h1>Teams {this.props.loading && <LoadingDots interval={100} dots={20}/>}
@@ -55,9 +46,6 @@ TeamsPage.propTypes = {
 
 
 function mapStateToProps(state, ownProps) {
-    console.log("mapStateToProps TeamsPage");
-    console.log(state.teams);
-    console.log("mapStateToProps: ajaxCallsInProgress = " + state.ajaxCallsInProgress);
   if (state.teams && state.teams.length > 0) {
     return {
             teams: state.teams,

@@ -1,8 +1,7 @@
 import * as types from './actionTypes';
 
 export function beginAjaxCall() {
-  //console.log("in beginAjaxCall");
-  return {type: types.BEGIN_AJAX_CALL};
+    return {type: types.BEGIN_AJAX_CALL};
 }
 
 export function ajaxCallError() {

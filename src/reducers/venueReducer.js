@@ -4,21 +4,14 @@ import {browserHistory} from 'react-router';
 import PropTypes from 'prop-types';
 
 export default function venueReducer(state =initialState.venues, action) {
-  //debugger;
-     //console.log("in venueReducer");
-    // console.log(action.type);
       switch(action.type) {
         case types.LOAD_VENUES_SUCCESS:
         {
-            //  debugger;
-              return Object.assign({}, state, {
+             return Object.assign({}, state, {
                     data: action.data
                   });
         }
         case types.SORT_VENUES_DATA:
-        //debugger;
-        console.log(action.type);
-        console.log("state.sortKey: " + state.sortKey + " action.sortKey: " + action.sortKey);
         if (state.sortKey === action.sortKey)
         {
           return Object.assign({}, state, {

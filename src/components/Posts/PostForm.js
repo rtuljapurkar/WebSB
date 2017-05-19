@@ -1,9 +1,11 @@
 import React from 'react';
 import TextInput from '../common/TextInput';
+import StarInput from '../common/StarInput';
 import {Button, Glyphicon} from 'react-bootstrap';
-import {Link, browserHistory} from 'react-router';
+//import {glyphicon} from 'react-router';
+import ReactStars from 'react-stars';
 
-const PostForm = ({post, onSave, onChange, saving, errors, venue, onCancel}) => {
+const PostForm = ({post, onSave, onChange, saving, errors, venue, onCancel, onStarRatingChange}) => {
   return (
     <form>
       <h1>Add Post</h1>
@@ -34,13 +36,23 @@ const PostForm = ({post, onSave, onChange, saving, errors, venue, onCancel}) => 
         onChange={onChange}
         error={errors.Text}/>
 
-        <TextInput
+    <StarInput
           name="Stars"
-          label="Stars"
+          label="Star Rating"
           value={post.Stars}
-          onChange={onChange}
+          onChange={onStarRatingChange}
           error={errors.Stars}/>
 
+    {/* <div className="field">
+         <label htmlFor="star">Star Rating: </label><ReactStars
+                id="star"
+                count={5}
+                label="Star Rating"
+                onChange={onStarRatingChange}
+                size={24}
+                color2={'#ffd700'} />
+     </div> */}
+     <br></br>
       {/* <TextInput
         name="category"
         label="Category"
@@ -77,7 +89,8 @@ PostForm.propTypes = {
   onChange: React.PropTypes.func.isRequired,
   saving: React.PropTypes.bool,
   errors: React.PropTypes.object,
-  venue: React.PropTypes.object
+  venue: React.PropTypes.object,
+  onStarRatingChange: React.PropTypes.func.isRequired
 };
 
 export default PostForm;

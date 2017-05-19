@@ -6,13 +6,18 @@ import * as sessionActions from '../../actions/sessionActions';
 import {Link, browserHistory} from 'react-router';
 import {Button, Glyphicon} from 'react-bootstrap';
 import toastr from 'toastr';
+import LoginForm from './LoginForm';
 
-class LogInPage extends React.Component {
+
+class LoginPage extends React.Component {
   constructor(props, context) {
     super(props, context);
-    this.state = {credentials: {PEmailA1: '', PPassword: ''}};
+    this.state = {credentials: {PEmailA1: '', PPassword: ''},
+    errors: {}};
     this.onChange = this.onChange.bind(this);
     this.onSave = this.onSave.bind(this);
+    this.userFormIsValid = this.userFormIsValid.bind(this);
+    //this.validateEmail = this.validateEmail.bind(this);
   }
 
   componentWillMount() {
@@ -22,6 +27,7 @@ class LogInPage extends React.Component {
         return (<h1>Welcome to SB</h1>);
     }
   }
+
   onChange(event) {
     const field = event.target.name;
     const credentials = this.state.credentials;
@@ -29,74 +35,76 @@ class LogInPage extends React.Component {
     return this.setState({credentials: credentials});
   }
 
+  // validateEmail (email) {
+  //         let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  //         return re.test(email);
+  // }
+
+  userFormIsValid() {
+    let formIsValid = true;
+    let errors = {};
+
+    if (this.state.credentials.PEmailA1 == "") {
+      errors.PEmailA1 = 'Email address or username must be entered';
+      formIsValid = false;
+    }
+
+    // if (this.state.user.PUserName == "") {
+    //   errors.PUserName = 'Username is required';
+    //   formIsValid = false;
+    // }
+    if (this.state.credentials.PPassword == "") {
+      errors.PPassword = 'Password is required';
+      formIsValid = false;
+    }
+
+    this.setState({errors: errors});
+    return formIsValid;
+  }
+
+
   onSave(event) {
     event.preventDefault();
-    //debugger;
+    if (!this.userFormIsValid()) {
+      return;
+    }
+    this.setState({saving: true});
     this.props.actions.loginUser(this.state.credentials)
     .then(() => this.redirect())
     .catch(error => {
-      toastr.error(error);
-      this.setState({saving: false});
+          toastr.error(error);
+          this.setState({saving: false});
     });
 
   }
 
     redirect() {
-      this.setState({saving: false});
-      toastr.success('Login Successful');
-      this.context.router.push('/home');
+          this.setState({saving: false});
+          toastr.success('Login Successful');
+          this.context.router.push('/home');
     }
 
 
   render() {
-       //console.log("login_render");
-        //console.log(this.props);
         return (
-                    <div className="row .top-buffer" >
-                      <form>
-                        <TextInput
-                          name="PEmailA1"
-                          label="email"
-                          value={this.state.credentials.email}
-                          onChange={this.onChange}/>
-
-                        <TextInput
-                          name="PPassword"
-                          label="password"
-                          type="password"
-                          value={this.state.credentials.password}
-                          onChange={this.onChange}/>
-
-                        <input
-                          type="submit"
-                          className="btn btn-primary"
-                          onClick={this.onSave}/>
-                          {" "}
-
-
-                          <div style={{"paddingTop":"15px"}}>
-                              <label>Need An Account?&nbsp;&nbsp;</label>
-                              <a href={"/register"}>
-                                  <Button bsize="xsmall" className="btn btn-primary">
-                                      Register <Glyphicon glyph="Register"/>
-                                  </Button>
-                              </a>
-                          </div>
-                      </form>
-
-
-                  </div>
+                <LoginForm
+                  credentials={this.state.credentials}
+                  onChange={this.onChange}
+                  onSave={this.onSave}
+                  errors={this.state.errors}
+                  saving={this.state.saving}
+                />
               );
             }
 
 }
 
-LogInPage.propTypes = {
+LoginPage.propTypes = {
     actions: React.PropTypes.object.isRequired,
     session: React.PropTypes.object.isRequired
 };
 
-LogInPage.contextTypes = {
+LoginPage.contextTypes = {
   router: PropTypes.object
 };
 
@@ -106,12 +114,9 @@ function mapDispatchToProps(dispatch) {
   };
 }
 function mapStateToProps(state, ownProps) {
-    //console.log("login_mapstate");
-    //console.log(state);
     return {
         session: state.session
     };
 }
 
-
-export default connect(mapStateToProps, mapDispatchToProps)(LogInPage);
+export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);

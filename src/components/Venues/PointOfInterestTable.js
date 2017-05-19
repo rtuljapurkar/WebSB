@@ -27,11 +27,10 @@ function MixedCell ({data, rowIndex, columnKey}) {
     for (var key in data[rowIndex])
     {
       if (data[rowIndex].hasOwnProperty(key)
-            && key!= "id" && key!= "VenueID" && key!= "ASubType" && key!= "Active"
-            && key!= "AImage"
+            && key!= "id" && key!= "VenueID" && key!= "Active" && key!= "POIGPSLoc"
         ) {
                 let value = data[rowIndex][key] == null ? "": data[rowIndex][key];
-                let modifiedkey = key.substr(1);
+                let modifiedkey = key.substr(3);
                 if(modifiedkey == "Name"){
                     rows.push(<p style={{"fontSize":"24px"}}><b>{value}</b></p>);
                 }
@@ -67,7 +66,7 @@ MixedCell.propTypes = {
 
 
 //  --------------------------------------------------------------------------------------------------------------//
-class AmenitiesTable extends React.Component {
+class PointOfInterestTable extends React.Component {
 
  handleFilterStringChange () {
     return (e) => {
@@ -81,7 +80,7 @@ class AmenitiesTable extends React.Component {
   }
 
   filterData (localData) {
-    const {filterString} = this.props.amenities;
+    const {filterString} = this.props.pointOfInterests;
     const str = filterString.toLowerCase();
     return str !== ''
       ? localData.filter((r) => Object.values(r).some(this.doesMatch(str)))
@@ -89,8 +88,8 @@ class AmenitiesTable extends React.Component {
   }
 
   sortData () {
-    const data = [...this.props.amenities.data] ;
-    const {sortKey, sortDesc} = this.props.amenities;
+    const data = [...this.props.pointOfInterests.data] ;
+    const {sortKey, sortDesc} = this.props.pointOfInterests;
     const multiplier = sortDesc ? -1 : 1;
     data.sort((a, b) => {
       const aVal = a[sortKey] || 0;
@@ -105,12 +104,12 @@ class AmenitiesTable extends React.Component {
  // }
 
   render () {
-    const { filterString, sortKey, sortDesc } = this.props.amenities;
+    const { filterString, sortKey, sortDesc } = this.props.pointOfInterests;
     const {sortBy} = this.props.actions;
     const headerCellProps = { sortBy, sortKey, sortDesc };
     let localData = this.sortData();
     localData = this.filterData(localData);
-    let venue = this.props.amenities.venue;
+    let venue = this.props.pointOfInterests.venue;
     return (
       <div>
           <table style={{ "tableLayout": "fixed", "paddingRight": "10px",  "width":"760px"   }}>
@@ -164,7 +163,7 @@ class AmenitiesTable extends React.Component {
   }
 }
 
-AmenitiesTable.propTypes = {
+PointOfInterestTable.propTypes = {
   sortBy: PropTypes.func.isRequired,
   filterBy: PropTypes.func.isRequired,
   // state data
@@ -172,7 +171,7 @@ AmenitiesTable.propTypes = {
   filterString: PropTypes.string.isRequired,
   sortKey: PropTypes.string.isRequired,
   sortDesc: PropTypes.bool.isRequired,
-  amenities: PropTypes.object.isRequired,
+  pointOfInterests: PropTypes.object.isRequired,
   actions:PropTypes.object.isRequired
 };
 
@@ -183,34 +182,4 @@ SortHeaderCell.propTypes = {
   columnKey: PropTypes.string,
   children: PropTypes.element.isRequired
 };
-export default AmenitiesTable;
-
-/*
-<Column
-  columnKey="AName"
-  header = { <SortHeaderCell {...headerCellProps} sortBy={sortBy} columnKey={"AName"} > Name </SortHeaderCell>
-              }
-  cell={<DataCell data={localData}/>}
-  flexGrow={3}
-  width={200} />
-  <Column
-    columnKey="AMainFood"
-    header = { <SortHeaderCell {...headerCellProps} sortBy={sortBy} columnKey={"AMainFood"} > MainFood </SortHeaderCell>
-                }
-    cell={<DataCell data={localData}/>}
-    flexGrow={3}
-    width={200} />
-
-    function DataCell ({data, rowIndex, columnKey}) {
-        return  (<Cell>
-                    {data[rowIndex][columnKey]}
-                 </Cell>);
-    }
-
-    DataCell.propTypes = {
-      data: PropTypes.array.isRequired,
-      rowIndex: PropTypes.number,
-      columnKey: PropTypes.string
-    };
-
-*/
+export default PointOfInterestTable;

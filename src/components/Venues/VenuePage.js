@@ -12,28 +12,18 @@ class VenuesPage extends React.Component {
 
 
   componentWillMount() {
-      console.log("componentWillMount" );
-    //   console.log(this.props.venues);
-      console.log(this.props.venues.data);
     if (this.props.venues.data == [] || this.props.venues.data.length == 1) {
-        console.log("VenuesPage calling loadVenues");
         this.props.actions.loadVenues()
         .then()
         .catch( error => {
-          console.log("in error");
-                    toastr.error(error);
+            toastr.error(error);
         });
-        //console.log(this.props);
     }
   }
 
 
   render() {
     const venues = this.props.venues;
-    console.log("VenuesPage render" );
-    //console.log(this.props);
-    //console.log("here" + venues.length);
-    //debugger;
     return (
       <div className="col-md-12">
         <h1>Venues {this.props.loading && <LoadingDots interval={100} dots={20}/>}
@@ -56,9 +46,6 @@ VenuesPage.propTypes = {
 
 
 function mapStateToProps(state, ownProps) {
-  console.log("mapStateToProps VenuesPage");
-  console.log("mapStateToProps: ajaxCallsInProgress = " + state.ajaxCallsInProgress);
-//  console.log(state.venues.data);
   if (state.venues.data && state.venues.data.length > 0) {
     return {
             venues: state.venues,

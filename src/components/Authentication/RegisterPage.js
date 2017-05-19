@@ -43,7 +43,6 @@ class RegisterPage extends React.Component {
       errors.PPasswordConfirm = 'Confirm password and password must match';
       formIsValid = false;
     }
-  //debugger;
     this.setState({errors: errors});
     return formIsValid;
   }
@@ -56,7 +55,6 @@ class RegisterPage extends React.Component {
     .then(resp => {
              if(resp) {
                          errors.PEmailA1 = 'Email is already registered';
-                         console.log('Email is already registered');
                          this.setState({errors: errors});
                          formIsValid = false;
                      }
@@ -64,17 +62,15 @@ class RegisterPage extends React.Component {
               .then(resp2 => {
                                if(resp2) {
                                    errors.PUserName = 'Username is already registered';
-                                   console.log('Username is already registered');
                                    this.setState({errors: errors});
                                    formIsValid = false;
                                     }
                                if(formIsValid){
-                                       console.log("Registering here");
                                        this.props.actions.saveUser(this.state.user)
                                        .then(() => this.redirect())
                                        .catch(error => {
-                                           toastr.error(error);
-                                           this.setState({saving: false});
+                                               toastr.error(error);
+                                               this.setState({saving: false});
                                         });
                                  }
                              }
@@ -101,24 +97,9 @@ class RegisterPage extends React.Component {
     }
     this.setState({saving: true});
     if (!this.userNameAndOrEmailTaken()) {
-            console.log("userNameAndOrEmailTaken failed");
-      return;
+        return;
     }
-    else {
-            console.log("userNameAndOrEmailTaken success");
-    }
-    console.log("here");
     this.setState({saving: false});
-    //console.log("Registration commented out");
-    //debugger;
-      //debugger;
-    // this.setState({saving: true});
-    // this.props.actions.saveUser(this.state.user)
-    //   .then(() => this.redirect())
-    //   .catch(error => {
-    //     toastr.error(error);
-    //     this.setState({saving: false});
-    //   });
   }
 
   redirect() {
@@ -128,8 +109,6 @@ class RegisterPage extends React.Component {
   }
 
   render() {
-      console.log("render: ");
-      console.log(this.state.user);
     return (
       <RegisterForm
         user={this.state.user}

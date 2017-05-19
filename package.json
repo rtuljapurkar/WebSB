@@ -11,7 +11,7 @@
     "test": "mocha --reporter progress tools/testSetup.js \"src/**/*.test.js\"",
     "test:watch": "npm run test -- --watch"
   },
-  "author": "Rajeev T",
+  "author": "SB: Rajeev T",
   "license": "SB",
   "dependencies": {
     "babel-polyfill": "6.8.0",
@@ -26,6 +26,7 @@
     "react-redux": "4.4.5",
     "react-router": "2.4.0",
     "react-router-redux": "4.0.4",
+    "react-stars": "^2.1.0",
     "redux": "3.5.2",
     "redux-thunk": "2.0.1",
     "serve-favicon": "^2.3.0",

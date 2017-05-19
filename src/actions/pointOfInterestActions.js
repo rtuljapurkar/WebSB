@@ -2,26 +2,24 @@ import * as types from './actionTypes';
 import venuesApi from '../api/venuesApi';
 import {beginAjaxCall, ajaxCallError} from './ajaxStatusActions';
 
-export function loadAmenitiesSuccess(data) {
-  return {type: types.LOAD_AMENITIES_SUCCESS, data};
+export function loadPointOfInterestSuccess(data) {
+  return {type: types.LOAD_POI_SUCCESS, data};
 }
 export function filterBy (filterString) {
-  return {type: types.FILTER_AMENITIES_DATA, filterString};
+  return {type: types.FILTER_POI_DATA, filterString};
 }
 export function sortBy (sortKey) {
-  return {type: types.SORT_AMENITIES_DATA, sortKey};
+  return {type: types.SORT_POI_DATA, sortKey};
 }
-export function loadAmenitiesVenuesSuccess (data) {
-  return {type: types.AMENITIES_VENUE_LOAD_SUCCESS,  data};
+export function loadPOIVenuesSuccess (data) {
+  return {type: types.POI_VENUE_LOAD_SUCCESS,  data};
 }
 
-
-
- export function loadAmenities(venueId) {
+ export function loadPointOfInterests(venueId) {
          return function(dispatch) {
          dispatch( beginAjaxCall());
-         return venuesApi.getAllAmenities(venueId).then(data => {
-              dispatch(loadAmenitiesSuccess(data));
+         return venuesApi.getPointOfInterests(venueId).then(data => {
+              dispatch(loadPointOfInterestSuccess(data));
           }).catch(error => {
               dispatch(ajaxCallError(error));
               throw(error);
@@ -34,7 +32,7 @@ export function loadAmenitiesVenuesSuccess (data) {
     return function(dispatch) {
           dispatch( beginAjaxCall());
           return venuesApi.getVenueByID(ID).then(data => {
-               dispatch(loadAmenitiesVenuesSuccess(data));
+               dispatch(loadPOIVenuesSuccess(data));
            }).catch(error => {
                dispatch(ajaxCallError(error));
                throw(error);

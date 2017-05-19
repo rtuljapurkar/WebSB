@@ -1,11 +1,11 @@
 class Auth {
   static loggedIn() {
-    return !!sessionStorage.jwt;
+    return !!localStorage.jwt;
   }
 
   static logOut() {
-    sessionStorage.removeItem('jwt');
-    sessionStorage.removeItem('username');
+    localStorage.removeItem('jwt');
+    localStorage.removeItem('username');
   }
 }
 

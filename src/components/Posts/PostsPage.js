@@ -12,28 +12,18 @@ class PostsPage extends React.Component {
 
 
   componentWillMount() {
-      console.log("componentWillMount" );
-    //   console.log(this.props.posts);
-    //  console.log(this.props.posts.data);
     if (this.props.posts.data == [] || this.props.posts.data.length == 1) {
-        console.log("postsPage calling loadposts");
         this.props.actions.loadPosts()
         .then()
         .catch( error => {
-          console.log("in error");
-                    toastr.error(error);
+                toastr.error(error);
         });
-        //console.log(this.props);
     }
   }
 
 
   render() {
     const posts = this.props.posts;
-    console.log("postsPage render" );
-    //console.log(this.props);
-    //console.log("here" + posts.length);
-    //debugger;
     return (
       <div className="col-md-12">
         <h1>Posts {this.props.loading && <LoadingDots interval={100} dots={20}/>}
@@ -56,9 +46,6 @@ PostsPage.propTypes = {
 
 
 function mapStateToProps(state, ownProps) {
-  console.log("mapStateToProps postsPage");
-  console.log("mapStateToProps: ajaxCallsInProgress = " + state.ajaxCallsInProgress);
-//  console.log(state.posts.data);
   if (state.posts.data && state.posts.data.length > 0) {
     return {
             posts: state.posts,

@@ -8,14 +8,11 @@ import {Button, Glyphicon} from 'react-bootstrap';
 
 // Stateless cell components for Table component
 function renderSortArrow (sortKey, sortDesc, sortId) {
- // debugger;
   return sortKey === sortId ? (sortDesc ? '↓' : '↑') : '';
 }
 
 function SortHeaderCell ({children, sortBy, sortKey, sortDesc, columnKey}) {
-    //debugger;
     const clickFunc = () => sortBy(columnKey);
-//debugger;
   return (
     <Cell >
       <a onClick={clickFunc}>
@@ -53,10 +50,17 @@ function MixedCell ({data, rowIndex, columnKey}) {
                     <table>
                         <tbody>
                             <tr>
-                                <td style={{"textAlign": "left" , "width":"700px" }}>
+                                <td style={{"textAlign": "left" , "width":"600px" }}>
                                     <a href={"/posts/add/"+id}>
                                         <Button bsStyle="primary" bsSize="small" >
                                             <Glyphicon glyph="pencil" />  Review this Stadium
+                                        </Button>
+                                    </a>
+                                </td>
+                                <td style={{"textAlign": "center" }}>
+                                    <a href={"/poi/"+id}>
+                                        <Button bsStyle="primary" bsSize="small"  >
+                                            <Glyphicon glyph="pencil" />  Local 411
                                         </Button>
                                     </a>
                                 </td>
@@ -100,9 +104,7 @@ class VenuesTable extends React.Component {
   }
 
   filterData (localData) {
-    //const data = [...this.props.venues.data] ;
     const {filterString} = this.props.venues;
-    //debugger;
     const str = filterString.toLowerCase();
     return str !== ''
       ? localData.filter((r) => Object.values(r).some(this.doesMatch(str)))
@@ -110,7 +112,6 @@ class VenuesTable extends React.Component {
   }
 
   sortData () {
-    //  debugger;
     const data = [...this.props.venues.data] ;
     const {sortKey, sortDesc} = this.props.venues;
     const multiplier = sortDesc ? -1 : 1;
@@ -130,12 +131,8 @@ class VenuesTable extends React.Component {
     const { filterString, sortKey, sortDesc } = this.props.venues;
     const {sortBy} = this.props.actions;
     const headerCellProps = { sortBy, sortKey, sortDesc };
-  // debugger;
     let localData = this.sortData();
     localData = this.filterData(localData);
-    console.log("render state: " );
-    console.log(this.props.venues);
-//debugger;
     return (
       <div>
         <input className="filter-input" value={filterString}
@@ -147,7 +144,7 @@ class VenuesTable extends React.Component {
           rowHeight={200}
           rowWidth={200}
           headerHeight={80}
-          height={700}
+          height={800}
           width={900}
           rowsCount={localData.length}>
           <Column
@@ -155,7 +152,7 @@ class VenuesTable extends React.Component {
             // header = { <a onClick={this.clickFunc}>
             //             Name {renderSortArrow(sortKey, sortDesc, "VName")}</a>
             //             }
-           header ={ <div colSpan="3">
+           header ={<div colSpan="3">
                     <SortHeaderCell {...headerCellProps} sortBy={sortBy} columnKey={"VName"} > Name </SortHeaderCell>
                     <SortHeaderCell {...headerCellProps} sortBy={sortBy} columnKey={"VCity"} > City </SortHeaderCell>
                     </div>}
