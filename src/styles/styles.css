@@ -6,6 +6,21 @@
   max-width: 2000px;
   margin: 0 auto;
 }*/
+/*@media (min-width: 1200px) {
+    .container{
+        max-width: 970px;
+    }
+}
+
+#nav ul li.active {
+    background-color: #FF0000;
+}
+.navbar-nav > li > a, .navbar-brand, .navbar-inverse, .navbar-fixed-top, .active{
+    padding-top:5px !important; padding-bottom:10px !important;
+    height: 40px;
+}
+.navbar {min-height:20px !important;}
+
 .container {
      padding: 50px;
      background-color: #FFF;
@@ -19,4 +34,4 @@ nav {
   padding-top: 20px;
   padding-bottom: 20px;
 }
-.top-buffer { padding-top: 20px; }
+.top-buffer { padding-top: 20px; }*/

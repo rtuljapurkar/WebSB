@@ -1,8 +1,9 @@
 import React from 'react';
-import { Route, IndexRoute } from 'react-router';
+import { Route, IndexRoute, browserHistory, Router } from 'react-router';
 import App from './components/app';
 
 import HomePage from './components/Home/HomePage';
+import MasterPage from './components/MasterPage';
 import AboutPage from './components/About/AboutPage';
 import VenuesPage from './components/Venues/VenuePage';
 import AmenitiesPage from './components/Venues/AmenitiesPage';
@@ -14,9 +15,9 @@ import RegisterPage from './components/Authentication/RegisterPage';
 import LoginPage from './components/Authentication/LoginPage';
 import auth from './auth/authenticator';
 
-
 export default (
-  <Route path="/" onUpdate={() => window.scrollTo(0, 0)} component={App}>
+  <Router history={browserHistory}>
+  <Route path="/" component={MasterPage}>
     <IndexRoute component={HomePage} />
     <Route path="/login" component={LoginPage} />
     <Route path="/home" component={HomePage} />
@@ -30,6 +31,7 @@ export default (
 
     <Route path="/about" component={AboutPage} />
   </Route>
+  </Router>
 );
 
 function requireAuth(nextState, replace) {

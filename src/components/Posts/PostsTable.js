@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Column, Cell, Table } from 'fixed-data-table';
 import toastr from 'toastr';
 let ExampleImage = require('../common/ExampleImage');
+import ReactStars from 'react-stars';
 
 // import ResponsiveTableWrapper from '../ResponsiveTableWrapper'
 //import renderers from '../../modules/renderers'
@@ -62,7 +63,7 @@ function timeSince(date) {
 }
 
 
-function MixedCell ({data, rowIndex, columnKey}) {
+function MixedCell ({data, rowIndex, columnKey, venues}) {
     let ONE_DAY = 1000 * 60 * 60 * 24;
     // Convert both dates to milliseconds
     let currentDate = new Date().getTime();
@@ -73,7 +74,20 @@ function MixedCell ({data, rowIndex, columnKey}) {
     let days = Math.round(difference_ms/ONE_DAY);
     let postDate1 = new Date(data[rowIndex]["UploadTime"])
     let postedTime = timeSince(postDate1);
-
+    let venueID = data[rowIndex]["VenueID"];
+    let vname = "";
+    if(isNaN(venueID))
+    {
+      venueID = 0;
+    }
+    console.log(venueID);
+    try{
+      vname = venues.data[venueID].VName;
+    }
+    catch(ex) {
+      vname = "";
+    }
+  //  debugger;
  return  (<Cell>
              <table style={{"border":"solid 1px #000", "tableLayout": "fixed", "paddingRight": "10px" }}>
              <tbody>
@@ -81,8 +95,18 @@ function MixedCell ({data, rowIndex, columnKey}) {
                  <td style={{"fontWeight": "bold", "color": "white", "paddingLeft": "10px", "fontSize": "14px",
                      "wordWrap":"break-word",  "fontFamily": "Helvetica",  "width":"600px", "backgroundColor": "black"}}>
                    {data[rowIndex]["UserName"]} <br/>
-                   {data[rowIndex]["VenueID"]}
+                          <ReactStars
+                               name={name}
+                               count={5}
+                               className="form-control"
+                               size={24}
+                               edit={false}
+                               value={data[rowIndex]["Stars"]}
+                               color2={'#ffd700'} />
+                               <hr style={{"color": "white"}}/>
+                                 {vname}
                  </td>
+
                  <td rowSpan="3" style={{"backgroundColor": "white" }}>
                    <img src={data[rowIndex]["Image"]} height="200" alt="" width="200" />
                  </td>
@@ -95,7 +119,7 @@ function MixedCell ({data, rowIndex, columnKey}) {
                </tr>
                <tr style={{"backgroundColor": "black"}}>
                  <td style={{"color": "white", "paddingLeft": "10px", "fontFamily": "Helvetica", "fontSize": "14px",
-                                "wordWrap":"break-word"}}>
+                                "wordWrap":"break-word" , "textAlign": "Right"}}>
                    Posted {postedTime}
                  </td>
                </tr>
@@ -108,7 +132,8 @@ function MixedCell ({data, rowIndex, columnKey}) {
 MixedCell.propTypes = {
   data: PropTypes.array.isRequired,
   rowIndex: PropTypes.number,
-  columnKey: PropTypes.string
+  columnKey: PropTypes.string,
+  venues: PropTypes.object
 };
 
 //  --------------------------------------------------------------------------------------------------------------//
@@ -153,6 +178,8 @@ class PostsTable extends React.Component {
 
   render () {
     const { filterString, sortKey, sortDesc } = this.props.posts;
+    const venues = this.props.venues;
+
     const {sortBy} = this.props.actions;
     const headerCellProps = { sortBy, sortKey, sortDesc };
     let localData = this.sortData();
@@ -165,7 +192,7 @@ class PostsTable extends React.Component {
           autoCorrect="off" autoCapitalize="off" spellCheck="false" />
         <br />
         <Table
-          rowHeight={200}
+          rowHeight={250}
           rowWidth={200}
           headerHeight={50}
           height={600}
@@ -174,7 +201,7 @@ class PostsTable extends React.Component {
           <Column
             columnKey="id"
             header={<SortHeaderCell {...headerCellProps} sortBy={sortBy} > All Posts </SortHeaderCell>}
-            cell={<MixedCell data={localData}  />}
+            cell={<MixedCell data={localData} venues={venues} />}
             flexGrow={3}
             width={200} />
         </Table>

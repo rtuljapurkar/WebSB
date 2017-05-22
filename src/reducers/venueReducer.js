@@ -7,6 +7,7 @@ export default function venueReducer(state =initialState.venues, action) {
       switch(action.type) {
         case types.LOAD_VENUES_SUCCESS:
         {
+          
              return Object.assign({}, state, {
                     data: action.data
                   });

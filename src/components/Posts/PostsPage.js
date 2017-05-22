@@ -12,11 +12,19 @@ class PostsPage extends React.Component {
 
 
   componentWillMount() {
-    if (this.props.posts.data == [] || this.props.posts.data.length == 1) {
+  if (this.props.posts.data == [] || this.props.posts.data.length == 1) {
         this.props.actions.loadPosts()
         .then()
         .catch( error => {
                 toastr.error(error);
+        });
+    }
+
+    if (this.props.venues.data == [] || this.props.venues.data.length == 1) {
+        this.props.actions.loadVenues()
+        .then()
+        .catch( error => {
+            toastr.error(error);
         });
     }
   }
@@ -24,6 +32,7 @@ class PostsPage extends React.Component {
 
   render() {
     const posts = this.props.posts;
+    const venues = this.props.venues;
     return (
       <div className="col-md-12">
         <h1>Posts {this.props.loading && <LoadingDots interval={100} dots={20}/>}
@@ -40,27 +49,38 @@ PostsPage.propTypes = {
   posts: PropTypes.object.isRequired,
   children: PropTypes.object,
   actions: PropTypes.object.isRequired,
-  loading: PropTypes.bool.isRequired
+  loading: PropTypes.bool.isRequired,
+  venues: PropTypes.object.isRequired
 
 };
 
 
 function mapStateToProps(state, ownProps) {
+
   if (state.posts.data && state.posts.data.length > 0) {
     return {
+
             posts: state.posts,
-            loading: state.ajaxCallsInProgress > 0
+            loading: state.ajaxCallsInProgress > 0,
+            venues: state.venues
     };
   }
   else  {
+
     return {
                 posts: {
-                  data: [{id: '', VName: '', VAddress: '', VCity: '', VImage: '' }],
+                  data: [{id: 0, VName: '', VAddress: '', Stars:"0", VCity: '', VImage: '', VenueID:0 }],
                   sortDesc: false,
                   sortKey: 'VName',
                   filterString: ''
               },
-                loading: state.ajaxCallsInProgress > 0
+                loading: state.ajaxCallsInProgress > 0,
+                venues: {
+                  data: [{id: 0, VName: '', VAddress: '', VCity: '', VImage: '' }],
+                  sortDesc: false,
+                  sortKey: 'VName',
+                  filterString: ''
+              }
             };
   }
 }

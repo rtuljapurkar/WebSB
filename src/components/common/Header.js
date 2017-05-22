@@ -16,31 +16,76 @@ class  Header extends React.Component {
    this.props.actions.logOutUser();
  }
 
+
+
 render(){
         if (this.props.logged_in === true) {
         return (
-                    <nav>
-                            <IndexLink to="/" activeClassName="active">Home</IndexLink>
-                                {" | "}
-                                <Link to="/venues" activeClassName="active">Venues</Link>
-                                 {" | "}
-                                 <Link to="/teams" activeClassName="active">Teams</Link>
-                                  {" | "}
-                                  <Link to="/posts" activeClassName="active">Posts</Link>
-                                   {" | "}
-                                <Link to="/about" activeClassName="active">About</Link>
-                                  {" | "}
-                                  <Link to="/about" activeClassName="active">Help</Link>
-                                  {" | "}
-                                <a href="/logout" onClick={this.logOut}>log out {localStorage.username}</a>
-                     </nav>
+          <Navbar inverse collapseOnSelect>
+    <Navbar.Header>
+      <Navbar.Brand>
+        <a href="#">React-Bootstrap</a>
+      </Navbar.Brand>
+      <Navbar.Toggle />
+    </Navbar.Header>
+    <Navbar.Collapse>
+      <Nav>
+        <NavItem eventKey={1} href="#">Link</NavItem>
+        <NavItem eventKey={2} href="#">Link</NavItem>
+        <NavDropdown eventKey={3} title="Dropdown" id="basic-nav-dropdown">
+          <MenuItem eventKey={3.1}>Action</MenuItem>
+          <MenuItem eventKey={3.2}>Another action</MenuItem>
+          <MenuItem eventKey={3.3}>Something else here</MenuItem>
+          <MenuItem divider />
+          <MenuItem eventKey={3.3}>Separated link</MenuItem>
+        </NavDropdown>
+      </Nav>
+      <Nav pullRight>
+        <NavItem eventKey={1} href="#">Link Right</NavItem>
+        <NavItem eventKey={2} href="#">Link Right</NavItem>
+        <NavItem eventKey={2} href="#">Link Right</NavItem>
+        <NavDropdown eventKey={3} title="Dropdown" id="basic-nav-dropdown">
+          <MenuItem eventKey={3.1}>Action</MenuItem>
+          <MenuItem eventKey={3.2}>Another action</MenuItem>
+          <MenuItem eventKey={3.3}>Something else here</MenuItem>
+          <MenuItem divider />
+          <MenuItem eventKey={3.3}>Separated link</MenuItem>
+        </NavDropdown>
+        <NavItem eventKey={2} href="#">Link Right</NavItem>
+      </Nav>
+    </Navbar.Collapse>
+  </Navbar>
+
+                  // <div className="navbar navbar-inverse">
+                  //       <div className="navbar-header">
+                  //         <button className="btn btn-success navbar-toggle collapsed" data-toggle="collapse"
+                  //         data-target="#navbar">
+                  //             <span className="glyphicon glyphicon-chevron-down"></span>
+                  //         </button>
+                  //         <div id="logo">
+                  //           <a href="/">StadiumBee</a>
+                  //         </div>
+                  //       </div>
+                  //       <div  id="navbar" className="navbar-collapse collapse">
+                  //           <ul className="nav navbar-nav">
+                  //             <li className="nav active"><a href="/">Home</a></li>
+                  //             <li className="nav"><a href="/venues">Venues</a></li>
+                  //             <li className="nav"><a href="/teams">Teams</a></li>
+                  //             <li className="nav"><a href="/posts">Posts</a></li>
+                  //           </ul>
+                  //           <ul className="nav navbar-nav navbar-right">
+                  //
+                  //             <li className="nav"><Link to="/about" >About</Link></li>
+                  //             <li className="nav"><Link to="/home" >Help</Link></li>
+                  //             <li className="nav"><a href="/logout" onClick={this.logOut}>log out {localStorage.username}</a></li>
+                  //           </ul>
+                  //       </div>
+                  // </div>
                 );
             }
             else
             {
-                return (
-
-                         <nav>
+              return (<nav>
                             <IndexLink to="/" activeClassName="active">Home</IndexLink>
                             {" | "}
                             <Link to="/venues" activeClassName="active">Venues</Link>
