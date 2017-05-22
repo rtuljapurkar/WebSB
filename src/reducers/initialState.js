@@ -41,6 +41,7 @@ export default {
                             VDescription:''
                         },
                 filterString: '',
+                filterType: '',
                 data: [{
                         "VenueID": "",
                          "AName": "",
@@ -92,5 +93,17 @@ export default {
                             "POIImage": "1",
                             "id": 1
                         }]
-            }
+            },
+    favorites: {
+              data: [{id: '', UserID: '', VenueID: '' }],
+              sortDesc: false,
+              sortKey: 'VName',
+              filterString: ''
+          },
+    scores:  {
+              data: [{id: '', UserID: '', VenueID: '' }],
+              sortDesc: false,
+              sortKey: 'VName',
+              filterString: ''
+          },
 };

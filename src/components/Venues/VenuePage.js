@@ -6,7 +6,7 @@ import {bindActionCreators} from 'redux';
 import * as actions from '../../actions/venueActions';
 import LoadingDots from '../common/LoadingDots';
 import toastr from 'toastr';
-import VenuesTable from './VenuesTable'
+import VenuesTable from './VenuesTable';
 
 class VenuesPage extends React.Component {
 

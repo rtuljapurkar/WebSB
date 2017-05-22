@@ -43,6 +43,28 @@ class SessionApi {
 
           }
 
+          static getUser(credentials) {
+              let obj = null;
+              if(validateEmail(credentials.PEmailA1))
+              {
+                  obj =  credentials;
+                  obj.PEmailA1 =  obj.PEmailA1.toLowerCase();
+              }
+              else {
+                  obj =  {PUserName: "", PPassword: ""};
+                  obj.PUserName =  credentials.PEmailA1.toLowerCase();
+              }
+                debugger;
+            const url = `${process.env.API_HOST}/sb_users/findOne?filter=` + JSON.stringify(obj);
+            return fetch(url)
+            .then(handleErrors)
+            .then(response => {
+                    return response.json();
+            }).catch(error => {
+              throw error;
+            });
+          }
+
           static isEmailTaken(email) {
             let obj = {"PEmailA1": ""};
             obj.PEmailA1 = email.toLowerCase();

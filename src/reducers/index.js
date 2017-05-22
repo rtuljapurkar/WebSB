@@ -4,6 +4,8 @@ import session from './sessionReducer';
 import venues from './venueReducer';
 import teams from './teamReducer';
 import amenities from './amenityReducer';
+import favorites from './favoritesReducer';
+import scores from './scoresReducer';
 import pointOfInterests from './pointOfInterestReducer';
 import ajaxCallsInProgress from './ajaxStatusReducer';
 import initialState from './initialState';
@@ -17,7 +19,9 @@ const appReducer = combineReducers({
     amenities: amenities,
     ajaxCallsInProgress: ajaxCallsInProgress,
     posts: posts,
-    pointOfInterests: pointOfInterests
+    pointOfInterests: pointOfInterests,
+    favorites: favorites,
+    scores: scores
 });
 
 export const rootReducer = (state, action) => {

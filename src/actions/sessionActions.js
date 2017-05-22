@@ -18,6 +18,13 @@ export function loginUser(credentials) {
           {
               localStorage.setItem('jwt', response.count);
               localStorage.setItem('username', credentials.PEmailA1);
+            //   sessionApi.getUser(credentials).then(response => {
+            //         if(response && response.id && response.id > 0)
+            //         {
+            //             localStorage.setItem('username', response.PUserName);
+            //             localStorage.setItem('userid', response.id);
+            //         }
+            //     });
               dispatch(loginSuccess());
           }
           else

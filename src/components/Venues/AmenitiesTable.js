@@ -4,7 +4,7 @@ import { Column, Cell, Table } from 'fixed-data-table';
 import toastr from 'toastr';
 import ExampleImage from '../common/ExampleImage';
 import '../../styles/fixed-data-table.css';
-import {Button, Glyphicon} from 'react-bootstrap';
+import {Button, Glyphicon, SplitButton, MenuItem} from 'react-bootstrap';
 
 function renderSortArrow (sortKey, sortDesc, sortId) {
   return sortKey === sortId ? (sortDesc ? '↓' : '↑') : '';
@@ -24,7 +24,7 @@ function SortHeaderCell ({children, sortBy, sortKey, sortDesc, columnKey}) {
 function MixedCell ({data, rowIndex, columnKey}) {
     let id = data[rowIndex]["id"];
     let rows = [];
-    for (var key in data[rowIndex])
+    for (let key in data[rowIndex])
     {
       if (data[rowIndex].hasOwnProperty(key)
             && key!= "id" && key!= "VenueID" && key!= "ASubType" && key!= "Active"
@@ -69,23 +69,41 @@ MixedCell.propTypes = {
 //  --------------------------------------------------------------------------------------------------------------//
 class AmenitiesTable extends React.Component {
 
- handleFilterStringChange () {
-    return (e) => {
-      e.preventDefault();
-      this.props.actions.filterBy(e.target.value);
-    };
-  }
+ // handleFilterStringChange () {
+ //    return (e) => {
+ //      e.preventDefault();
+ //      this.props.actions.filterBy(e.target.value);
+ //    };
+ //  }
+
+  handleFilterDropdownChange () {
+     return (e) => {
+       e.preventDefault();
+       this.props.actions.filterByType(e.target.value);
+     };
+   }
 
   doesMatch (str) {
     return (key) => (key + '').toLowerCase().indexOf(str) !== -1;
   }
 
-  filterData (localData) {
-    const {filterString} = this.props.amenities;
-    const str = filterString.toLowerCase();
+  // filterData (localData) {
+  //   const {filterString} = this.props.amenities;
+  //   const str = filterString.toLowerCase();
+  //   return str !== ''
+  //     ? localData.filter((r) => Object.values(r).some(this.doesMatch(str)))
+  //     : localData;
+  // }
+
+  filterByType (localData) {
+    const {filterType} = this.props.amenities;
+    const str = filterType.toLowerCase();
+    // return str !== ''
+    //   ? localData.filter((r) => Object.values(r).some(this.doesMatch(str)))
+    //   : localData;
     return str !== ''
-      ? localData.filter((r) => Object.values(r).some(this.doesMatch(str)))
-      : localData;
+        ? localData.filter((r) => r.AType.toLowerCase() === str)
+        : localData;
   }
 
   sortData () {
@@ -109,57 +127,73 @@ class AmenitiesTable extends React.Component {
     const {sortBy} = this.props.actions;
     const headerCellProps = { sortBy, sortKey, sortDesc };
     let localData = this.sortData();
-    localData = this.filterData(localData);
+    localData = this.filterByType(localData);
     let venue = this.props.amenities.venue;
     return (
+        <div>
+          <div>
+              <table style={{ "tableLayout": "fixed", "paddingRight": "10px",  "width":"860px"   }}>
+                  <tbody>
+                    <tr style={{"backgroundColor": "black" }} >
+                      <td style={{"fontWeight": "bold", "color": "white", "paddingLeft": "10px", "fontSize": "14px",
+                          "wordWrap":"break-word",  "fontFamily": "Helvetica",  "width":"700px" }}>
+                        {venue.VName} <br/>
+                        {venue.VCity}
+                      </td>
+                      <td rowSpan="2"  style={{"paddingLeft": "15px"}}>
+                        <img src={venue.VImage} height="200" alt="" width="200" />
+                      </td>
+                    </tr>
+                    <tr style={{"backgroundColor": "black" }}>
+                      <td style={{"color": "white", "paddingLeft": "10px", "fontFamily": "Helvetica", "fontSize": "14px",
+                                     "wordWrap":"break-word" ,  "width":"600px"}}>
+                        {venue.VDescription}
+                      </td>
+                    </tr>
+                  </tbody>
+              </table>
+        </div>
+        <div>
+            <br/>
+              <select className="btn btn-primary"
+                  onChange={this.handleFilterDropdownChange()}>
+                <option value="">All Categories</option>
+                <option value="Attraction">Attractions</option>
+                <option value="Food & Beverage">Food & Beverage</option>
+                <option value="Information">Information</option>
+                <option value="Merchandise">Merchandise</option>
+                <option value="Parking">Parking</option>
+                <option value="Bathroom">Restrooms</option>
+              </select>
+        </div>
       <div>
-          <table style={{ "tableLayout": "fixed", "paddingRight": "10px",  "width":"760px"   }}>
-              <tbody>
-                <tr style={{"backgroundColor": "black" }} >
-                  <td style={{"fontWeight": "bold", "color": "white", "paddingLeft": "10px", "fontSize": "14px",
-                      "wordWrap":"break-word",  "fontFamily": "Helvetica",  "width":"600px" }}>
-                    {venue.VName} <br/>
-                    {venue.VCity}
-                  </td>
-                  <td rowSpan="2"  style={{"paddingLeft": "15px"}}>
-                    <img src={venue.VImage} height="200" alt="" width="200" />
-                  </td>
-                </tr>
-                <tr style={{"backgroundColor": "black" }}>
-                  <td style={{"color": "white", "paddingLeft": "10px", "fontFamily": "Helvetica", "fontSize": "14px",
-                                 "wordWrap":"break-word" ,  "width":"600px"}}>
-                    {venue.VDescription}
-                  </td>
-                </tr>
-              </tbody>
-          </table>
-
-        <input className="filter-input" value={filterString}
-          onChange={this.handleFilterStringChange()}
-          type="text" placeholder="Filter Rows"
-          autoCorrect="off" autoCapitalize="off" spellCheck="false" />
+        {/* <input className="filter-input" value={filterString}
+                  onChange={this.handleFilterStringChange()}
+                  type="text" placeholder="Filter Rows"
+          autoCorrect="off" autoCapitalize="off" spellCheck="false" /> */}
         <br />
         <Table
           rowHeight={500}
           rowWidth={200}
           headerHeight={80}
           height={700}
-          width={800}
+          width={900}
           rowsCount={localData.length}>
           <Column
             columnKey="VName"
             // header = { <a onClick={this.clickFunc}>
             //             Name {renderSortArrow(sortKey, sortDesc, "VName")}</a>
             //             }
-           header ={ <div colSpan="3">
+           header ={<div colSpan="3">
                     <SortHeaderCell {...headerCellProps} sortBy={sortBy} columnKey={"AName"} > Name </SortHeaderCell>
-                    <SortHeaderCell {...headerCellProps} sortBy={sortBy} columnKey={"AType"} > Type </SortHeaderCell>
+                    <SortHeaderCell {...headerCellProps} sortBy={sortBy} columnKey={"ACost"} > Cost </SortHeaderCell>
                     </div>}
             cell={<MixedCell data={localData}/>}
             flexGrow={3}
             width={800} />
         </Table>
       </div>
+     </div>
     );
   }
 }
@@ -170,6 +204,7 @@ AmenitiesTable.propTypes = {
   // state data
   data: PropTypes.array.isRequired,
   filterString: PropTypes.string.isRequired,
+  filterType: PropTypes.string.isRequired,
   sortKey: PropTypes.string.isRequired,
   sortDesc: PropTypes.bool.isRequired,
   amenities: PropTypes.object.isRequired,

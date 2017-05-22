@@ -31,7 +31,7 @@ class AmenitiesPage extends React.Component {
     const amenities = this.props.amenities;
     return (
       <div className="col-md-12">
-        <h1>Amenities {this.props.loading && <LoadingDots interval={100} dots={20}/>}
+        <h1>Amenities at {this.props.amenities.venue.VName} {this.props.loading && <LoadingDots interval={100} dots={20}/>}
         </h1>
         <div className="col-md-12">
           <AmenitiesTable {...this.props} />

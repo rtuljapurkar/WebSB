@@ -24,7 +24,7 @@ function SortHeaderCell ({children, sortBy, sortKey, sortDesc, columnKey}) {
 function MixedCell ({data, rowIndex, columnKey}) {
     let id = data[rowIndex]["id"];
     let rows = [];
-    for (var key in data[rowIndex])
+    for (let key in data[rowIndex])
     {
       if (data[rowIndex].hasOwnProperty(key)
             && key!= "id" && key!= "VenueID" && key!= "Active" && key!= "POIGPSLoc"
@@ -150,7 +150,7 @@ class PointOfInterestTable extends React.Component {
             // header = { <a onClick={this.clickFunc}>
             //             Name {renderSortArrow(sortKey, sortDesc, "VName")}</a>
             //             }
-           header ={ <div colSpan="3">
+           header ={<div colSpan="3">
                     <SortHeaderCell {...headerCellProps} sortBy={sortBy} columnKey={"AName"} > Name </SortHeaderCell>
                     <SortHeaderCell {...headerCellProps} sortBy={sortBy} columnKey={"AType"} > Type </SortHeaderCell>
                     </div>}

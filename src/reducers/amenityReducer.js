@@ -31,6 +31,10 @@ export default function amenityReducer(state =initialState.amenities, action) {
             return Object.assign({}, state, {
                 filterString: action.filterString.toLowerCase()
             });
+        case types.FILTER_AMENITIES_BYTYPE_DATA:
+            return Object.assign({}, state, {
+                filterType: action.filterType.toLowerCase()
+            });
         case types.AMENITIES_VENUE_LOAD_SUCCESS:
             return Object.assign({}, state, {
               venue: action.data

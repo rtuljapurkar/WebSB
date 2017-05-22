@@ -8,6 +8,10 @@ export function loadAmenitiesSuccess(data) {
 export function filterBy (filterString) {
   return {type: types.FILTER_AMENITIES_DATA, filterString};
 }
+export function filterByType (filterType) {
+  return {type: types.FILTER_AMENITIES_BYTYPE_DATA, filterType};
+}
+
 export function sortBy (sortKey) {
   return {type: types.SORT_AMENITIES_DATA, sortKey};
 }

@@ -47,8 +47,7 @@ export class ManagePostPage extends React.Component {
   }
 
   onStarRatingChange(newRating) {
-    let post = this.state.post;
-    console.log(newRating);
+    let post = this.state.post;    
     post["Stars"] = newRating;
     return this.setState({post: post});
   }

@@ -35,11 +35,8 @@ SortHeaderCell.propTypes = {
 };
 
 function timeSince(date) {
-
-  var seconds = Math.floor((new Date() - date) / 1000);
-
-  var interval = Math.floor(seconds / 31536000);
-
+  let seconds = Math.floor((new Date() - date) / 1000);
+  let interval = Math.floor(seconds / 31536000);
   if (interval > 1) {
     return interval + " years ago";
   }
@@ -72,7 +69,7 @@ function MixedCell ({data, rowIndex, columnKey, venues}) {
     let difference_ms = Math.abs(currentDate - postDate);
     // Convert back to days and return
     let days = Math.round(difference_ms/ONE_DAY);
-    let postDate1 = new Date(data[rowIndex]["UploadTime"])
+    let postDate1 = new Date(data[rowIndex]["UploadTime"]);
     let postedTime = timeSince(postDate1);
     let venueID = data[rowIndex]["VenueID"];
     let vname = "";
@@ -80,7 +77,6 @@ function MixedCell ({data, rowIndex, columnKey, venues}) {
     {
       venueID = 0;
     }
-    console.log(venueID);
     try{
       vname = venues.data[venueID].VName;
     }
@@ -215,18 +211,14 @@ PostsTable.propTypes = {
   //fetchData: PropTypes.func.isRequired,
   sortBy: PropTypes.func.isRequired,
   filterBy: PropTypes.func.isRequired,
-
   // state data
   data: PropTypes.array.isRequired,
   filterString: PropTypes.string.isRequired,
   sortKey: PropTypes.string.isRequired,
   sortDesc: PropTypes.bool.isRequired,
   posts: PropTypes.object.isRequired,
-  actions:PropTypes.object.isRequired
-
-
-  //,
-  //isFetching: PropTypes.bool.isRequired
+  actions:PropTypes.object.isRequired,
+  venues: PropTypes.object
 };
 
 export default PostsTable;

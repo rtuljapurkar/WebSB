@@ -86,6 +86,7 @@ const PostForm = ({post, onSave, onChange, saving, errors, venue, onCancel, onSt
 PostForm.propTypes = {
   post: React.PropTypes.object.isRequired,
   onSave: React.PropTypes.func.isRequired,
+  onCancel: React.PropTypes.func.isRequired,
   onChange: React.PropTypes.func.isRequired,
   saving: React.PropTypes.bool,
   errors: React.PropTypes.object,

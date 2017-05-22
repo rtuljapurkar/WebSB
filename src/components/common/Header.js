@@ -29,29 +29,30 @@ render(){
       <Navbar.Toggle />
     </Navbar.Header>
     <Navbar.Collapse>
-      <Nav>
-        <NavItem eventKey={1} href="#">Link</NavItem>
-        <NavItem eventKey={2} href="#">Link</NavItem>
-        <NavDropdown eventKey={3} title="Dropdown" id="basic-nav-dropdown">
-          <MenuItem eventKey={3.1}>Action</MenuItem>
-          <MenuItem eventKey={3.2}>Another action</MenuItem>
-          <MenuItem eventKey={3.3}>Something else here</MenuItem>
-          <MenuItem divider />
-          <MenuItem eventKey={3.3}>Separated link</MenuItem>
-        </NavDropdown>
-      </Nav>
+        <ul className="nav navbar-nav">
+                     <li className="nav active"><a href="/">Home</a></li>
+                     <li className="nav"><a href="/venues">Venues</a></li>
+                     <li className="nav"><a href="/teams">Teams</a></li>
+                     <li className="nav"><a href="/posts">Posts</a></li>
+        </ul>
       <Nav pullRight>
-        <NavItem eventKey={1} href="#">Link Right</NavItem>
+          <NavDropdown eventKey={3} title="More" id="basic-nav-dropdown">
+            <MenuItem eventKey={3.1}>Privacy Policy</MenuItem>
+            <MenuItem eventKey={3.2}>Cookie Policy</MenuItem>
+            <MenuItem eventKey={3.3}>Disclaimer</MenuItem>
+            {/* <MenuItem divider />
+            <MenuItem eventKey={3.3}>Separated link</MenuItem> */}
+          </NavDropdown>
+          <ul className="nav navbar-nav navbar-right">
+            <li className="nav"><Link to="/about" >Terms</Link></li>
+            <li className="nav"><Link to="/about" >About</Link></li>
+            <li className="nav"><Link to="/about" >Help</Link></li>
+            <li className="nav"><a href="/logout" onClick={this.logOut}>log out {localStorage.username}</a></li>
+          </ul>
+        {/* <NavItem eventKey={1} href="#">Link Right</NavItem>
         <NavItem eventKey={2} href="#">Link Right</NavItem>
         <NavItem eventKey={2} href="#">Link Right</NavItem>
-        <NavDropdown eventKey={3} title="Dropdown" id="basic-nav-dropdown">
-          <MenuItem eventKey={3.1}>Action</MenuItem>
-          <MenuItem eventKey={3.2}>Another action</MenuItem>
-          <MenuItem eventKey={3.3}>Something else here</MenuItem>
-          <MenuItem divider />
-          <MenuItem eventKey={3.3}>Separated link</MenuItem>
-        </NavDropdown>
-        <NavItem eventKey={2} href="#">Link Right</NavItem>
+        <NavItem eventKey={2} href="#">Link Right</NavItem> */}
       </Nav>
     </Navbar.Collapse>
   </Navbar>
