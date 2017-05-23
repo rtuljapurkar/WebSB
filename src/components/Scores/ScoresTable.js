@@ -153,18 +153,20 @@ class ScoresTable extends React.Component {
     return (
 
         <Table
-           rowHeight={30}
-           rowWidth={250}
+           rowHeight={30}           
            headerHeight={50}
            height={200}
            width={250}
+           minWidth={100}
           rowsCount={localData.length}>
           <Column
             columnKey="id"
             header={<SortHeaderCell {...headerCellProps} sortBy={sortBy} > Scores </SortHeaderCell>}
             cell={<MixedCell data={localData} venues={venues} />}
             flexGrow={3}
-            width={250} />
+             width={250}
+             minWidth={100}
+              />
         </Table>
     );
   }

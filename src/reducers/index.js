@@ -9,7 +9,7 @@ import scores from './scoresReducer';
 import pointOfInterests from './pointOfInterestReducer';
 import ajaxCallsInProgress from './ajaxStatusReducer';
 import initialState from './initialState';
-import { routerReducer } from "react-router-redux";
+import { routerReducer } from 'react-router-redux';
 
 const appReducer = combineReducers({
     routing: routerReducer,

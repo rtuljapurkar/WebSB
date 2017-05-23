@@ -13,7 +13,7 @@ export function loadScores() {
   return function(dispatch) {
         dispatch( beginAjaxCall());
         return venuesApi.getScores().then(data => {
-             dispatch(loadscoresSuccess(data));
+             dispatch(loadScoresSuccess(data));
          }).catch(error => {
              dispatch(ajaxCallError(error));
              throw(error);

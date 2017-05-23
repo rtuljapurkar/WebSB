@@ -6,7 +6,7 @@ import PostForm from './PostForm';
 import toastr from 'toastr';
 
 
-export class ManagePostPage extends React.Component {
+class ManagePostPage extends React.Component {
   constructor(props, context) {
     super(props, context);
 
@@ -47,7 +47,7 @@ export class ManagePostPage extends React.Component {
   }
 
   onStarRatingChange(newRating) {
-    let post = this.state.post;    
+    let post = this.state.post;
     post["Stars"] = newRating;
     return this.setState({post: post});
   }

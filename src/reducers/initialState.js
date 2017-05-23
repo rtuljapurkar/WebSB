@@ -2,7 +2,7 @@ import React, {PropTypes} from 'react';
 const uuidV1 = require('uuid/v1');
 let dateNow = new Date();
 
-export default {
+export default {    
     venues: {
         data: [],
         sortDesc: false,
@@ -105,5 +105,5 @@ export default {
               sortDesc: false,
               sortKey: 'VName',
               filterString: ''
-          },
+          }
 };

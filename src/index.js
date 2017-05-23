@@ -10,11 +10,15 @@ import './styles/styles.css'; //Webpack can import CSS files too!
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import '../node_modules/toastr/build/toastr.min.css';
 import initialState from './reducers/initialState';
+import { syncHistoryWithStore } from 'react-router-redux';
+
 
 const store = configureStore(initialState);
+const history = syncHistoryWithStore(browserHistory, store);
+
 //store.dispatch(loadVenues());
 
 render(
     <Provider store={store}>
-        <Router history={browserHistory} routes={routes} />
+        <Router  history={history} routes={routes} />
     </Provider>,    document.getElementById('app'));

@@ -101,22 +101,22 @@ class VenuesApi {
                         });
                     }
 
-                static getScores() {
-                      let obj = {"UserID": 0};
-                      obj.UserID = userID;
-                      const host = `${process.env.API_HOST}`;
-                      const request = new Request(`${process.env.API_HOST}/sb_favorites?where=` + JSON.stringify(obj), {
-                        method: 'GET'
-                      });
-
-                      return fetch(request)
-                      .then(handleErrors)
-                      .then(response => {
-                              return response.json();
-                          }).catch(error => {
-                              throw error;
-                          });
-                      }
+                // static getScores() {
+                //       let obj = {"UserID": 0};
+                //       obj.UserID = userID;
+                //       const host = `${process.env.API_HOST}`;
+                //       const request = new Request(`${process.env.API_HOST}/sb_favorites?where=` + JSON.stringify(obj), {
+                //         method: 'GET'
+                //       });
+                //
+                //       return fetch(request)
+                //       .then(handleErrors)
+                //       .then(response => {
+                //               return response.json();
+                //           }).catch(error => {
+                //               throw error;
+                //           });
+                //       }
 }
 
 export default VenuesApi;
