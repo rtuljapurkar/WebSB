@@ -8,10 +8,10 @@ export default function scoresReducer(state =initialState.scores, action) {
       switch(action.type) {
         case types.LOAD_SCORES_SUCCESS:
         {
-            //  return Object.assign({}, state, {
-            //     data: action.data
-            //   });
-            return state;
+             return Object.assign({}, state, {
+                data: action.data
+              });
+
         }
         default:
           return state;

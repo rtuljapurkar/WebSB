@@ -1,6 +1,33 @@
-
 .teams-pagination {
-    margin-top: 0;
+    margin-top: 50;
+}
+table.scroll {
+    width: 100%; /* Optional */
+    /* border-collapse: collapse; */
+    border-spacing: 0;
+    /*border: 2px solid black;*/
+}
+table.scroll tbody,
+table.scroll thead { display: block; }
+thead tr th {
+    height: 30px;
+    /*line-height: 30px;
+    text-align: left;*/
+}
+table.scroll tbody {
+    height: 300px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+table.scroll tbody { border-top: 2px solid black; }
+table.scroll tbody td, thead th {
+    width: 20%; /* Optional */
+    text-align: center;
+    /*border-right: 1px solid black;*/
+}
+
+table.scroll tbody td:last-child, thead th:last-child {
+    border-right: none;
 }
 /*.sb-sideBarImage
 {

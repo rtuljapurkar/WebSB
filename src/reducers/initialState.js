@@ -2,7 +2,19 @@ import React, {PropTypes} from 'react';
 const uuidV1 = require('uuid/v1');
 let dateNow = new Date();
 
-export default {    
+let today = new Date();
+let dd = today.getDate()-20;
+let mm = today.getMonth()+1; //January is 0!
+let yyyy = today.getFullYear();
+if(dd<10) {
+    dd='0'+dd;
+}
+if(mm<10) {
+    mm='0'+mm;
+}
+today = mm+'/'+dd+'/'+yyyy;
+
+export default {
     venues: {
         data: [],
         sortDesc: false,
@@ -101,9 +113,24 @@ export default {
               filterString: ''
           },
     scores:  {
-              data: [{id: '', UserID: '', VenueID: '' }],
+              data: [{
+                      "ID": '',
+                      "GameDate": '',
+                      "GameTime": '',
+                      "League": '',
+                      "Status": '',
+                      "VName": '',
+                      "HomeTeam": '',
+                      "AwayTeam":'',
+                      "HomeLogo":'',
+                      "AwayLogo": '',
+                      "HPoints": 0,
+                      "APoints": 0,
+                      "Active": 0
+               }],
               sortDesc: false,
               sortKey: 'VName',
-              filterString: ''
+              filterString: '',
+              dateSelected: today
           }
 };
