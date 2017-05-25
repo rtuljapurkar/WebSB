@@ -9,6 +9,7 @@ import FavoritesTable from './FavoritesTable';
 
 class FavoritesPage extends React.Component {
   componentWillMount() {
+
     if (this.props.favorites.data == [] || this.props.favorites.data.length == 1) {
         this.props.actions.loadFavorites()
         .then()
@@ -28,9 +29,27 @@ class FavoritesPage extends React.Component {
 
 
   render() {
-    const favorites = this.props.favorites;
+    const favorites = this.props.favorites.data;
+    //console.log(favorites);
     return (
-          <FavoritesTable {...this.props} />    
+              <table className="table table-striped table-bordered
+                              table-responsive table-hover scroll" >
+                  <thead>
+                      <tr>
+                          <th>
+                            Favorites
+                          </th>
+                       </tr>
+                  </thead>
+                  <tbody>
+                      {favorites.map((favorite, index) => {
+                        console.log(favorite);
+                                    return(
+                                          <FavoritesTable key={favorite.id} favorite={favorite} venueID={favorite.VenueID} venues={this.props.venues}/>
+                                        );
+                              })}
+                  </tbody>
+              </table>
     );
   }
 }

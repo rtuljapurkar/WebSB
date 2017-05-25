@@ -84,11 +84,11 @@ class VenuesApi {
                   });
               }
 
-              static getFavorites(userID) {
-                    let obj = {"UserID": 0};
-                    obj.UserID = userID;
+              static getFavorites() {
+                    let userID= localStorage["UserID"];
+                    let filter = "filter[where][UserID]=131" ;//+ userID;
                     const host = `${process.env.API_HOST}`;
-                    const request = new Request(`${process.env.API_HOST}/sb_favorites?where=` + JSON.stringify(obj), {
+                    const request = new Request(`${process.env.API_HOST}/sb_favorites?` + filter, {
                       method: 'GET'
                     });
 
