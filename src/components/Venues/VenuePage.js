@@ -21,17 +21,67 @@ class VenuesPage extends React.Component {
     }
   }
 
+  handleFilterStringChange () {
+     return (e) => {
+       e.preventDefault();
+       this.props.actions.filterBy(e.target.value);
+     };
+   }
+
+   doesMatch (str) {
+     return (key) => (key + '').toLowerCase().indexOf(str) !== -1;
+   }
+
+   filterData (localData) {
+     const {filterString} = this.props.venues;
+     const str = filterString.toLowerCase();
+     return str !== ''
+       ? localData.filter((r) => Object.values(r).some(this.doesMatch(str)))
+       : localData;
+   }
+
+   sortData () {
+     const data = [...this.props.venues.data] ;
+     const {sortKey, sortDesc} = this.props.venues;
+     const multiplier = sortDesc ? -1 : 1;
+     data.sort((a, b) => {
+       const aVal = a[sortKey] || 0;
+       const bVal = b[sortKey] || 0;
+       return aVal > bVal ? multiplier : (aVal < bVal ? -multiplier : 0);
+     });
+     return data;
+   }
 
   render() {
-    const venues = this.props.venues;
-    return (
-      <div className="col-md-12">
-        <h1>Venues {this.props.loading && <LoadingDots interval={100} dots={20}/>}
-        </h1>
-        <div className="col-md-12">
-          <VenuesTable {...this.props} />
-        </div>
-      </div>
+        const { filterString, sortKey, sortDesc } = this.props.venues;
+        const venues = this.props.venues.data;
+        let localData = this.sortData();
+        localData = this.filterData(localData);
+
+        return (
+          <div className="col-md-12">
+            <h1>Venues {this.props.loading && <LoadingDots interval={100} dots={20}/>}
+            </h1>
+            <input className="filter-input" value={filterString}
+              onChange={this.handleFilterStringChange()}
+              type="text" placeholder="Filter Rows"
+              autoCorrect="off" autoCapitalize="off" spellCheck="false" />
+            <br /><br />
+            <table className="table  table-striped table-bordered table-responsive table-hover mainScreen" >
+                  <tbody>
+                      <tr>
+                          <th colSpan="2"><b>Venues</b></th>
+                      </tr>
+                      {
+                              localData.map((venue, index) => {
+                                    return(
+                                            <VenuesTable  key={venue.id} venue={venue} venues={venues}  />
+                                      );})
+                      }
+                  </tbody>
+           </table>
+
+          </div>
     );
   }
 }

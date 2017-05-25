@@ -29,24 +29,25 @@ class FavoritesPage extends React.Component {
 
 
   render() {
-    const favorites = this.props.favorites.data;
-    //console.log(favorites);
+    const favorites = this.props.favorites.data;    
     return (
-              <table className="table table-striped table-bordered
+
+              <table className="table table-fixed table-striped table-bordered
                               table-responsive table-hover scroll" >
                   <thead>
                       <tr>
-                          <th>
+                          <th border="none" border-right="none">
                             Favorites
                           </th>
                        </tr>
                   </thead>
                   <tbody>
                       {favorites.map((favorite, index) => {
-                        console.log(favorite);
-                                    return(
+                          if(favorite.VenueID > 0){
+                                return(
                                           <FavoritesTable key={favorite.id} favorite={favorite} venueID={favorite.VenueID} venues={this.props.venues}/>
                                         );
+                                }
                               })}
                   </tbody>
               </table>

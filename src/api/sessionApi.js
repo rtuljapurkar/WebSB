@@ -53,8 +53,7 @@ class SessionApi {
               else {
                   obj =  {PUserName: "", PPassword: ""};
                   obj.PUserName =  credentials.PEmailA1.toLowerCase();
-              }
-            //    debugger;
+              }            
             const url = `${process.env.API_HOST}/sb_users/findOne?filter=` + JSON.stringify(obj);
             return fetch(url)
             .then(handleErrors)

@@ -32,7 +32,6 @@ class ScoresPage extends React.Component {
 
 
     filterData (localData) {
-        //console.log("in filter");
         const {filterString} = this.props.scores;
         const str = filterString.toLowerCase();
         const dateSelected = new Date(this.state.dateSelected);
@@ -54,7 +53,6 @@ changeDate(event){
         mm='0'+mm;
     }
 
-    //console.log(event.target.getAttribute("data-type"));
     let type = event.target.getAttribute("data-type");
     if(type=="minus"){
          dd = dateNow.getDate()-1;
@@ -72,8 +70,7 @@ changeDate(event){
   render() {
     let dateSelected = this.state.dateSelected;
     let scoresData = this.props.scores.data;
-    scoresData = this.filterData(scoresData);
-    //console.log("here" + scoresData);
+    scoresData = this.filterData(scoresData);    
     return (
             <table className="table table-striped table-bordered
                             table-responsive table-hover scroll" >
@@ -81,13 +78,13 @@ changeDate(event){
                     <tr>
                         <th>
                             <span className="glyphicon glyphicon-chevron-left text-success"
-                                 style={{"text-align":"left"}} data-type="minus" onClick={this.changeDate}>
+                                 style={{"textAlign":"left"}} data-type="minus" onClick={this.changeDate}>
                             </span>
                             <span> </span>
                             {dateSelected}
                             <span> </span>
                             <span className="glyphicon glyphicon-chevron-right text-success"
-                                 style={{"text-align":"right"}} data-type="plus" onClick={this.changeDate}>
+                                 style={{"textAlign":"right"}} data-type="plus" disabled="true" onClick={this.changeDate}>
                             </span>
 
                         </th>

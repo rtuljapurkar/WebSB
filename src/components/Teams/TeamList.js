@@ -18,8 +18,6 @@ class TeamList extends React.Component {
     componentWillMount() {
 
       if (this.props.teams == 'undefined' || this.props.teams.length == 1) {
-         // console.log(this.props);
-         //  console.log("calling load teams");
           this.props.dispatch(actions.loadTeams())
           .then()
           .catch( error => {
@@ -35,8 +33,7 @@ class TeamList extends React.Component {
     }
 
     render(){
-        const per_page = 6;
-        //console.log(this.props.teams.length);
+        const per_page = 6;        
         const pages = Math.ceil(this.props.teams.length / per_page);
         const current_page =  this.props.page;
         const start_offset = (current_page - 1) * per_page;
@@ -44,11 +41,9 @@ class TeamList extends React.Component {
 
         return (
             <div>
-                <h1>Teams {this.props.loading && <LoadingDots interval={100} dots={20}/>}
-            </h1>
+                <h1>Teams {this.props.loading && <LoadingDots interval={100} dots={20}/>}</h1>
 
-
-              <Table bordered hover striped responsive >
+                <Table bordered hover striped responsive mainScreen>
                   <thead>
                       <tr>
                           <th>Team Name</th>
@@ -81,7 +76,7 @@ class TeamList extends React.Component {
 
 TeamList.propTypes = {
   teams: PropTypes.array.isRequired,
-  dispatch: PropTypes.action,
+  dispatch: PropTypes.function,
   actions: PropTypes.object.isRequired,
   page: PropTypes.number,
   loading: PropTypes.bool.isRequired
@@ -109,10 +104,10 @@ function mapStateToProps(state, ownProps) {
       }
 }
 
-// function mapDispatchToProps(dispatch) {
-//   return {
-//       actions: bindActionCreators(actions, dispatch)
-//   };
-// }
+function mapDispatchToProps(dispatch) {
+  return {
+      actions: bindActionCreators(actions, dispatch)
+  };
+}
 
 export default connect(mapStateToProps) (TeamList);

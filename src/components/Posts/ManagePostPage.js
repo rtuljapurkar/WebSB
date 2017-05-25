@@ -40,8 +40,7 @@ class ManagePostPage extends React.Component {
 
   updatePostState(event) {
     const field = event.target.name;
-    let post = this.state.post;
-    // console.log(event.target.value);
+    let post = this.state.post;    
     post[field] = event.target.value;
     return this.setState({post: post});
   }

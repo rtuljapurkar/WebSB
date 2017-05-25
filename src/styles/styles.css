@@ -2,25 +2,35 @@
     margin-top: 50;
 }
 table.scroll {
-    width: 100%; /* Optional */
+     width: 100%; Optional
     /* border-collapse: collapse; */
     border-spacing: 0;
     /*border: 2px solid black;*/
 }
-table.scroll tbody,
-table.scroll thead { display: block; }
-thead tr th {
+table.scroll tbody {display: block;}
+table.scroll thead {display: block;}
+table.scroll thead tr th {
     height: 30px;
     /*line-height: 30px;
     text-align: left;*/
 }
 table.scroll tbody {
-    height: 300px;
-    overflow-y: scroll;
+    height: 200px;
+    overflow-y: auto;
     overflow-x: hidden;
 }
 table.scroll tbody { border-top: 2px solid black; }
-table.scroll tbody td, thead th {
+table.scroll tbody td {
+    width: 20%; /* Optional */
+    text-align: left;
+    /*border-right: 1px solid black;*/
+}
+table.scroll thead th {
+    width: 20%; /* Optional */
+    text-align: center;
+    /*border-right: 1px solid black;*/
+}
+table.scroll  thead th {
     width: 20%; /* Optional */
     text-align: center;
     /*border-right: 1px solid black;*/
@@ -29,6 +39,68 @@ table.scroll tbody td, thead th {
 table.scroll tbody td:last-child, thead th:last-child {
     border-right: none;
 }
+/*-------------------------------------------------------------------------------------------------------------------*/
+/*-------------------------------------------------------------------------------------------------------------------*/
+/*-------------------------------------------------------------------------------------------------------------------*/
+
+table.mainScreen {
+    width: 100%; /* Optional */
+    /* border-collapse: collapse; */
+    border-spacing: 0;
+    /*border: 2px solid black;*/
+}
+table.mainScreen tbody  { display: block;  }
+table.mainScreen thead { display: block;  }
+table.mainScreen thead tr {
+    /*width: 99%;*/
+    text-align: center;
+    height: 20px;
+    line-height: 30px;
+    width: 99%;
+    /*background-color: yellow;*/
+}
+table.mainScreen thead th {
+    /*width: 30%; /* Optional */
+    text-align: center;
+
+    height: 30px;
+    line-height: 30px;
+    /*border: 1px solid white;*/
+}
+table.mainScreen tbody {
+    height: 700px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    /*border-top: 2px solid black;*/
+}
+table.mainScreen tbody tr {
+    border-spacing: 10px;
+    width: 99%;
+    /*border: 1px solid white;*/
+}
+table.mainScreen tbody td {
+    width: 99%; /* Optional */
+    text-align: left;
+    border-spacing: 10px;
+    /*border: 1px solid white;*/
+}
+table.mainScreen tbody td:last-child, thead th:last-child {
+    border-right: none;
+}
+
+td.blackBg {
+    background-color: black;
+    color: white;
+}
+
+/*
+table.mainScreen thead th {
+    /*width: 99%; /* Optional */
+    /*text-align: left;*/
+    /*background-color: yellow;*/
+    /*border: 1px solid white;*/
+
+
 /*.sb-sideBarImage
 {
     top-buffer { margin-top:20px; }

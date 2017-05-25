@@ -7,42 +7,93 @@ import * as actions from '../../actions/postActions';
 import LoadingDots from '../common/LoadingDots';
 import toastr from 'toastr';
 import PostsTable from './PostsTable';
+import { Table, Pagination } from 'react-bootstrap';
 
 class PostsPage extends React.Component {
-
-
   componentWillMount() {
-  if (this.props.posts.data == [] || this.props.posts.data.length == 1) {
-        this.props.actions.loadPosts()
-        .then()
-        .catch( error => {
-                toastr.error(error);
-        });
-    }
+      if (this.props.posts.data == [] || this.props.posts.data.length == 1) {
+            this.props.actions.loadPosts()
+            .then()
+            .catch( error => {
+                    toastr.error(error);
+            });
+        }
 
-    if (this.props.venues.data == [] || this.props.venues.data.length == 1) {
-        this.props.actions.loadVenues()
-        .then()
-        .catch( error => {
-            toastr.error(error);
-        });
-    }
+        if (this.props.venues.data == [] || this.props.venues.data.length == 1) {
+            this.props.actions.loadVenues()
+            .then()
+            .catch( error => {
+                toastr.error(error);
+            });
+        }
   }
 
+  handleFilterStringChange () {
+    return (e) => {
+      e.preventDefault();
+      this.props.actions.filterBy(e.target.value);
+    };
+  }
+
+  doesMatch (str) {
+    return (key) => (key + '').toLowerCase().indexOf(str) !== -1;
+  }
+
+  filterData (localData) {
+    const {filterString} = this.props.posts;
+    const str = filterString.toLowerCase();
+    return str !== ''
+      ? localData.filter((r) => Object.values(r).some(this.doesMatch(str)))
+      : localData;
+  }
+
+  sortData () {
+    const data = [...this.props.posts.data] ;
+    const {sortKey, sortDesc} = this.props.posts;
+    const multiplier = sortDesc ? -1 : 1;
+    data.sort((a, b) => {
+      const aVal = a[sortKey] || 0;
+      const bVal = b[sortKey] || 0;
+      return aVal > bVal ? multiplier : (aVal < bVal ? -multiplier : 0);
+    });
+    return data;
+  }
 
   render() {
-    const posts = this.props.posts;
-    const venues = this.props.venues;
-    return (
-      <div className="col-md-12">
-        <h1>Posts {this.props.loading && <LoadingDots interval={100} dots={20}/>}
-        </h1>
-        <div className="col-md-12">
-          <PostsTable {...this.props} />
-        </div>
-      </div>
-    );
-  }
+
+      const { filterString, sortKey, sortDesc } = this.props.posts;
+      const venues = this.props.venues;
+      let localData = this.sortData();
+      localData = this.filterData(localData);
+      return (
+                    <div >
+                        <h1>Posts {this.props.loading && <LoadingDots interval={100} dots={20}/>}</h1>
+
+                        <div>
+                          <input className="filter-input" value={filterString}
+                            onChange={this.handleFilterStringChange()}
+                            type="text" placeholder="Filter Rows"
+                            autoCorrect="off" autoCapitalize="off" spellCheck="false" />
+                        </div>
+                         <br />
+                        <table className="table  table-striped table-bordered table-responsive table-hover mainScreen" >
+                              <tbody>
+                                  <tr>
+                                      <th colSpan="2">Posts</th>
+                                  </tr>
+                                  {
+                                          localData.map((post, index) => {
+                                                return(
+                                                        <PostsTable  key={post.id} post={post} venues={venues}  />
+                                                  );})
+
+                                  }
+                              </tbody>
+                       </table>
+                   </div>
+               );
+
+             }
 }
 
 PostsPage.propTypes = {
@@ -56,32 +107,27 @@ PostsPage.propTypes = {
 
 
 function mapStateToProps(state, ownProps) {
-
   if (state.posts.data && state.posts.data.length > 0) {
-    return {
-
-            posts: state.posts,
-            loading: state.ajaxCallsInProgress > 0,
-            venues: state.venues
-    };
-  }
+            return {
+                    posts: state.posts,
+                    loading: state.ajaxCallsInProgress > 0,
+                    venues: state.venues
+                    };
+        }
   else  {
-
-    return {
-                posts: {
-                  data: [{id: 0, VName: '', VAddress: '', Stars:"0", VCity: '', VImage: '', VenueID:0 }],
-                  sortDesc: false,
-                  sortKey: 'VName',
-                  filterString: ''
-              },
-                loading: state.ajaxCallsInProgress > 0,
-                venues: {
-                  data: [{id: 0, VName: '', VAddress: '', VCity: '', VImage: '' }],
-                  sortDesc: false,
-                  sortKey: 'VName',
-                  filterString: ''
-              }
-            };
+        return {
+                    posts: {
+                              data: [{id: 0, VName: '', VAddress: '', Stars:"0", VCity: '', VImage: '', VenueID:0 }],
+                              sortDesc: false,
+                              sortKey: 'VName',
+                              filterString: ''},
+                    loading: state.ajaxCallsInProgress > 0,
+                    venues: {
+                              data: [{id: 0, VName: '', VAddress: '', VCity: '', VImage: '' }],
+                              sortDesc: false,
+                              sortKey: 'VName',
+                              filterString: ''}
+        };
   }
 }
 
