@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import toastr from 'toastr';
 import {Button, Glyphicon} from 'react-bootstrap';
+import { withGoogleMap, GoogleMap, Marker } from "react-google-maps";
 
 // Stateless cell components for Table component
 function renderSortArrow (sortKey, sortDesc, sortId) {
@@ -19,8 +20,27 @@ function renderSortArrow (sortKey, sortDesc, sortId) {
 //   );
 // }
 
+
+
 //  --------------------------------------------------------------------------------------------------------------//
-const VenuesTable = ({venue, venues }) => {
+const VenuesTable = ({venue, venues, markers, handleMarkerRightClick, handleMapClick, handleMapLoad  }) => {
+
+    const GettingStartedGoogleMap = withGoogleMap(props => (
+                <GoogleMap
+                        ref={props.onMapLoad}
+                        defaultZoom={3}
+                        defaultCenter={{ lat: -25.363882, lng: 131.044922 }}
+                        onClick={props.onMapClick}
+                        >
+                        {props.markers.map((marker, index) => (
+                        <Marker
+                          {...marker}
+                          onRightClick={() => props.onMarkerRightClick(index)}
+                        />
+                        ))}
+            </GoogleMap>
+    ));
+    
     return (
         <tr >
               <td className="blackBg" >
@@ -65,6 +85,21 @@ const VenuesTable = ({venue, venues }) => {
                       </tr>
                       </tbody>
                 </table>
+              </td>
+              <td>
+                 {/* <img src={venue["VImage"]} height="200" width="200" alt=""   /> */}
+                 <GettingStartedGoogleMap
+                        containerElement={
+                          <div style={{ height: `100%` }} />
+                        }
+                        mapElement={
+                          <div style={{ height: `100%` }} />
+                        }
+                        onMapLoad={handleMapLoad}
+                        onMapClick={handleMapClick}
+                        markers={markers}
+                        onMarkerRightClick={handleMarkerRightClick}
+                      />
               </td>
               <td>
                  <img src={venue["VImage"]} height="200" width="200" alt=""   />
