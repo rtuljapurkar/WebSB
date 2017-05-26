@@ -9,38 +9,8 @@ function renderSortArrow (sortKey, sortDesc, sortId) {
   return sortKey === sortId ? (sortDesc ? '↓' : '↑') : '';
 }
 
-// function SortHeaderCell ({children, sortBy, sortKey, sortDesc, columnKey}) {
-//     const clickFunc = () => sortBy(columnKey);
-//   return (
-//     <Cell >
-//       <a onClick={clickFunc}>
-//         {children} {renderSortArrow(sortKey, sortDesc, columnKey)}
-//       </a>
-//     </Cell>
-//   );
-// }
-
-
-
 //  --------------------------------------------------------------------------------------------------------------//
-const VenuesTable = ({venue, venues, markers, handleMarkerRightClick, handleMapClick, handleMapLoad  }) => {
-
-    const GettingStartedGoogleMap = withGoogleMap(props => (
-                <GoogleMap
-                        ref={props.onMapLoad}
-                        defaultZoom={3}
-                        defaultCenter={{ lat: -25.363882, lng: 131.044922 }}
-                        onClick={props.onMapClick}
-                        >
-                        {props.markers.map((marker, index) => (
-                        <Marker
-                          {...marker}
-                          onRightClick={() => props.onMarkerRightClick(index)}
-                        />
-                        ))}
-            </GoogleMap>
-    ));
-    
+const VenuesTable = ({venue, venues }) => {
     return (
         <tr >
               <td className="blackBg" >
@@ -85,21 +55,6 @@ const VenuesTable = ({venue, venues, markers, handleMarkerRightClick, handleMapC
                       </tr>
                       </tbody>
                 </table>
-              </td>
-              <td>
-                 {/* <img src={venue["VImage"]} height="200" width="200" alt=""   /> */}
-                 <GettingStartedGoogleMap
-                        containerElement={
-                          <div style={{ height: `100%` }} />
-                        }
-                        mapElement={
-                          <div style={{ height: `100%` }} />
-                        }
-                        onMapLoad={handleMapLoad}
-                        onMapClick={handleMapClick}
-                        markers={markers}
-                        onMarkerRightClick={handleMarkerRightClick}
-                      />
               </td>
               <td>
                  <img src={venue["VImage"]} height="200" width="200" alt=""   />

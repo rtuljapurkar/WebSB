@@ -14,7 +14,7 @@ const StarInput = ({name, label, onChange, placeholder, value, error}) => {
           <ReactStars
                  name={name}
                  count={5}
-                 className="form-control"
+                 className="form-control input-sm"
                  onChange={onChange}
                  size={24}
                  value={value}

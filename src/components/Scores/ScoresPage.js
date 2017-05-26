@@ -70,7 +70,7 @@ changeDate(event){
   render() {
     let dateSelected = this.state.dateSelected;
     let scoresData = this.props.scores.data;
-    scoresData = this.filterData(scoresData);    
+    scoresData = this.filterData(scoresData);
     return (
             <table className="table table-striped table-bordered
                             table-responsive table-hover scroll" >

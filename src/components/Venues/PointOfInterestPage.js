@@ -6,7 +6,38 @@ import * as actions from '../../actions/pointOfInterestActions';
 import LoadingDots from '../common/LoadingDots';
 import toastr from 'toastr';
 import PointOfInterestTable from './PointOfInterestTable';
+import {withGoogleMap, GoogleMap} from 'react-google-maps';
 
+
+const SimpleMapExampleGoogleMap = withGoogleMap(props => (
+  <GoogleMap
+    defaultZoom={8}
+    defaultCenter={{ lat: -34.397, lng: 150.644 }}
+  />
+));
+
+function renderSortArrow (sortKey, sortDesc, sortId) {
+  return sortKey === sortId ? (sortDesc ? '↓' : '↑') : '';
+}
+
+// function SortHeaderCell ({children, sortBy, sortKey, sortDesc, columnKey}) {
+//     const clickFunc = () => sortBy(columnKey);
+//     return (
+//         <Cell >
+//           <a onClick={clickFunc}>
+//             {children} {renderSortArrow(sortKey, sortDesc, columnKey)}
+//           </a>
+//         </Cell>
+//     );
+// }
+
+// SortHeaderCell.propTypes = {
+//   sortBy: PropTypes.func.isRequired,
+//   sortKey: PropTypes.string.isRequired,
+//   sortDesc: PropTypes.bool.isRequired,
+//   columnKey: PropTypes.string,
+//   children: PropTypes.element.isRequired
+// };
 
 class PointOfInterestPage extends React.Component {
   componentWillMount() {
@@ -27,16 +58,97 @@ class PointOfInterestPage extends React.Component {
       }
     }
 
+    handleFilterStringChange () {
+       return (e) => {
+         e.preventDefault();
+         this.props.actions.filterBy(e.target.value);
+       };
+     }
+
+     doesMatch (str) {
+       return (key) => (key + '').toLowerCase().indexOf(str) !== -1;
+     }
+
+     filterData (localData) {
+       const {filterString} = this.props.pointOfInterests;
+       const str = filterString.toLowerCase();
+       return str !== ''
+         ? localData.filter((r) => Object.values(r).some(this.doesMatch(str)))
+         : localData;
+     }
+
+
+
+     sortData () {
+       const data = [...this.props.pointOfInterests.data] ;
+       const {sortKey, sortDesc} = this.props.pointOfInterests;
+       const multiplier = sortDesc ? -1 : 1;
+       data.sort((a, b) => {
+         const aVal = a[sortKey] || 0;
+         const bVal = b[sortKey] || 0;
+         return aVal > bVal ? multiplier : (aVal < bVal ? -multiplier : 0);
+       });
+       return data;
+     }
 
   render() {
-    const pointOfInterests = this.props.pointOfInterests;
+    //const pointOfInterests = this.props.pointOfInterests;
+    const { filterString, sortKey, sortDesc } = this.props.pointOfInterests;
+    const {sortBy} = this.props.actions;
+    const headerCellProps = { sortBy, sortKey, sortDesc };
+    let localData = this.sortData();
+    localData = this.filterData(localData);
+    let venue = this.props.pointOfInterests.venue;
+
     return (
-      <div className="col-md-12">
-        <h1>Point Of Interests {this.props.loading && <LoadingDots interval={100} dots={20}/>}
-        </h1>
-        <div className="col-md-12">
-          <PointOfInterestTable {...this.props} />
-        </div>
+          <div className="col-md-12">
+                <h1>Point Of Interests {this.props.loading && <LoadingDots interval={100} dots={20}/>} </h1>
+
+                  <table className="table table-striped table-responsive table-hover mainScreen">
+                      <tbody style={{"height":"200px"}}>
+                        <tr >
+                          <td className="blackBg">
+                            {venue.VName} <br/>
+                            {venue.VCity}
+                          </td>
+                          <td rowSpan="2"  >
+                              <SimpleMapExampleGoogleMap
+                                  containerElement={
+                                           <div style={{ height: '200px', width:"200px"}} />
+                                        }
+                                        mapElement={
+                                           <div style={{ height: '100%', width:"200px"}} />
+                                        }
+                                />
+                          </td>
+                          <td rowSpan="2" >
+                            <img src={venue.VImage} height="200" alt="" width="200" />
+                          </td>
+                        </tr>
+                        <tr>
+                          <td className="blackBg">
+                            {venue.VDescription}
+                          </td>
+                        </tr>
+                      </tbody>
+                  </table>
+                  <br /><br />
+                  <input className="filter-input" value={filterString}
+                     onChange={this.handleFilterStringChange()}
+                     type="text" placeholder="Filter Rows"
+                     autoCorrect="off" autoCapitalize="off" spellCheck="false" />
+                   <br /><br />
+
+                  <table className="table table-striped table-bordered table-responsive table-hover mainScreen" >
+                        <tbody>{
+                                    localData.map((PointOfInterest, index) => {
+                                      return(
+                                              <PointOfInterestTable  key={PointOfInterest.id}
+                                                  PointOfInterest={PointOfInterest}   />
+                                        );})
+                                }
+                        </tbody>
+                  </table>
       </div>
     );
   }
@@ -66,3 +178,31 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(PointOfInterestPage);
+{/* <table style={{ "tableLayout": "fixed", "paddingRight": "10px",  "width":"760px"   }}>
+    <tbody>
+      <tr >
+        <td>
+          {venue.VName} <br/>
+          {venue.VCity}
+        </td>
+        <td rowSpan="2"  >
+            <SimpleMapExampleGoogleMap
+                containerElement={
+                         <div style={{ height: '200', width:"200"}} />
+                      }
+                      mapElement={
+                         <div style={{ height: '100%', width:"200"}} />
+                      }
+              />
+        </td>
+        <td rowSpan="2" >
+          <img src={venue.VImage} height="200" alt="" width="200" />
+        </td>
+      </tr>
+      <tr>
+        <td>
+          {venue.VDescription}
+        </td>
+      </tr>
+    </tbody>
+</table> */}

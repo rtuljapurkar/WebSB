@@ -29,7 +29,7 @@ class FavoritesPage extends React.Component {
 
 
   render() {
-    const favorites = this.props.favorites.data;    
+    const favorites = this.props.favorites.data;
     return (
 
               <table className="table table-fixed table-striped table-bordered
@@ -61,6 +61,7 @@ FavoritesPage.propTypes = {
   actions: PropTypes.object.isRequired,
   loading: PropTypes.bool.isRequired,
   venues: PropTypes.object
+
 
 };
 

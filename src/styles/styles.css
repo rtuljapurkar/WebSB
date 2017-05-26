@@ -1,6 +1,8 @@
 .teams-pagination {
     margin-top: 50;
 }
+
+
 table.scroll {
      width: 100%; Optional
     /* border-collapse: collapse; */
@@ -13,6 +15,7 @@ table.scroll thead tr th {
     height: 30px;
     /*line-height: 30px;
     text-align: left;*/
+    background-color: lightGrey;
 }
 table.scroll tbody {
     height: 200px;
@@ -47,6 +50,7 @@ table.mainScreen {
     width: 100%; /* Optional */
     /* border-collapse: collapse; */
     border-spacing: 0;
+    margin-bottom: 0px;
     /*border: 2px solid black;*/
 }
 table.mainScreen tbody  { display: block;  }
@@ -57,14 +61,13 @@ table.mainScreen thead tr {
     height: 20px;
     line-height: 30px;
     width: 99%;
-    /*background-color: yellow;*/
+
 }
 table.mainScreen thead th {
     /*width: 30%; /* Optional */
     text-align: center;
-
     height: 30px;
-    line-height: 30px;
+    /*line-height: 30px;*/
     /*border: 1px solid white;*/
 }
 table.mainScreen tbody {
@@ -73,8 +76,8 @@ table.mainScreen tbody {
     overflow-x: hidden;
     /*border-top: 2px solid black;*/
 }
-table.mainScreen tbody tr {
-    border-spacing: 10px;
+table.mainScreen  tr {
+    border-spacing: 1px;
     width: 99%;
     /*border: 1px solid white;*/
 }
@@ -87,12 +90,117 @@ table.mainScreen tbody td {
 table.mainScreen tbody td:last-child, thead th:last-child {
     border-right: none;
 }
+/*-------------------------------------------------------------------------------------------------------------------*/
+/*-------------------------------------------------------------------------------------------------------------------*/
+/*-------------------------------------------------------------------------------------------------------------------*/
 
 td.blackBg {
     background-color: black;
     color: white;
 }
 
+tr.blackBg {
+    background-color: black;
+    color: white;
+    width:inherit;
+}
+
+/*-------------------------------------------------------------------------------------------------------------------*/
+/*-------------------------------------------------------------------------------------------------------------------*/
+/*-------------------------------------------------------------------------------------------------------------------*/
+$breakpoint-alpha: 480px;
+.rwd-table {
+  margin: 1em 0;
+  min-width: 300px;
+
+  tr {
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+  }
+
+  th {
+    display: none;
+  }
+
+  td {
+    display: block;
+
+    &:first-child {
+      padding-top: .5em;
+    }
+    &:last-child {
+      padding-bottom: .5em;
+    }
+
+    &:before {
+      content: attr(data-th)": ";
+      font-weight: bold;
+
+      // optional stuff to make it look nicer
+      width: 6.5em;
+      display: inline-block;
+      // end options
+
+      @media (min-width: $breakpoint-alpha) {
+        display: none;
+      }
+    }
+  }
+
+  th, td {
+    text-align: left;
+
+    @media (min-width: $breakpoint-alpha) {
+      display: table-cell;
+      padding: .25em .5em;
+
+      &:first-child {
+        padding-left: 0;
+      }
+
+      &:last-child {
+        padding-right: 0;
+      }
+    }
+
+  }
+}
+
+@import 'https://fonts.googleapis.com/css?family=Montserrat:300,400,700';
+
+body {
+  padding: 0 2em;
+  font-family: Montserrat, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  color: #444;
+  background: #eee;
+}
+
+h1 {
+  font-weight: normal;
+  letter-spacing: -1px;
+  color: #34495E;
+}
+
+.rwd-table {
+  background: #34495E;
+  color: #fff;
+  border-radius: .4em;
+  overflow: hidden;
+  tr {
+    border-color: lighten(#34495E, 10%);
+  }
+  th, td {
+    margin: .5em 1em;
+    @media (min-width: $breakpoint-alpha) {
+      padding: 1em !important;
+    }
+  }
+  th, td:before {
+    color: #dd5;
+  }
+}
 /*
 table.mainScreen thead th {
     /*width: 99%; /* Optional */

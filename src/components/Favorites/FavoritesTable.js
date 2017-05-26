@@ -17,13 +17,15 @@ const FavoritesTable = ({favorite, venueID, venues}) => {
   }
   return (
         <tr key={favorite.ID}>
-                  <td><a href={"/amenities/"+venueID}>{vname}</a></td>
+                  <td className="blackBg"><a href={"/amenities/"+venueID}>{vname}</a></td>
         </tr>
   );
 };
 
 FavoritesTable.propTypes = {
-  favorite: PropTypes.object.isRequired
+  favorite: PropTypes.object.isRequired,
+  venueID: PropTypes.number,
+  venues: PropTypes.object
 };
 
 export default FavoritesTable;
