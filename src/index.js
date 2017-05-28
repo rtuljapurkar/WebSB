@@ -14,7 +14,6 @@ import './styles/styles.css';//Webpack can import CSS files too!
 import '../node_modules/toastr/build/toastr.min.css';
 import initialState from './reducers/initialState';
 import { syncHistoryWithStore } from 'react-router-redux';
-import { ThemeSwitcher } from 'react-bootstrap-theme-switcher';
 
 const store = configureStore(initialState);
 const history = syncHistoryWithStore(browserHistory, store);

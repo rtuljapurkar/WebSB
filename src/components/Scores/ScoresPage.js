@@ -7,6 +7,7 @@ import LoadingDots from '../common/LoadingDots';
 import toastr from 'toastr';
 import ScoresTable from './ScoresTable';
 import {Button, Glyphicon} from 'react-bootstrap';
+import moment from 'moment';
 
 class ScoresPage extends React.Component {
     constructor(props){
@@ -32,39 +33,41 @@ class ScoresPage extends React.Component {
 
 
     filterData (localData) {
+        let selected = moment(this.state.dateSelected);
+      //  console.log(selected);
         const {filterString} = this.props.scores;
         const str = filterString.toLowerCase();
-        const dateSelected = new Date(this.state.dateSelected);
+      //  const dateSelected = new Date(this.state.dateSelected);
         return localData.filter((r) => {
-                let gameDate = new Date(r.GameDate);
-            return  (dateSelected.getTime() === gameDate.getTime());
+              let gameDate =  moment(r.GameDate);
+            //  console.log(moment.duration(selected.diff(gameDate1)).get("days"));
+              //  let gameDate = new Date(r.GameDate);
+            return  (moment.duration(selected.diff(gameDate)).get("days") === 0);
      });
     }
 
 changeDate(event){
-    let dateNow = new Date(this.state.dateSelected);
-    let newDate = new Date();
-    let dd = dateNow.getDate();
-    let mm = dateNow.getMonth()+1; //January is 0!
-    let yyyy = dateNow.getFullYear();
-
-
-    if(mm<10) {
-        mm='0'+mm;
-    }
+    let dateNow = moment(this.state.dateSelected);
+    let newDate;
 
     let type = event.target.getAttribute("data-type");
     if(type=="minus"){
-         dd = dateNow.getDate()-1;
+         newDate = dateNow.subtract(1, 'day').format("YYYY-MM-DD");
     }
-    else {
-        dd = dateNow.getDate()+ 1;
+    if(type=="plus") {
+        newDate = dateNow.add(1, 'day').format("YYYY-MM-DD");
     }
-    if(dd<10) {
-        dd='0'+dd;
-    }
+    console.log(dateNow);
 
-  this.setState({dateSelected: mm+'/'+dd+'/'+yyyy});
+    let currentDate = moment(moment().format("YYYY-MM-DD"));
+    console.log(currentDate);
+    console.log(moment.duration(currentDate.diff(dateNow)).get("days"));
+  if (moment.duration(currentDate.diff(dateNow)).get("days") >=0)
+  {
+    this.setState({dateSelected: newDate});
+  }
+
+
 }
 
   render() {

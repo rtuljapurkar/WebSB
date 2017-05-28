@@ -1,18 +1,10 @@
 import React, {PropTypes} from 'react';
 const uuidV1 = require('uuid/v1');
-let dateNow = new Date();
+import moment from 'moment';
 
-let today = new Date();
-let dd = today.getDate()-20;
-let mm = today.getMonth()+1; //January is 0!
-let yyyy = today.getFullYear();
-if(dd<10) {
-    dd='0'+dd;
-}
-if(mm<10) {
-    mm='0'+mm;
-}
-today = mm+'/'+dd+'/'+yyyy;
+let dateNow = new Date();
+let dateTime = new Date();
+dateTime = moment(dateTime).format("YYYY-MM-DD");
 
 export default {
     venues: {
@@ -131,6 +123,6 @@ export default {
               sortDesc: false,
               sortKey: 'VName',
               filterString: '',
-              dateSelected: today
+              dateSelected: dateTime
           }
 };

@@ -172,7 +172,7 @@ body {
   padding: 0 2em;
   font-family: Montserrat, sans-serif;
   -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
+  /*text-rendering: optimizeLegibility;*/
   color: black;
   background: #ffff99;
 }
