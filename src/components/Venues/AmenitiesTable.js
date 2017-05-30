@@ -1,251 +1,107 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Column, Cell, Table } from 'fixed-data-table';
 import toastr from 'toastr';
-import ExampleImage from '../common/ExampleImage';
-import '../../styles/fixed-data-table.css';
 import {Button, Glyphicon, SplitButton, MenuItem} from 'react-bootstrap';
 
-function renderSortArrow (sortKey, sortDesc, sortId) {
-  return sortKey === sortId ? (sortDesc ? '↓' : '↑') : '';
-}
 
-function SortHeaderCell ({children, sortBy, sortKey, sortDesc, columnKey}) {
-    const clickFunc = () => sortBy(columnKey);
-    return (
-        <Cell >
-          <a onClick={clickFunc}>
-            {children} {renderSortArrow(sortKey, sortDesc, columnKey)}
-          </a>
-        </Cell>
-    );
-}
 
-function MixedCell ({data, rowIndex, columnKey}) {
-    let id = data[rowIndex]["id"];
-    let rows = [];
-    for (let key in data[rowIndex])
-    {
-      if (data[rowIndex].hasOwnProperty(key)
+// function MixedCell ({data, rowIndex, columnKey}) {
+//     let id = data[rowIndex]["id"];
+//     let rows = [];
+//     for (let key in data[rowIndex])
+//     {
+//       if (data[rowIndex].hasOwnProperty(key)
+//             && key!= "id" && key!= "VenueID" && key!= "ASubType" && key!= "Active"
+//             && key!= "AImage"
+//         ) {
+//                 let value = data[rowIndex][key] == null ? "": data[rowIndex][key];
+//                 let modifiedkey = key.substr(1);
+//                 if(modifiedkey == "Name"){
+//                     rows.push(<p style={{"fontSize":"24px"}}><b>{value}</b></p>);
+//                 }
+//                 else
+//                  {
+//                     rows.push(<p>{modifiedkey}: {value} </p>);
+//
+//                 }
+//
+//           }
+//       }
+//  return  (<Cell style={{"border":"solid 1px #000", "paddingRight": "10px"}}>
+//              <table style={{"tableLayout": "fixed" }}>
+//              <tbody>
+//                <tr >
+//                  <td style={{"fontWeight": "bold", "paddingLeft": "10px", "fontSize": "14px",
+//                      "wordWrap":"break-word", "fontFamily": "Helvetica",  "width":"800px"}}>
+//                         {rows}
+//                  </td>
+//                </tr>
+//              </tbody>
+//              </table>
+//          </Cell>
+//          );
+// }
+
+
+// MixedCell.propTypes = {
+//   data: PropTypes.array.isRequired,
+//   rowIndex: PropTypes.number,
+//   columnKey: PropTypes.string
+// };
+
+
+//  --------------------------------------------------------------------------------------------------------------//
+const AmenitiesTable = ({ Amenity }) => {
+  let id = Amenity["id"];
+  let rows = [];
+  for (let key in Amenity)
+  {
+      if (Amenity.hasOwnProperty(key)
             && key!= "id" && key!= "VenueID" && key!= "ASubType" && key!= "Active"
             && key!= "AImage"
         ) {
-                let value = data[rowIndex][key] == null ? "": data[rowIndex][key];
+                let value = Amenity[key] == null ? "": Amenity[key];
                 let modifiedkey = key.substr(1);
                 if(modifiedkey == "Name"){
                     rows.push(<p style={{"fontSize":"24px"}}><b>{value}</b></p>);
                 }
                 else
                  {
-                    rows.push(<p>{modifiedkey}: {value} </p>);
-
+                    rows.push(<span>{modifiedkey}: {value}<br/> </span>);
                 }
 
           }
-      }
- return  (<Cell style={{"border":"solid 1px #000", "paddingRight": "10px"}}>
-             <table style={{"tableLayout": "fixed" }}>
-             <tbody>
-               <tr >
-                 <td style={{"fontWeight": "bold", "paddingLeft": "10px", "fontSize": "14px",
-                     "wordWrap":"break-word", "fontFamily": "Helvetica",  "width":"800px"}}>
-                        {rows}
-                 </td>
-               </tr>
-             </tbody>
-             </table>
-         </Cell>
-         );
-}
-
-
-MixedCell.propTypes = {
-  data: PropTypes.array.isRequired,
-  rowIndex: PropTypes.number,
-  columnKey: PropTypes.string
-};
-
-
-//  --------------------------------------------------------------------------------------------------------------//
-class AmenitiesTable extends React.Component {
-
- // handleFilterStringChange () {
- //    return (e) => {
- //      e.preventDefault();
- //      this.props.actions.filterBy(e.target.value);
- //    };
- //  }
-
-  handleFilterDropdownChange () {
-     return (e) => {
-       e.preventDefault();
-       this.props.actions.filterByType(e.target.value);
-     };
    }
 
-  doesMatch (str) {
-    return (key) => (key + '').toLowerCase().indexOf(str) !== -1;
-  }
-
-  // filterData (localData) {
-  //   const {filterString} = this.props.amenities;
-  //   const str = filterString.toLowerCase();
-  //   return str !== ''
-  //     ? localData.filter((r) => Object.values(r).some(this.doesMatch(str)))
-  //     : localData;
-  // }
-
-  filterByType (localData) {
-    const {filterType} = this.props.amenities;
-    const str = filterType.toLowerCase();
-    // return str !== ''
-    //   ? localData.filter((r) => Object.values(r).some(this.doesMatch(str)))
-    //   : localData;
-    return str !== ''
-        ? localData.filter((r) => r.AType.toLowerCase() === str)
-        : localData;
-  }
-
-  sortData () {
-    const data = [...this.props.amenities.data] ;
-    const {sortKey, sortDesc} = this.props.amenities;
-    const multiplier = sortDesc ? -1 : 1;
-    data.sort((a, b) => {
-      const aVal = a[sortKey] || 0;
-      const bVal = b[sortKey] || 0;
-      return aVal > bVal ? multiplier : (aVal < bVal ? -multiplier : 0);
-    });
-    return data;
-  }
-
- // clickFunc(event){
- //     this.props.actions.sortBy(event.target.columnKey);
- // }
-
-  render () {
-    const { filterString, sortKey, sortDesc } = this.props.amenities;
-    const {sortBy} = this.props.actions;
-    const headerCellProps = { sortBy, sortKey, sortDesc };
-    let localData = this.sortData();
-    localData = this.filterByType(localData);
-    let venue = this.props.amenities.venue;
     return (
-        <div>
-          <div>
-              <table style={{ "tableLayout": "fixed", "paddingRight": "10px",  "width":"860px"   }}>
-                  <tbody>
-                    <tr style={{"backgroundColor": "black" }} >
-                      <td style={{"fontWeight": "bold", "color": "white", "paddingLeft": "10px", "fontSize": "14px",
-                          "wordWrap":"break-word",  "fontFamily": "Helvetica",  "width":"700px" }}>
-                        {venue.VName} <br/>
-                        {venue.VCity}
-                      </td>
-                      <td rowSpan="2"  style={{"paddingLeft": "15px"}}>
-                        <img src={venue.VImage} height="200" alt="" width="200" />
-                      </td>
-                    </tr>
-                    <tr style={{"backgroundColor": "black" }}>
-                      <td style={{"color": "white", "paddingLeft": "10px", "fontFamily": "Helvetica", "fontSize": "14px",
-                                     "wordWrap":"break-word" ,  "width":"600px"}}>
-                        {venue.VDescription}
-                      </td>
-                    </tr>
-                  </tbody>
-              </table>
-        </div>
-        <div>
-            <br/>
-              <select className="btn btn-primary"
-                  onChange={this.handleFilterDropdownChange()}>
-                <option value="">All Categories</option>
-                <option value="Attraction">Attractions</option>
-                <option value="Food & Beverage">Food & Beverage</option>
-                <option value="Information">Information</option>
-                <option value="Merchandise">Merchandise</option>
-                <option value="Parking">Parking</option>
-                <option value="Bathroom">Restrooms</option>
-              </select>
-        </div>
-      <div>
-        {/* <input className="filter-input" value={filterString}
-                  onChange={this.handleFilterStringChange()}
-                  type="text" placeholder="Filter Rows"
-          autoCorrect="off" autoCapitalize="off" spellCheck="false" /> */}
-        <br />
-        <Table
-          rowHeight={500}
-          rowWidth={200}
-          headerHeight={80}
-          height={700}
-          width={900}
-          rowsCount={localData.length}>
-          <Column
-            columnKey="VName"
-            // header = { <a onClick={this.clickFunc}>
-            //             Name {renderSortArrow(sortKey, sortDesc, "VName")}</a>
-            //             }
-           header ={<div colSpan="3">
-                    <SortHeaderCell {...headerCellProps} sortBy={sortBy} columnKey={"AName"} > Name </SortHeaderCell>
-                    <SortHeaderCell {...headerCellProps} sortBy={sortBy} columnKey={"ACost"} > Cost </SortHeaderCell>
-                    </div>}
-            cell={<MixedCell data={localData}/>}
-            flexGrow={3}
-            width={800} />
-        </Table>
-      </div>
-     </div>
+              <tr className="blackBg">
+                 <td className="blackBg">
+                    {rows}
+                </td>
+              </tr>
     );
-  }
-}
+
+};
 
 AmenitiesTable.propTypes = {
-  sortBy: PropTypes.func.isRequired,
-  filterBy: PropTypes.func.isRequired,
+  sortBy: PropTypes.func,
+  filterBy: PropTypes.func,
   // state data
-  data: PropTypes.array.isRequired,
-  filterString: PropTypes.string.isRequired,
-  filterType: PropTypes.string.isRequired,
-  sortKey: PropTypes.string.isRequired,
-  sortDesc: PropTypes.bool.isRequired,
-  amenities: PropTypes.object.isRequired,
-  actions:PropTypes.object.isRequired
+  data: PropTypes.array,
+  filterString: PropTypes.string,
+  filterType: PropTypes.string,
+  sortKey: PropTypes.string,
+  sortDesc: PropTypes.bool,
+  amenities: PropTypes.object,
+  actions:PropTypes.object,
+  Amenity: PropTypes.object
 };
 
-SortHeaderCell.propTypes = {
-  sortBy: PropTypes.func.isRequired,
-  sortKey: PropTypes.string.isRequired,
-  sortDesc: PropTypes.bool.isRequired,
-  columnKey: PropTypes.string,
-  children: PropTypes.element.isRequired
-};
+// SortHeaderCell.propTypes = {
+//   sortBy: PropTypes.func.isRequired,
+//   sortKey: PropTypes.string.isRequired,
+//   sortDesc: PropTypes.bool.isRequired,
+//   columnKey: PropTypes.string,
+//   children: PropTypes.element.isRequired
+// };
 export default AmenitiesTable;
-
-/*
-<Column
-  columnKey="AName"
-  header = { <SortHeaderCell {...headerCellProps} sortBy={sortBy} columnKey={"AName"} > Name </SortHeaderCell>
-              }
-  cell={<DataCell data={localData}/>}
-  flexGrow={3}
-  width={200} />
-  <Column
-    columnKey="AMainFood"
-    header = { <SortHeaderCell {...headerCellProps} sortBy={sortBy} columnKey={"AMainFood"} > MainFood </SortHeaderCell>
-                }
-    cell={<DataCell data={localData}/>}
-    flexGrow={3}
-    width={200} />
-
-    function DataCell ({data, rowIndex, columnKey}) {
-        return  (<Cell>
-                    {data[rowIndex][columnKey]}
-                 </Cell>);
-    }
-
-    DataCell.propTypes = {
-      data: PropTypes.array.isRequired,
-      rowIndex: PropTypes.number,
-      columnKey: PropTypes.string
-    };
-
-*/

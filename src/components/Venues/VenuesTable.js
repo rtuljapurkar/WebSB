@@ -67,17 +67,17 @@ const VenuesTable = ({venue, venues }) => {
 VenuesTable.propTypes = {
   // actions
   //fetchData: PropTypes.func.isRequired,
-  sortBy: PropTypes.func.isRequired,
-  filterBy: PropTypes.func.isRequired,
+  sortBy: PropTypes.func,
+  filterBy: PropTypes.func,
 
   // state data
-  data: PropTypes.array.isRequired,
-  filterString: PropTypes.string.isRequired,
-  sortKey: PropTypes.string.isRequired,
-  sortDesc: PropTypes.bool.isRequired,
-  venues: PropTypes.object.isRequired,
-  actions:PropTypes.object.isRequired,
-  venue:PropTypes.object.isRequired
+  data: PropTypes.array,
+  filterString: PropTypes.string,
+  sortKey: PropTypes.string,
+  sortDesc: PropTypes.bool,
+  venues: PropTypes.array,
+  actions:PropTypes.object,
+  venue:PropTypes.object
 };
 
 export default VenuesTable;

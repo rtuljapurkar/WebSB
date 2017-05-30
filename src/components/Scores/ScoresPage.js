@@ -57,11 +57,11 @@ changeDate(event){
     if(type=="plus") {
         newDate = dateNow.add(1, 'day').format("YYYY-MM-DD");
     }
-    console.log(dateNow);
+    //console.log(dateNow);
 
     let currentDate = moment(moment().format("YYYY-MM-DD"));
-    console.log(currentDate);
-    console.log(moment.duration(currentDate.diff(dateNow)).get("days"));
+    //console.log(currentDate);
+    //console.log(moment.duration(currentDate.diff(dateNow)).get("days"));
   if (moment.duration(currentDate.diff(dateNow)).get("days") >=0)
   {
     this.setState({dateSelected: newDate});

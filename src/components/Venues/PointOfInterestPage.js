@@ -143,8 +143,8 @@ class PointOfInterestPage extends React.Component {
                         <tbody>{
                                     localData.map((PointOfInterest, index) => {
                                       return(
-                                              <PointOfInterestTable  key={PointOfInterest.id}
-                                                  PointOfInterest={PointOfInterest}   />
+                                              <PointOfInterestTable  key={index} 
+                                                  PointOfInterest={PointOfInterest} venue={venue}  />
                                         );})
                                 }
                         </tbody>
@@ -159,7 +159,8 @@ PointOfInterestPage.propTypes = {
   children: PropTypes.object,
   actions: PropTypes.object.isRequired,
   loading: PropTypes.bool.isRequired,
-  params:  PropTypes.object.isRequired
+  params:  PropTypes.object.isRequired,
+  venue: PropTypes.object
 };
 
 

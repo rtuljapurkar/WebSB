@@ -51,32 +51,6 @@ render(){
               </Nav>
             </Navbar.Collapse>
             </Navbar>
-
-                  // <div className="navbar navbar-inverse">
-                  //       <div className="navbar-header">
-                  //         <button className="btn btn-success navbar-toggle collapsed" data-toggle="collapse"
-                  //         data-target="#navbar">
-                  //             <span className="glyphicon glyphicon-chevron-down"></span>
-                  //         </button>
-                  //         <div id="logo">
-                  //           <a href="/">StadiumBee</a>
-                  //         </div>
-                  //       </div>
-                  //       <div  id="navbar" className="navbar-collapse collapse">
-                  //           <ul className="nav navbar-nav">
-                  //             <li className="nav active"><a href="/">Home</a></li>
-                  //             <li className="nav"><a href="/venues">Venues</a></li>
-                  //             <li className="nav"><a href="/teams">Teams</a></li>
-                  //             <li className="nav"><a href="/posts">Posts</a></li>
-                  //           </ul>
-                  //           <ul className="nav navbar-nav navbar-right">
-                  //
-                  //             <li className="nav"><Link to="/about" >About</Link></li>
-                  //             <li className="nav"><Link to="/home" >Help</Link></li>
-                  //             <li className="nav"><a href="/logout" onClick={this.logOut}>log out {localStorage.username}</a></li>
-                  //           </ul>
-                  //       </div>
-                  // </div>
                 );
             }
             else

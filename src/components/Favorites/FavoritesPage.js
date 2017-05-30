@@ -36,7 +36,7 @@ class FavoritesPage extends React.Component {
                               table-responsive table-hover scroll" >
                   <thead>
                       <tr>
-                          <th border="none" border-right="none">
+                          <th>
                             Favorites
                           </th>
                        </tr>
