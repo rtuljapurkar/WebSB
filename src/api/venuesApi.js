@@ -37,10 +37,15 @@ class VenuesApi {
           }
 
           static getAllAmenities(venueID) {
-                let obj = {"VenueID": 0};
-                obj.VenueID = venueID;
+                let filter ="";
+                if (!isNaN(venueID)){
+                      filter = "filter[where][VenueID]=" + venueID; //131
+                    }
+                    else {
+                      filter = "filter[where][VenueID]=0"; //131
+                    }
                 const host = `${process.env.API_HOST}`;
-                const request = new Request(`${process.env.API_HOST}/sb_amenity?where=` + JSON.stringify(obj), {
+                const request = new Request(`${process.env.API_HOST}/sb_amenity?` + filter, {
                   method: 'GET'
                 });
 
@@ -54,10 +59,15 @@ class VenuesApi {
                 }
 
                 static getPointOfInterests(venueID) {
-                      let obj = {"VenueID": 0};
-                      obj.VenueID = venueID;
+                      let filter ="";
+                      if (!isNaN(venueID)){
+                            filter = "filter[where][VenueID]=" + venueID; //131
+                          }
+                          else {
+                            filter = "filter[where][VenueID]=0"; //131
+                          }
                       const host = `${process.env.API_HOST}`;
-                      const request = new Request(`${process.env.API_HOST}/sb_poi?where=` + JSON.stringify(obj), {
+                      const request = new Request(`${process.env.API_HOST}/sb_poi?` + filter, {
                         method: 'GET'
                       });
 

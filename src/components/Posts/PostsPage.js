@@ -26,6 +26,14 @@ class PostsPage extends React.Component {
                 toastr.error(error);
             });
         }
+
+        if (this.props.posts.users == [] || this.props.posts.users.length == 1) {
+            this.props.actions.loadUsers()
+            .then()
+            .catch( error => {
+                toastr.error(error);
+            });
+        }
   }
 
   handleFilterStringChange () {
@@ -62,9 +70,11 @@ class PostsPage extends React.Component {
   render() {
 
       const { filterString, sortKey, sortDesc } = this.props.posts;
-      const venues = this.props.venues;
+      const venues = this.props.venues.data;
+      const users = this.props.posts.users;
       let localData = this.sortData();
       localData = this.filterData(localData);
+    
       return (
                     <div >
                         <h1>Posts {this.props.loading && <LoadingDots interval={100} dots={20}/>}</h1>
@@ -84,7 +94,7 @@ class PostsPage extends React.Component {
                                   {
                                           localData.map((post, index) => {
                                                 return(
-                                                        <PostsTable  key={post.id} post={post} venues={venues}  />
+                                                        <PostsTable  key={post.id} post={post} venues={venues} users={users} />
                                                   );})
 
                                   }
@@ -107,7 +117,7 @@ PostsPage.propTypes = {
 
 
 function mapStateToProps(state, ownProps) {
-  if (state.posts.data && state.posts.data.length > 0) {
+    if ((state.posts.data && state.posts.data.length > 0) || state.posts.users.length >1 ) {
             return {
                     posts: state.posts,
                     loading: state.ajaxCallsInProgress > 0,
@@ -120,7 +130,18 @@ function mapStateToProps(state, ownProps) {
                               data: [{id: 0, VName: '', VAddress: '', Stars:"0", VCity: '', VImage: '', VenueID:0 }],
                               sortDesc: false,
                               sortKey: 'VName',
-                              filterString: ''},
+                              filterString: '',venue:null,
+                              Active: "1",
+                              users: [{
+                                        "PUserName": '',
+                                        "PPassword": '',
+                                        "PUserImage":'',
+                                        "PEmailA1": '',
+                                        "PLoginSessionAccessToken": '',
+                                        "PUserLastLogin": '',
+                                        id: 0
+                                    }]}
+                              ,
                     loading: state.ajaxCallsInProgress > 0,
                     venues: {
                               data: [{id: 0, VName: '', VAddress: '', VCity: '', VImage: '' }],

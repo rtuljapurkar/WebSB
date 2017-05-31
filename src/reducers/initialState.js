@@ -20,8 +20,16 @@ export default {
           sortKey: 'id',
           filterString: '',
           venue:null,
-          Active: "1"
-
+          Active: "1",
+          users: [{
+                    "PUserName": '',
+                    "PPassword": '',
+                    "PUserImage":'',
+                    "PEmailA1": '',
+                    "PLoginSessionAccessToken": '',
+                    "PUserLastLogin": '',
+                    id: 0
+                }]
     },
     ajaxCallsInProgress: 0,
     session: {

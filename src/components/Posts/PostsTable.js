@@ -60,7 +60,7 @@ function timeSince(date) {
 }
 
 //  --------------------------------------------------------------------------------------------------------------//
-const PostsTable = ({post, venues }) => {
+const PostsTable = ({post, venues, users}) => {
     let ONE_DAY = 1000 * 60 * 60 * 24;
     // Convert both dates to milliseconds
     let currentDate = new Date().getTime();
@@ -72,7 +72,9 @@ const PostsTable = ({post, venues }) => {
     let postDate1 = new Date(post["UploadTime"]);
     let postedTime = timeSince(postDate1);
     let venueID = post["VenueID"];
+    let userName = post["UserName"];
     let vname = "";
+    let userImage = "";
     if(isNaN(venueID))
     {
       venueID = 0;
@@ -84,15 +86,28 @@ const PostsTable = ({post, venues }) => {
       vname = "";
     }
 
+    try{
+      userImage = users[userName].PUserImage;
+    }
+    catch (ex) {
+     userImage = "";
+    }
+    console.log(userImage);
     return (
             <tr>
                   <td className="blackBg">
                       <table className="col-md-12 mainScreen">
                           <tr>
-                              <td style={{"width":"10%"}}>
-                                  <img src= {require('../../images/favicon.ico')}
-                                   width="30" height="30" alt="logo"/>
-                              </td>
+                              {userImage =="" &&
+                                      <td style={{"width":"10%"}}>
+                                          <img src= {require('../../images/favicon.ico')}
+                                           width="30" height="30" alt="logo"/>
+                                      </td>}
+                                  {userImage !="" &&
+                                          <td style={{"width":"10%"}}>
+                                              <img src= {userImage}
+                                               width="30" height="30" alt=""/>
+                                          </td>}
                               <td style={{"width":"90%"}}>
                                     {post["UserName"]} <br/>
                                     <ReactStars
@@ -134,7 +149,8 @@ PostsTable.propTypes = {
   posts: PropTypes.object.isRequired,
   actions:PropTypes.object.isRequired,
   venues: PropTypes.object,
-  post: PropTypes.object.isRequired
+  post: PropTypes.object.isRequired,
+  users: PropTypes.object
 };
 
 export default PostsTable;

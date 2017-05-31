@@ -72,6 +72,17 @@ class SessionApi {
             });
           }
 
+          static getAllUsers() {        
+            const url = `${process.env.API_HOST}/sb_users`;
+            return fetch(url)
+            .then(handleErrors)
+            .then(response => {
+                return response.json();
+            }).catch(error => {
+              throw error;
+            });
+          }
+
           static isEmailTaken(email) {
             let obj = {"PEmailA1": ""};
             obj.PEmailA1 = email.toLowerCase();

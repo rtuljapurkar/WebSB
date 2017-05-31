@@ -102,7 +102,7 @@ class PointOfInterestPage extends React.Component {
 
     return (
           <div className="col-md-12">
-                <h1>Point Of Interests {this.props.loading && <LoadingDots interval={100} dots={20}/>} </h1>
+                <h1>Points Of Interest {this.props.loading && <LoadingDots interval={100} dots={20}/>} </h1>
 
                   <table className="table table-striped table-responsive table-hover mainScreen">
                       <tbody style={{"height":"200px"}}>
@@ -138,17 +138,23 @@ class PointOfInterestPage extends React.Component {
                      type="text" placeholder="Filter Rows"
                      autoCorrect="off" autoCapitalize="off" spellCheck="false" />
                    <br /><br />
-
-                  <table className="table table-striped table-bordered table-responsive table-hover mainScreen" >
-                        <tbody>{
-                                    localData.map((PointOfInterest, index) => {
-                                      return(
-                                              <PointOfInterestTable  key={index} 
-                                                  PointOfInterest={PointOfInterest} venue={venue}  />
-                                        );})
-                                }
-                        </tbody>
-                  </table>
+                   {
+                       localData.length > 0 &&
+                      <table className="table table-striped table-bordered table-responsive table-hover mainScreen" >
+                            <tbody>{
+                                        localData.map((PointOfInterest, index) => {
+                                          return(
+                                                  <PointOfInterestTable  key={index}
+                                                      PointOfInterest={PointOfInterest} venue={venue}  />
+                                            );})
+                                    }
+                            </tbody>
+                      </table>
+                  }
+                  {
+                      localData.length == 0 &&
+                      <h3>No points of interest found</h3>
+                  }
       </div>
     );
   }

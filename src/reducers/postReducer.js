@@ -12,7 +12,7 @@ export default function postReducer(state =initialState.posts, action) {
                 data: action.data
               });
         }
-        case types.SORT_POSTS_DATA:    
+        case types.SORT_POSTS_DATA:
         if (state.sortKey === action.sortKey)
         {
           return Object.assign({}, state, {
@@ -34,6 +34,14 @@ export default function postReducer(state =initialState.posts, action) {
               return Object.assign({}, state, {
                 venue: action.data
               });
+          case types.LOAD_USERS_SUCCESS:
+
+              {
+                  return Object.assign({}, state, {
+                          users: action.data
+                        });
+              }
+                  debugger;
           case types.CREATE_POST_SUCCESS:
               return state;
          default:

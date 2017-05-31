@@ -1,6 +1,7 @@
 import * as types from './actionTypes';
 import postsApi from '../api/postsApi';
 import venuesApi from '../api/venuesApi';
+import sessionApi from '../api/sessionApi';
 import {beginAjaxCall, ajaxCallError} from './ajaxStatusActions';
 
 export function loadPostsSuccess(data) {
@@ -25,6 +26,10 @@ export function updatePostSuccess(post) {
 export function loadVenuesSuccess(data) {
   return {type: types.LOAD_VENUES_SUCCESS, data};
 }
+export function loadUsersSuccess(data) {
+  return {type: types.LOAD_USERS_SUCCESS, data};
+}
+
 
 export function loadPosts() {
   // make async call to api, handle promise, dispatch action when promise is resolved
@@ -65,6 +70,18 @@ export function loadPosts() {
        };
    }
 
+   export function loadUsers() {
+     // make async call to api
+     return function(dispatch) {
+           dispatch( beginAjaxCall());
+           return sessionApi.getAllUsers().then(data => {
+                dispatch(loadUsersSuccess(data));
+            }).catch(error => {
+                dispatch(ajaxCallError(error));
+                throw(error);
+            });
+        };
+    }
 
   export function savePost(post) {
     return function (dispatch, getState) {

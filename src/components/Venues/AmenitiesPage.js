@@ -134,15 +134,21 @@ class AmenitiesPage extends React.Component {
                           <option value="Bathroom">Restrooms</option>
                         </select>
                        <br /><br />
-                      <table className="table table-striped table-bordered table-responsive table-hover mainScreen" >
-                            <tbody className="blackBg">{
-                                        localData.map((Amenity, index) => {
-                                          return(
-                                                <AmenitiesTable Amenity={Amenity} key={index}  />
-                                            );})
-                                    }
-                            </tbody>
-                      </table>
+                       {
+                           localData.length > 0 &&
+                            <table className="table table-striped table-bordered table-responsive table-hover mainScreen" >
+                                <tbody className="blackBg">
+                                        {localData.map((Amenity, index) => {
+                                              return(
+                                                    <AmenitiesTable Amenity={Amenity} key={index}  />
+                                                );})}
+                                </tbody>
+                            </table>
+                      }
+                      {
+                          localData.length == 0 &&
+                          <h3>No amenities found</h3>
+                      }
             </div>
     );
   }
