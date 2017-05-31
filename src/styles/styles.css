@@ -19,7 +19,7 @@ table.scroll thead tr th {
 }
 table.scroll tbody {
     height: 200px;
-    font-size: 10px;
+    font-size: 12px;
     overflow-y: auto;
     overflow-x: hidden;
 }
@@ -101,6 +101,11 @@ td.blackBg {
 }
 
 tr.blackBg {
+    background-color: black;
+    color: white;
+    width:inherit;
+}
+a.blackBg {
     background-color: black;
     color: white;
     width:inherit;

@@ -44,21 +44,29 @@ class SessionApi {
           }
 
           static getUser(credentials) {
-              let obj = null;
-              if(validateEmail(credentials.PEmailA1))
-              {
-                  obj =  credentials;
-                  obj.PEmailA1 =  obj.PEmailA1.toLowerCase();
-              }
-              else {
-                  obj =  {PUserName: "", PPassword: ""};
-                  obj.PUserName =  credentials.PEmailA1.toLowerCase();
-              }            
-            const url = `${process.env.API_HOST}/sb_users/findOne?filter=` + JSON.stringify(obj);
+            //   let obj = null;
+            //   let isEmailPresent = false;
+            //   if(validateEmail(credentials.PEmailA1))
+            //   {
+            //       isEmailPresent = true;
+            //   }
+            //   if(validateEmail(credentials.PEmailA1))
+            //   {
+            //       obj =  credentials;
+            //       obj.PEmailA1 =  obj.PEmailA1.toLowerCase();
+            //   }
+            //   else {
+            //       obj =  {PUserName: "", PPassword: ""};
+            //       obj.PUserName =  credentials.PEmailA1.toLowerCase();
+            //   }
+            // const url = `${process.env.API_HOST}/sb_users/findOne?filter=` + JSON.stringify(obj);
+            // const url = `${process.env.API_HOST}/sb_users` + JSON.stringify(obj);
+            const url = `${process.env.API_HOST}/sb_users`;
             return fetch(url)
             .then(handleErrors)
             .then(response => {
-                    return response.json();
+            //    debugger;
+                return response.json();
             }).catch(error => {
               throw error;
             });

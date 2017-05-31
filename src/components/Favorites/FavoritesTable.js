@@ -17,7 +17,7 @@ const FavoritesTable = ({favorite, venueID, venues}) => {
   }
   return (
         <tr key={favorite.ID}>
-                  <td className="blackBg"><a href={"/amenities/"+venueID}>{vname}</a></td>
+                  <td className="blackBg"><a className="blackBg" href={"/amenities/"+venueID}>{vname}</a></td>
         </tr>
   );
 };

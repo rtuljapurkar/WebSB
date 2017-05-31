@@ -85,8 +85,14 @@ class VenuesApi {
               }
 
               static getFavorites() {
-                    let userID= localStorage["UserID"];
-                    let filter = "filter[where][UserID]=131" ;//+ userID;
+                    let userID= localStorage["userid"];
+                    let filter ="";
+                    if (!isNaN(userID)){
+                          filter = "filter[where][UserID]=" + userID; //131
+                        }
+                        else {
+                          filter = "filter[where][UserID]=0"; //131
+                        }
                     const host = `${process.env.API_HOST}`;
                     const request = new Request(`${process.env.API_HOST}/sb_favorites?` + filter, {
                       method: 'GET'
