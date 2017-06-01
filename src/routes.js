@@ -5,6 +5,8 @@ import App from './components/app';
 import HomePage from './components/Home/HomePage';
 import MasterPage from './components/MasterPage';
 import AboutPage from './components/About/AboutPage';
+import FavoritesPage from './components/Favorites/FavoritesPage';
+import ScoresPage from './components/Scores/ScoresPage';
 import VenuesPage from './components/Venues/VenuePage';
 import AmenitiesPage from './components/Venues/AmenitiesPage';
 import PointOfInterestPage from './components/Venues/PointOfInterestPage';
@@ -26,6 +28,8 @@ export default (
     <Route path="/venues" component={VenuesPage} onEnter={requireAuth}/>
     <Route path="/teams" component={TeamsList} onEnter={requireAuth}/>
     <Route path="/posts" component={PostsPage} onEnter={requireAuth}/>
+    <Route path="/favorites" component={FavoritesPage} onEnter={requireAuth}/>
+    <Route path="/scores" component={ScoresPage} onEnter={requireAuth}/>
     <Route path="/posts/add/:venueId" component={ManagePostPage} onEnter={requireAuth}/>
     <Route path="/amenities/:venueId" component={AmenitiesPage} onEnter={requireAuth}/>
     <Route path="/poi/:venueId" component={PointOfInterestPage} onEnter={requireAuth}/>

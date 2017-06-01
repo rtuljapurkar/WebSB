@@ -60,7 +60,7 @@ function timeSince(date) {
 }
 
 //  --------------------------------------------------------------------------------------------------------------//
-const PostsTable = ({post, venues, users, props}) => {
+const PostsTable = ({post, venues, users}) => {
     let ONE_DAY = 1000 * 60 * 60 * 24;
     // Convert both dates to milliseconds
     let currentDate = new Date().getTime();
@@ -90,7 +90,7 @@ const PostsTable = ({post, venues, users, props}) => {
 
     try{
      let user = users.filter((u)=> u.PUserName.toLowerCase() == userName.toLowerCase());
-     console.log(user);
+     //console.log(user);
      userImage =  user[0].PUserImage;
     }
     catch (ex) {
@@ -102,45 +102,48 @@ const PostsTable = ({post, venues, users, props}) => {
     }
     //console.log(userName);
     return (
-            <tr>
-                  <td className="blackBg col-sm-4 col-sm-push-8" >
-                      <table className="col-md-12 mainScreen">
-                          <tr>
-                              {userImage =="" &&
-                                      <td style={{"width":"10%"}}>
-                                          <img src= {require('../../images/favicon.ico')}
-                                           width="30" height="30" alt="logo"/>
-                                      </td>}
-                                  {userImage !="" &&
-                                          <td style={{"width":"10%"}}>
-                                              <img src= {userImage}
-                                               width="30" height="30" alt=""/>
-                                          </td>}
-                              <td style={{"width":"90%"}}>
-                                    {post["UserName"]} <br/>
-                                    <ReactStars
-                                    name={name}
-                                    count={5}
-                                    className="form-control"
-                                    size={24}
-                                    edit={false}
-                                    value={post["Stars"]}
-                                    color2={'#ffd700'} />
-                              </td>
-                          </tr>
-                          <tr>
-                              <td colSpan="2" >
-                                     {vname} <br/><br/><br/>
-                                     {post["Text"]} <br/><br/><br/>
-                                    <span style={{"textAlign":"Right"}}> Posted {postedTime}<br/></span>
-                              </td>
-                          </tr>
-                    </table>
-                  </td>
-                  <td className="col-sm-8 col-sm-pull-4">
-                    <img src={post["Image"]} height="200" alt="" width="200" />
-                  </td>
-            </tr>
+            <div  className="rowContainer col-md-12">
+                <div className="row blackBg col-md-8" >
+                    <div className="blackBg col-md-12 ">
+                        <div className="blackBgInLine">
+                            {userImage =="" && <img src= {require('../../images/favicon.ico')} width="30" height="30" alt="logo"/>}
+                            {userImage !="" && <img src= {userImage} width="30" height="30" alt=""/>}
+                            <br/>
+                        </div>
+                        <div className="blackBgInLine">
+                           {post["UserName"]} <br/>
+                           <ReactStars
+                           name={name}
+                           count={5}
+                           className="form-control"
+                           size={24}
+                           edit={false}
+                           value={post["Stars"]}
+                           color2={'#ffd700'} />
+                       </div>
+                    </div>
+                    <div className="blackBg">
+                        {vname}
+                    </div>
+                    <div className="blackBg">
+                        {post["Text"]}
+                    </div>
+                    <div className="blackBg">
+                       <span style={{"textAlign":"Right"}}> Posted {postedTime}<br/></span>
+                    </div>
+                    { post["Image"] &&
+                    <div className="blackBg col-md-6" >
+                        <img src={post["Image"]} height="200" alt="" width="200" />
+                    </div>
+                    }
+                    {
+                        !post["Image"] &&
+                        <div className="col-md-6" >
+                        </div>
+                    }
+                </div>
+
+              </div>
             );
 };
 

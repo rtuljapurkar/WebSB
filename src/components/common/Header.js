@@ -35,6 +35,8 @@ render(){
                              <li className="nav"><a href="/venues">Venues</a></li>
                              <li className="nav"><a href="/teams">Teams</a></li>
                              <li className="nav"><a href="/posts">Posts</a></li>
+                             <li className="nav visible-sm visible-xs"><a href="/favorites">Favorites</a></li>
+                             <li className="nav visible-sm visible-xs"><a href="/scores">Scores</a></li>
                 </ul>
               <Nav pullRight>
                   <NavDropdown eventKey={3} title="More" id="basic-nav-dropdown">

@@ -115,7 +115,24 @@ tbody.blackBg {
     color: white;
     width:inherit;
 }
+div.blackBg {
+    background-color: black;
+    color: white;
+    padding: 10px;
+    word-wrap: break-word;
+    word-break: break-all;
+}
+div.blackBgInLine {
+    background-color: black;
+    color: white;
+    padding: 5px;
+    vertical-align: middle;
+    display: inline-block;
+}
 
+div.rowContainer{
+    padding: 5px;
+}
 /*-------------------------------------------------------------------------------------------------------------------*/
 /*-------------------------------------------------------------------------------------------------------------------*/
 /*-------------------------------------------------------------------------------------------------------------------*/

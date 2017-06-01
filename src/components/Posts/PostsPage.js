@@ -72,10 +72,10 @@ class PostsPage extends React.Component {
       const { filterString, sortKey, sortDesc } = this.props.posts;
       let localData = this.sortData();
       localData = this.filterData(localData);
-      console.log(this.props.posts.venues);
-      console.log(this.props.posts.users);
+     // console.log(this.props.posts.venues);
+     // console.log(this.props.posts.users);
       return (
-                    <div >
+                    <div style={{"align":"center"}} >
                         <h1>Posts {this.props.loading && <LoadingDots interval={100} dots={20}/>}</h1>
 
                         <div>
@@ -85,7 +85,7 @@ class PostsPage extends React.Component {
                             autoCorrect="off" autoCapitalize="off" spellCheck="false" />
                         </div>
                          <br />
-                        <table className="table  table-striped table-bordered table-responsive table-hover mainScreen" >
+                        {/* <table className="table  table-striped table-bordered table-responsive table-hover mainScreen" >
                               <tbody>
                                   <tr>
                                       <th colSpan="2">Posts</th>
@@ -98,7 +98,16 @@ class PostsPage extends React.Component {
 
                                   }
                               </tbody>
-                       </table>
+                       </table> */}
+                          <div style={{"overflow-y":"scroll", "overflow-x":"hidden","max-height":"650px", "max-width":"900px", "horizontalAligh":"center"}}>
+                           {
+                                   localData.map((post, index) => {
+                                         return(
+                                                 <PostsTable  key={post.id} post={post} venues={this.props.posts.venues} users={this.props.posts.users} />
+                                           );})
+
+                           }
+                           </div>
                    </div>
                );
 
@@ -116,7 +125,7 @@ PostsPage.propTypes = {
 
 
 function mapStateToProps(state, ownProps) {
-    console.log(state.posts);
+    //console.log(state.posts);
     return {
         posts: state.posts
   };
