@@ -29,7 +29,9 @@ export function loadVenuesSuccess(data) {
 export function loadUsersSuccess(data) {
   return {type: types.LOAD_POSTUSERS_SUCCESS, data};
 }
-
+export function addPostAmenityLoadSuccess(data) {
+  return {type: types.ADDPOST_AMENITY_LOAD, data};
+}
 
 export function loadPosts() {
   // make async call to api, handle promise, dispatch action when promise is resolved
@@ -57,6 +59,18 @@ export function loadPosts() {
       };
   }
 
+  export function addPostAmenityLoad(ID) {
+    // make async call to api, handle promise, dispatch action when promise is resolved
+    return function(dispatch) {
+          dispatch( beginAjaxCall());
+          return postsApi.getAmenityByID(ID).then(data => {
+               dispatch(addPostAmenityLoadSuccess(data));
+           }).catch(error => {
+               dispatch(ajaxCallError(error));
+               throw(error);
+           });
+       };
+   }
   export function loadVenues() {
     // make async call to api
     return function(dispatch) {
@@ -83,7 +97,7 @@ export function loadPosts() {
         };
     }
 
-  export function savePost(post) {
+  export function savePost(post) {    
     return function (dispatch, getState) {
       dispatch(beginAjaxCall());
       return postsApi.savePost(post).then(post => {

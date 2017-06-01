@@ -5,7 +5,7 @@ import {Button, Glyphicon} from 'react-bootstrap';
 //import {glyphicon} from 'react-router';
 import ReactStars from 'react-stars';
 
-const PostForm = ({post, onSave, onChange, saving, errors, venue, onCancel, onStarRatingChange}) => {
+const PostForm = ({post, onSave, onChange, saving, errors, venue, amenity, onCancel, onStarRatingChange}) => {
   return (
     <form>
       <h1>Add Post</h1>
@@ -14,17 +14,20 @@ const PostForm = ({post, onSave, onChange, saving, errors, venue, onCancel, onSt
             <tr style={{"backgroundColor": "black"}} >
               <td style={{"fontWeight": "bold", "color": "white", "paddingLeft": "10px", "fontSize": "14px",
                   "wordWrap":"break-word",  "fontFamily": "Helvetica",  "width":"600px"}}>
+                {amenity && <h3>{amenity.AName} <br/></h3>}
                 {venue.VName} <br/>
                 {venue.VCity}
               </td>
               <td rowSpan="3"  style={{"paddingLeft": "15px"}}>
-                <img src={venue.VImage} height="200" alt="" width="200" />
+                {amenity && <img src={amenity.AImage} height="200" alt="" width="200" />}
+                {!amenity && <img src={venue.VImage} height="200" alt="" width="200" />}
               </td>
             </tr>
             <tr style={{"backgroundColor": "black" }}>
               <td style={{"color": "white", "paddingLeft": "10px", "fontFamily": "Helvetica", "fontSize": "14px",
                              "wordWrap":"break-word"}}>
-                {venue.VDescription}
+                {!amenity && venue.VDescription}
+                {amenity && amenity.AType}
               </td>
             </tr>
           </tbody>
@@ -83,7 +86,8 @@ PostForm.propTypes = {
   saving: React.PropTypes.bool,
   errors: React.PropTypes.object,
   venue: React.PropTypes.object,
-  onStarRatingChange: React.PropTypes.func.isRequired
+  onStarRatingChange: React.PropTypes.func.isRequired,
+  amenity: React.PropTypes.object
 };
 
 export default PostForm;

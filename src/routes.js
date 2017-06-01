@@ -31,6 +31,7 @@ export default (
     <Route path="/favorites" component={FavoritesPage} onEnter={requireAuth}/>
     <Route path="/scores" component={ScoresPage} onEnter={requireAuth}/>
     <Route path="/posts/add/:venueId" component={ManagePostPage} onEnter={requireAuth}/>
+    <Route path="/posts/amenities/add/:amenityId" component={ManagePostPage} onEnter={requireAuth}/>
     <Route path="/amenities/:venueId" component={AmenitiesPage} onEnter={requireAuth}/>
     <Route path="/poi/:venueId" component={PointOfInterestPage} onEnter={requireAuth}/>
 

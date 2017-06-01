@@ -23,9 +23,23 @@ class ManagePostPage extends React.Component {
   }
 
   componentWillMount() {
-    if (this.props.venue.id =="") {
+    if (this.props.params.venueId && this.props.posts.venue.id==0) {
         this.props.actions.addPostVenueLoad(this.props.params.venueId)
         .then()
+        .catch( error => {
+                    toastr.error(error);
+        });
+    }
+    if (this.props.params.amenityId && this.props.posts.amenity.id==0) {
+        this.props.actions.addPostAmenityLoad(this.props.params.amenityId)
+        .then(
+                    this.props.actions.addPostVenueLoad(this.props.VenueID)
+                    .then()
+                    .catch( error => {
+                                toastr.error(error);
+                    })
+
+             )
         .catch( error => {
                     toastr.error(error);
         });
@@ -40,7 +54,7 @@ class ManagePostPage extends React.Component {
 
   updatePostState(event) {
     const field = event.target.name;
-    let post = this.state.post;    
+    let post = this.state.post;
     post[field] = event.target.value;
     return this.setState({post: post});
   }
@@ -74,14 +88,15 @@ class ManagePostPage extends React.Component {
     if (!this.postFormIsValid()) {
       return;
     }
-
     this.setState({saving: true});
+
     this.props.actions.savePost(this.state.post)
       .then(() => this.redirect())
       .catch(error => {
         toastr.error(error);
         this.setState({saving: false});
       });
+
   }
 
 cancelPost(event){
@@ -95,9 +110,11 @@ cancelPost(event){
   }
 
   render() {
+      console.log(this.props.posts.venue);
     return (
       <PostForm
-        venue={this.props.venue}
+        venue={this.props.posts.venue}
+        amenity={this.props.posts.amenity}
         onChange={this.updatePostState}
         onSave={this.savePost}
         post={this.state.post}
@@ -114,7 +131,8 @@ ManagePostPage.propTypes = {
   post: PropTypes.object.isRequired,
   actions: PropTypes.object.isRequired,
   venue: PropTypes.object.isRequired,
-  params:  PropTypes.object.isRequired
+  params:  PropTypes.object.isRequired,
+  amenity:PropTypes.object
 };
 
 //Pull in the React Router context so router is available on this.context.router.
@@ -130,30 +148,18 @@ function getPostById(posts, id) {
 
 
 function mapStateToProps(state, ownProps) {
-  const venueId = ownProps.params.id; // from the path `/post/:id`
-  let post = {Text: '', VenueID: '', UserName:'', Stars:0, UploadTime: '', Active: "1"};
-  let venue = {id: '', VName: '', VDescription: '', VCity: '', VImage: '' };
-  if(state.posts.venue == null || state.posts.venue.id =="")
-  {
-      return {
-        venue: venue,
-        post:post
-      };
-  }
-  else
-  {
-        post.VenueID = state.posts.venue.id;
-        post.UserName = localStorage.username;
-        let currentDate = new Date();
-        // post.UploadTime =  (currentDate.getMonth() + 1) + "/" + currentDate.getDate()
-        //                     + "/" + currentDate.getFullYear() + " " +
-        //                     currentDate.getHours() + ":" + currentDate.getMinutes();
-        post.UploadTime = new Date();
-        return {
-        venue: state.posts.venue,
-        post:post
-        };
-   }
+  let post = {Text: '', VenueID: '', AmenityID:'', UserName:'', Stars:0,  UploadTime: '', Active:1, Image: '', Reply: ''};
+  post.VenueID = state.posts.venue.id;
+  post.AmenityID = state.posts.amenity.id;
+  post.UserName = localStorage.username;
+  post.UploadTime = new Date();
+console.log("map");
+ console.log(state.posts);
+  return {
+        post: post,
+        posts: state.posts,
+        VenueID:state.posts.amenity.VenueID
+    };
 }
 
 

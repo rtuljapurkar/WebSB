@@ -32,6 +32,11 @@ export default function postReducer(state = initialState.posts, action) {
                   return Object.assign({}, state, {
                     venue: action.data
                   });
+          case types.ADDPOST_AMENITY_LOAD:
+                console.log("here");
+                  return Object.assign({}, state, {
+                    amenity: action.data
+                  });
            case types.LOAD_POSTVENUES_SUCCESS:
                   return Object.assign({}, state, {
                     venues: action.data

@@ -15,11 +15,16 @@ export default {
     },
     teams: [],
     posts: {
-          data: [{id: 0, VName: '', VAddress: '', Stars:"0", VCity: '', VImage: '', VenueID:0, UserName:"" }],
+          data: [{id: 0, VName: '', VAddress: '', Stars:"0", VCity: '', VImage: '', VenueID:0,  UserName:"" }],
           sortDesc: true,
           sortKey: 'id',
           filterString: '',
-          venue:{ id: 0, VName:'', VCity:'', VImage:'', VDescription:''},
+          venue:{ id:0, VName:'', VCity:'', VImage:'', VDescription:''},
+          amenity: {    "VenueID":0,"AName": '',"ASection": '',"AChildAmenity": '',"AType": '',"ASubType": '', "AMainFood": '',"AVeggieFood": '',
+                        "AVeganFood": '',"AGFFood": '',"ABeverages": '', "ADomesticBeer": '',"ACraftBeer": '',"AMixedDrinks": '',"ATags": '',"ACost": '',
+                        "ADistance": '',"AWalkingTime": '',"ALotLocation": '',"AKidsOk": '',"Active":1,"AImage": "",
+                        "id":0
+                    },
           Active: "1",
           users: [{
                     "PUserName": '',

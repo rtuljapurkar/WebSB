@@ -63,7 +63,15 @@ const AmenitiesTable = ({ Amenity }) => {
                 let value = Amenity[key] == null ? "": Amenity[key];
                 let modifiedkey = key.substr(1);
                 if(modifiedkey == "Name"){
-                    rows.push(<p style={{"fontSize":"24px"}}><b>{value}</b></p>);
+                    rows.push(<p style={{"fontSize":"24px"}}><b>{value}</b>
+                    <span style={{"float":"right"}}>
+                        <a href={"/posts/amenities/add/"+id}>
+                                <Button bsStyle="primary" bsSize="small" >
+                                    <Glyphicon glyph="pencil" />  Review this Stadium
+                                </Button>
+                        </a>
+                   </span>
+               </p>);
                 }
                 else
                  {
