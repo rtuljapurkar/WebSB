@@ -16,9 +16,9 @@ class MasterPage extends React.Component {
           <Header/>
         </div>
         <div id="body" >
-            <div  className="col-md-2">
+            <div  className="col-md-2 visible-md visible-lg">
                   <ScoresPage/>
-                  <div style={{"marginTop":"35px"}}>
+                  <div style={{"marginTop":"35px"}} className="">
                       <img src= {require('../images/AdSample.png')}
                       className="img-thumbnail" width="250" alt="Ad"/>
                   </div>
@@ -27,9 +27,9 @@ class MasterPage extends React.Component {
         <div className="col-md-8" >
             {this.props.children}
         </div>
-        <div id="sidebar" className="col-md-2">
+        <div id="sidebar" className="col-md-2 visible-md visible-lg">
             <FavoritesPage/>
-             <div style={{"marginTop":"35px"}}>
+             <div style={{"marginTop":"35px"}} >
                   <img src= {require('../images/AdSample.png')}
                   className="img-thumbnail" width="250" alt="Ad"/>
             </div>

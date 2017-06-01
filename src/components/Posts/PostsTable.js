@@ -60,7 +60,7 @@ function timeSince(date) {
 }
 
 //  --------------------------------------------------------------------------------------------------------------//
-const PostsTable = ({post, venues, users}) => {
+const PostsTable = ({post, venues, users, props}) => {
     let ONE_DAY = 1000 * 60 * 60 * 24;
     // Convert both dates to milliseconds
     let currentDate = new Date().getTime();
@@ -75,27 +75,35 @@ const PostsTable = ({post, venues, users}) => {
     let userName = post["UserName"];
     let vname = "";
     let userImage = "";
+    //debugger;
+
     if(isNaN(venueID))
     {
       venueID = 0;
     }
     try{
-      vname = venues.data[venueID].VName;
+      vname = venues[venueID].VName;
     }
     catch(ex) {
       vname = "";
     }
 
     try{
-      userImage = users[userName].PUserImage;
+     let user = users.filter((u)=> u.PUserName.toLowerCase() == userName.toLowerCase());
+     console.log(user);
+     userImage =  user[0].PUserImage;
     }
     catch (ex) {
      userImage = "";
     }
-    console.log(userImage);
+    if(userImage == undefined)
+    {
+        userImage ="";
+    }
+    //console.log(userName);
     return (
             <tr>
-                  <td className="blackBg">
+                  <td className="blackBg col-sm-4 col-sm-push-8" >
                       <table className="col-md-12 mainScreen">
                           <tr>
                               {userImage =="" &&
@@ -129,7 +137,7 @@ const PostsTable = ({post, venues, users}) => {
                           </tr>
                     </table>
                   </td>
-                  <td>
+                  <td className="col-sm-8 col-sm-pull-4">
                     <img src={post["Image"]} height="200" alt="" width="200" />
                   </td>
             </tr>
@@ -148,9 +156,9 @@ PostsTable.propTypes = {
   sortDesc: PropTypes.bool.isRequired,
   posts: PropTypes.object.isRequired,
   actions:PropTypes.object.isRequired,
-  venues: PropTypes.object,
+  venues: PropTypes.array,
   post: PropTypes.object.isRequired,
-  users: PropTypes.object
+  users: PropTypes.array
 };
 
 export default PostsTable;

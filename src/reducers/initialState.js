@@ -15,11 +15,11 @@ export default {
     },
     teams: [],
     posts: {
-          data: [],
+          data: [{id: 0, VName: '', VAddress: '', Stars:"0", VCity: '', VImage: '', VenueID:0, UserName:"" }],
           sortDesc: true,
           sortKey: 'id',
           filterString: '',
-          venue:null,
+          venue:{ id: 0, VName:'', VCity:'', VImage:'', VDescription:''},
           Active: "1",
           users: [{
                     "PUserName": '',
@@ -29,6 +29,13 @@ export default {
                     "PLoginSessionAccessToken": '',
                     "PUserLastLogin": '',
                     id: 0
+                }],
+          venues: [{
+                      id:0,
+                      VName:'',
+                      VCity:'',
+                      VImage:'',
+                      VDescription:''
                 }]
     },
     ajaxCallsInProgress: 0,

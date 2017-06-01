@@ -24,10 +24,10 @@ export function updatePostSuccess(post) {
   return {type: types.UPDATE_POST_SUCCESS, post};
 }
 export function loadVenuesSuccess(data) {
-  return {type: types.LOAD_VENUES_SUCCESS, data};
+  return {type: types.LOAD_POSTVENUES_SUCCESS, data};
 }
 export function loadUsersSuccess(data) {
-  return {type: types.LOAD_USERS_SUCCESS, data};
+  return {type: types.LOAD_POSTUSERS_SUCCESS, data};
 }
 
 

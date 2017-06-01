@@ -10,31 +10,31 @@ import PostsTable from './PostsTable';
 import { Table, Pagination } from 'react-bootstrap';
 
 class PostsPage extends React.Component {
-  componentWillMount() {
-      if (this.props.posts.data == [] || this.props.posts.data.length == 1) {
-            this.props.actions.loadPosts()
-            .then()
-            .catch( error => {
+      componentWillMount() {
+          if (this.props.posts.data == [] || this.props.posts.data.length == 1) {
+                this.props.actions.loadPosts()
+                .then()
+                .catch( error => {
+                        toastr.error(error);
+                });
+            }
+
+            if (this.props.posts.venues == [] || this.props.posts.venues.length == 1) {
+                this.props.actions.loadVenues()
+                .then()
+                .catch( error => {
                     toastr.error(error);
-            });
-        }
+                });
+            }
 
-        if (this.props.venues.data == [] || this.props.venues.data.length == 1) {
-            this.props.actions.loadVenues()
-            .then()
-            .catch( error => {
-                toastr.error(error);
-            });
-        }
-
-        if (this.props.posts.users == [] || this.props.posts.users.length == 1) {
-            this.props.actions.loadUsers()
-            .then()
-            .catch( error => {
-                toastr.error(error);
-            });
-        }
-  }
+            if (this.props.posts.users == [] || this.props.posts.users.length == 1) {
+                this.props.actions.loadUsers()
+                .then()
+                .catch( error => {
+                    toastr.error(error);
+                });
+            }
+      }
 
   handleFilterStringChange () {
     return (e) => {
@@ -70,11 +70,10 @@ class PostsPage extends React.Component {
   render() {
 
       const { filterString, sortKey, sortDesc } = this.props.posts;
-      const venues = this.props.venues.data;
-      const users = this.props.posts.users;
       let localData = this.sortData();
       localData = this.filterData(localData);
-    
+      console.log(this.props.posts.venues);
+      console.log(this.props.posts.users);
       return (
                     <div >
                         <h1>Posts {this.props.loading && <LoadingDots interval={100} dots={20}/>}</h1>
@@ -94,7 +93,7 @@ class PostsPage extends React.Component {
                                   {
                                           localData.map((post, index) => {
                                                 return(
-                                                        <PostsTable  key={post.id} post={post} venues={venues} users={users} />
+                                                        <PostsTable  key={post.id} post={post} venues={this.props.posts.venues} users={this.props.posts.users} props={this.props}/>
                                                   );})
 
                                   }
@@ -117,39 +116,10 @@ PostsPage.propTypes = {
 
 
 function mapStateToProps(state, ownProps) {
-    if ((state.posts.data && state.posts.data.length > 0) || state.posts.users.length >1 ) {
-            return {
-                    posts: state.posts,
-                    loading: state.ajaxCallsInProgress > 0,
-                    venues: state.venues
-                    };
-        }
-  else  {
-        return {
-                    posts: {
-                              data: [{id: 0, VName: '', VAddress: '', Stars:"0", VCity: '', VImage: '', VenueID:0 }],
-                              sortDesc: false,
-                              sortKey: 'VName',
-                              filterString: '',venue:null,
-                              Active: "1",
-                              users: [{
-                                        "PUserName": '',
-                                        "PPassword": '',
-                                        "PUserImage":'',
-                                        "PEmailA1": '',
-                                        "PLoginSessionAccessToken": '',
-                                        "PUserLastLogin": '',
-                                        id: 0
-                                    }]}
-                              ,
-                    loading: state.ajaxCallsInProgress > 0,
-                    venues: {
-                              data: [{id: 0, VName: '', VAddress: '', VCity: '', VImage: '' }],
-                              sortDesc: false,
-                              sortKey: 'VName',
-                              filterString: ''}
-        };
-  }
+    console.log(state.posts);
+    return {
+        posts: state.posts
+  };
 }
 
 function mapDispatchToProps(dispatch) {
