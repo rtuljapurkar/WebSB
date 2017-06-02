@@ -34,13 +34,11 @@ class ScoresPage extends React.Component {
 
     filterData (localData) {
         let selected = moment(this.state.dateSelected);
-      //  console.log(selected);
         const {filterString} = this.props.scores;
         const str = filterString.toLowerCase();
       //  const dateSelected = new Date(this.state.dateSelected);
         return localData.filter((r) => {
               let gameDate =  moment(r.GameDate);
-            //  console.log(moment.duration(selected.diff(gameDate1)).get("days"));
               //  let gameDate = new Date(r.GameDate);
             return  (moment.duration(selected.diff(gameDate)).get("days") === 0);
      });
@@ -57,11 +55,8 @@ changeDate(event){
     if(type=="plus") {
         newDate = dateNow.add(1, 'day').format("YYYY-MM-DD");
     }
-    //console.log(dateNow);
 
     let currentDate = moment(moment().format("YYYY-MM-DD"));
-    //console.log(currentDate);
-    //console.log(moment.duration(currentDate.diff(dateNow)).get("days"));
   if (moment.duration(currentDate.diff(dateNow)).get("days") >=0)
   {
     this.setState({dateSelected: newDate});

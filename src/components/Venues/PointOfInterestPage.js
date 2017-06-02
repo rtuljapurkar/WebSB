@@ -91,7 +91,6 @@ class PointOfInterestPage extends React.Component {
     let localData = this.sortData();
     localData = this.filterData(localData);
     let venue = this.props.pointOfInterests.venue;
-    //console.log(venue.VGPSLoc);
     let locArray = venue.VGPSLoc.split(',');
     let gpsLocationObj = {};
     try{
@@ -101,8 +100,7 @@ class PointOfInterestPage extends React.Component {
     catch(ex){
         gpsLocationObj.lat = -34.397;
         gpsLocationObj.lng = 150.644;
-    }
-    //console.log(gpsLocationObj);
+    }    
     return (
           <div className="col-md-12">
                 <h1>Points Of Interest {this.props.loading && <LoadingDots interval={100} dots={20}/>} </h1>

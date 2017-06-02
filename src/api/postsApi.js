@@ -52,9 +52,7 @@ class PostsApi {
                         });
                     }
 
-        static savePost(post) {
-                console.log("in api");
-                console.log(post);
+        static savePost(post) {            
                 post.UploadTime = new Date();
                 let url = "";
                 if(post.AmenityID == 0){

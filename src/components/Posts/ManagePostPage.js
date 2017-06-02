@@ -106,8 +106,6 @@ cancelPost(event){
   }
 
   render() {
-      console.log("render");
-      console.log(this.props.post.venue);
     return (
       <PostForm
         venue={this.props.post.venue}
@@ -144,9 +142,7 @@ ManagePostPage.contextTypes = {
 // }
 
 
-function mapStateToProps(state, ownProps) {
-  console.log("map");
-  console.log(state.newPost);
+function mapStateToProps(state, ownProps) {  
   return {
         post: state.newPost
     };

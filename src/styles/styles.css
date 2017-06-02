@@ -229,6 +229,70 @@ h1 {
     color: #dd5;
   }
 }
+/*=============================================================================================*/
+
+/* Navigation bar */
+#main_navbar .navbar-default, .dropdown-menu {
+	background-color: #A94442;
+	border-color: transparent;
+	border-radius: 0 !important;
+	-moz-border-radius: 0 !important;
+}
+/*
+ #main_navbar .navbar-default .navbar-nav > .open > a, #main_navbar .navbar-default .navbar-nav > .open > a:hover, #main_navbar .navbar-default .navbar-nav > .open > a:focus {
+ background-color: #843534;
+ }
+ */
+
+/* Navigation bar text colour, alignment, font size */
+#main_navbar ul > li a {
+	color: #fff;
+	text-align: center;
+	font-size: medium;
+}
+
+/* Navigation bar hover colour */
+#main_navbar .navbar-nav li a:hover {
+	background-color: #843534;
+}
+
+/* Responsive navigation colour */
+#main_navbar .navbar-toggle {
+	background-color: #A94442;
+}
+
+#main_navbar li:hover:after {
+	content: ' ';
+	position: absolute;
+	border: solid 10px transparent;
+	border-top: solid 0px transparent;
+	border-width: 10px;
+	left: 50%;
+	margin-left: -10px;
+	border-color: #843534 transparent transparent transparent;  /*#843534*/
+}
+
+/* Navigation highlight for current page */
+body#home a#homenav, body#about a#aboutnav, body#menupage a#menunav, body#contact a#contactnav {
+	background-color: yellow/*#843534;*/
+}
+
+.current:after {
+	content: ' ';
+	position: absolute;
+	border: solid 10px transparent;
+	border-top: solid 0px transparent;
+	border-width: 10px;
+	left: 50%;
+	margin-left: -10px;
+	border-color: #843534 transparent transparent transparent;
+}
+
+/* Navigation bar border */
+#main_navbar .navbar-default {
+	border-top: 1px solid #000;
+	border-bottom: 1px solid #000;
+}
 /*
 table.mainScreen thead th {
     /*width: 99%; /* Optional */

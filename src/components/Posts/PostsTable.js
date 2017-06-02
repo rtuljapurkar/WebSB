@@ -1,38 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-//import { Column, Cell, Table } from 'fixed-data-table';
 import toastr from 'toastr';
 let ExampleImage = require('../common/ExampleImage');
 import ReactStars from 'react-stars';
-
-// import ResponsiveTableWrapper from '../ResponsiveTableWrapper'
-//import renderers from '../../modules/renderers'
-//import '../../styles/fixed-data-table.css';
-
-
-// Stateless cell components for Table component
-
-// function renderSortArrow (sortKey, sortDesc, sortId) {
-//   return sortKey === sortId ? (sortDesc ? '↓' : '↑') : '';
-// }
-//
-// function SortHeaderCell ({children, sortBy, sortKey, sortDesc, columnKey}) {
-//     const clickFunc = () => sortBy(columnKey);
-//   return (
-//     <Cell >
-//       <a onClick={clickFunc}>
-//         {children} {renderSortArrow(sortKey, sortDesc, columnKey)}
-//       </a>
-//     </Cell>
-//   );
-// }
-// SortHeaderCell.propTypes = {
-//   sortBy: PropTypes.func.isRequired,
-//   sortKey: PropTypes.string.isRequired,
-//   sortDesc: PropTypes.bool.isRequired,
-//   columnKey: PropTypes.string,
-//   children: PropTypes.element.isRequired
-// };
 
 function timeSince(date) {
   let seconds = Math.floor((new Date() - date) / 1000);
@@ -75,8 +45,7 @@ const PostsTable = ({post, venues, users}) => {
     let userName = post["UserName"];
     let vname = "";
     let userImage = "";
-    //debugger;
-
+    
     if(isNaN(venueID))
     {
       venueID = 0;
@@ -90,7 +59,6 @@ const PostsTable = ({post, venues, users}) => {
 
     try{
      let user = users.filter((u)=> u.PUserName.toLowerCase() == userName.toLowerCase());
-     //console.log(user);
      userImage =  user[0].PUserImage;
     }
     catch (ex) {
@@ -100,7 +68,6 @@ const PostsTable = ({post, venues, users}) => {
     {
         userImage ="";
     }
-    //console.log(userName);
     return (
             <div  className="rowContainer col-md-12">
                 <div className="row blackBg col-md-8" >
@@ -131,16 +98,13 @@ const PostsTable = ({post, venues, users}) => {
                     <div className="blackBg">
                        <span style={{"textAlign":"Right"}}> Posted {postedTime}<br/></span>
                     </div>
-                    { post["Image"] &&
+                    {post["Image"] &&
                     <div className="blackBg col-md-6" >
                         <img src={post["Image"]} height="200" alt="" width="200" />
-                    </div>
-                    }
-                    {
-                        !post["Image"] &&
+                    </div>}
+                    {!post["Image"] &&
                         <div className="col-md-6" >
-                        </div>
-                    }
+                        </div>}
                 </div>
 
               </div>

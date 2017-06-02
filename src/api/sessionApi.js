@@ -65,14 +65,13 @@ class SessionApi {
             return fetch(url)
             .then(handleErrors)
             .then(response => {
-            //    debugger;
                 return response.json();
             }).catch(error => {
               throw error;
             });
           }
 
-          static getAllUsers() {        
+          static getAllUsers() {
             const url = `${process.env.API_HOST}/sb_users`;
             return fetch(url)
             .then(handleErrors)

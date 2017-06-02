@@ -30,7 +30,6 @@ export function loginUser(credentials) {
               localStorage.setItem('jwt', response.count);
               localStorage.setItem('username', credentials.PEmailA1);
               sessionApi.getUser(credentials).then(response => {
-                 // debugger;
                      if(isEmailPresent == true){
                           response = response.filter( r => r.PEmailA1.toLowerCase() == credentials.PEmailA1.toLowerCase() );
                       }
@@ -104,8 +103,7 @@ export function saveUser(user) {
         .then(response => {
             localStorage.setItem('jwt', true);
             localStorage.setItem('username', user.PUserName);
-            sessionApi.getUser(user).then(response => {
-               // debugger;
+            sessionApi.getUser(user).then(response => {               
                 response = response.filter( r => r.PEmailA1.toLowerCase() == user.PEmailA1.toLowerCase() );
                 if(response && response[0] && response[0].id && response[0].id > 0)
                   {

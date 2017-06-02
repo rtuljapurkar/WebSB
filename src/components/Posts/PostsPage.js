@@ -72,8 +72,6 @@ class PostsPage extends React.Component {
       const { filterString, sortKey, sortDesc } = this.props.posts;
       let localData = this.sortData();
       localData = this.filterData(localData);
-     // console.log(this.props.posts.venues);
-     // console.log(this.props.posts.users);
       return (
                     <div style={{"align":"center"}} >
                         <h1>Posts {this.props.loading && <LoadingDots interval={100} dots={20}/>}</h1>
@@ -124,8 +122,7 @@ PostsPage.propTypes = {
 };
 
 
-function mapStateToProps(state, ownProps) {
-    //console.log(state.posts);
+function mapStateToProps(state, ownProps) {    
     return {
         posts: state.posts
   };
