@@ -19,12 +19,6 @@ export default {
           sortDesc: true,
           sortKey: 'id',
           filterString: '',
-          venue:{ id:0, VName:'', VCity:'', VImage:'', VDescription:''},
-          amenity: {    "VenueID":0,"AName": '',"ASection": '',"AChildAmenity": '',"AType": '',"ASubType": '', "AMainFood": '',"AVeggieFood": '',
-                        "AVeganFood": '',"AGFFood": '',"ABeverages": '', "ADomesticBeer": '',"ACraftBeer": '',"AMixedDrinks": '',"ATags": '',"ACost": '',
-                        "ADistance": '',"AWalkingTime": '',"ALotLocation": '',"AKidsOk": '',"Active":1,"AImage": "",
-                        "id":0
-                    },
           Active: "1",
           users: [{
                     "PUserName": '',
@@ -97,7 +91,8 @@ export default {
                             VName:'',
                             VCity:'',
                             VImage:'',
-                            VDescription:''
+                            VDescription:'',
+                            VGPSLoc:''
                         },
                 filterString: '',
                 data: [{
@@ -144,5 +139,13 @@ export default {
               sortKey: 'VName',
               filterString: '',
               dateSelected: dateTime
-          }
+          },
+    newPost:{   data: {Text: '', VenueID: '', AmenityID:'', UserName:localStorage.username, Stars:0,  UploadTime: new Date(), Active:1, Image: '', Reply: ''},
+                venue:{ id:0, VName:'', VCity:'', VImage:'', VDescription:''},
+                amenity: {    "VenueID":0,"AName": '',"ASection": '',"AChildAmenity": '',"AType": '',"ASubType": '', "AMainFood": '',"AVeggieFood": '',
+                              "AVeganFood": '',"AGFFood": '',"ABeverages": '', "ADomesticBeer": '',"ACraftBeer": '',"AMixedDrinks": '',"ATags": '',"ACost": '',
+                              "ADistance": '',"AWalkingTime": '',"ALotLocation": '',"AKidsOk": '',"Active":1,"AImage": "",
+                              "id":0
+                          }
+           }
 };

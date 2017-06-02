@@ -64,7 +64,15 @@ export function loadPosts() {
     return function(dispatch) {
           dispatch( beginAjaxCall());
           return postsApi.getAmenityByID(ID).then(data => {
-               dispatch(addPostAmenityLoadSuccess(data));
+                    if(data.id > 0){
+                       postsApi.getVenueByID(data.id).then(venueData => {
+                               data.venue = venueData;
+                               dispatch(addPostAmenityLoadSuccess(data));
+                             }).catch(error => {
+                                 dispatch(ajaxCallError(error));
+                                 throw(error);
+                             });
+                    }
            }).catch(error => {
                dispatch(ajaxCallError(error));
                throw(error);
@@ -97,7 +105,7 @@ export function loadPosts() {
         };
     }
 
-  export function savePost(post) {    
+  export function savePost(post) {
     return function (dispatch, getState) {
       dispatch(beginAjaxCall());
       return postsApi.savePost(post).then(post => {

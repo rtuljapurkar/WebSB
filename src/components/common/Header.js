@@ -25,7 +25,7 @@ render(){
             <Navbar inverse collapseOnSelect>
             <Navbar.Header>
               <Navbar.Brand>
-                <a href="#">React-Bootstrap</a>
+                <a href="http://www.stadiumbee.com"><span style={{"color":"white", "fontFamily":"Montserrat"}}>Stadium</span><span style={{"color":"yellow"}}>Bee</span></a>
               </Navbar.Brand>
               <Navbar.Toggle />
             </Navbar.Header>

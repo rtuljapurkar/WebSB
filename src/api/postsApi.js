@@ -63,7 +63,6 @@ class PostsApi {
                     else {
                          url = `${process.env.API_HOST}/sb_post_venue_amenity`;
                     }
-                    url="";
                 return fetch(url, {
                      method: 'POST',
                      headers: {

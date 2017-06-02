@@ -28,15 +28,6 @@ export default function postReducer(state = initialState.posts, action) {
                   return Object.assign({}, state, {
                     filterString: action.filterString.toLowerCase()
                   });
-          case types.ADDPOST_VENUE_LOAD:
-                  return Object.assign({}, state, {
-                    venue: action.data
-                  });
-          case types.ADDPOST_AMENITY_LOAD:
-                console.log("here");
-                  return Object.assign({}, state, {
-                    amenity: action.data
-                  });
            case types.LOAD_POSTVENUES_SUCCESS:
                   return Object.assign({}, state, {
                     venues: action.data
@@ -47,8 +38,6 @@ export default function postReducer(state = initialState.posts, action) {
                               users: action.data
                             });
                   }
-          case types.CREATE_POST_SUCCESS:
-              return state;
          default:
           return state;
       }

@@ -8,6 +8,7 @@ import favorites from './favoritesReducer';
 import scores from './scoresReducer';
 import pointOfInterests from './pointOfInterestReducer';
 import ajaxCallsInProgress from './ajaxStatusReducer';
+import newPost from './newPostReducer';
 import initialState from './initialState';
 import { routerReducer } from 'react-router-redux';
 
@@ -21,7 +22,8 @@ const appReducer = combineReducers({
     posts: posts,
     pointOfInterests: pointOfInterests,
     favorites: favorites,
-    scores: scores
+    scores: scores,
+    newPost: newPost
 });
 
 export const rootReducer = (state, action) => {

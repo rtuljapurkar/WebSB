@@ -11,7 +11,7 @@ class ManagePostPage extends React.Component {
     super(props, context);
 
     this.state = {
-      post: Object.assign({}, props.post),
+      post: Object.assign({}, props.post.data),
       errors: {},
       saving: false
     };
@@ -23,34 +23,27 @@ class ManagePostPage extends React.Component {
   }
 
   componentWillMount() {
-    if (this.props.params.venueId && this.props.posts.venue.id==0) {
+    if (this.props.params.venueId && this.props.post.venue.id==0) {
         this.props.actions.addPostVenueLoad(this.props.params.venueId)
         .then()
         .catch( error => {
                     toastr.error(error);
         });
     }
-    if (this.props.params.amenityId && this.props.posts.amenity.id==0) {
+    if (this.props.params.amenityId && this.props.post.amenity.id==0) {
         this.props.actions.addPostAmenityLoad(this.props.params.amenityId)
-        .then(
-                    this.props.actions.addPostVenueLoad(this.props.VenueID)
-                    .then()
-                    .catch( error => {
-                                toastr.error(error);
-                    })
-
-             )
+        .then()
         .catch( error => {
                     toastr.error(error);
         });
     }
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (this.props.post.VenueID != nextProps.post.VenueID) {
-      this.setState({post: Object.assign({}, nextProps.post)});
-    }
-  }
+  // componentWillReceiveProps(nextProps) {
+  //   if (this.props.post.VenueID != nextProps.post.VenueID) {
+  //     this.setState({post: Object.assign({}, nextProps.post)});
+  //   }
+  // }
 
   updatePostState(event) {
     const field = event.target.name;
@@ -89,8 +82,11 @@ class ManagePostPage extends React.Component {
       return;
     }
     this.setState({saving: true});
+    let postToSubmit = this.state.post;
+    postToSubmit.VenueID = this.props.post.venue.id;
+    postToSubmit.AmenityID = this.props.post.amenity.id;
 
-    this.props.actions.savePost(this.state.post)
+    this.props.actions.savePost(postToSubmit)
       .then(() => this.redirect())
       .catch(error => {
         toastr.error(error);
@@ -110,11 +106,12 @@ cancelPost(event){
   }
 
   render() {
-      console.log(this.props.posts.venue);
+      console.log("render");
+      console.log(this.props.post.venue);
     return (
       <PostForm
-        venue={this.props.posts.venue}
-        amenity={this.props.posts.amenity}
+        venue={this.props.post.venue}
+        amenity={this.props.post.amenity}
         onChange={this.updatePostState}
         onSave={this.savePost}
         post={this.state.post}
@@ -140,25 +137,18 @@ ManagePostPage.contextTypes = {
   router: PropTypes.object
 };
 
-function getPostById(posts, id) {
-  const post = posts.filter(post => post.id == id);
-  if (post) return post[0]; //since filter returns an array, have to grab the first.
-  return null;
-}
+// function getPostById(posts, id) {
+//   const post = posts.filter(post => post.data.id == id);
+//   if (post) return post[0]; //since filter returns an array, have to grab the first.
+//   return null;
+// }
 
 
 function mapStateToProps(state, ownProps) {
-  let post = {Text: '', VenueID: '', AmenityID:'', UserName:'', Stars:0,  UploadTime: '', Active:1, Image: '', Reply: ''};
-  post.VenueID = state.posts.venue.id;
-  post.AmenityID = state.posts.amenity.id;
-  post.UserName = localStorage.username;
-  post.UploadTime = new Date();
-console.log("map");
- console.log(state.posts);
+  console.log("map");
+  console.log(state.newPost);
   return {
-        post: post,
-        posts: state.posts,
-        VenueID:state.posts.amenity.VenueID
+        post: state.newPost
     };
 }
 

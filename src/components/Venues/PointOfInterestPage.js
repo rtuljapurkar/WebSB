@@ -6,17 +6,9 @@ import * as actions from '../../actions/pointOfInterestActions';
 import LoadingDots from '../common/LoadingDots';
 import toastr from 'toastr';
 import PointOfInterestTable from './PointOfInterestTable';
-import {withGoogleMap, GoogleMap} from 'react-google-maps';
+import {DisplayMap} from '../common/DisplayMap';
 
-
-const SimpleMapExampleGoogleMap = withGoogleMap(props => (
-  <GoogleMap
-    defaultZoom={8}
-    defaultCenter={{ lat: -34.397, lng: 150.644 }}
-  />
-));
-
-function renderSortArrow (sortKey, sortDesc, sortId) {
+ function renderSortArrow (sortKey, sortDesc, sortId) {
   return sortKey === sortId ? (sortDesc ? '↓' : '↑') : '';
 }
 
@@ -99,7 +91,18 @@ class PointOfInterestPage extends React.Component {
     let localData = this.sortData();
     localData = this.filterData(localData);
     let venue = this.props.pointOfInterests.venue;
-
+    //console.log(venue.VGPSLoc);
+    let locArray = venue.VGPSLoc.split(',');
+    let gpsLocationObj = {};
+    try{
+        gpsLocationObj.lat = Number(locArray[0]);
+        gpsLocationObj.lng = Number(locArray[1]);
+    }
+    catch(ex){
+        gpsLocationObj.lat = -34.397;
+        gpsLocationObj.lng = 150.644;
+    }
+    //console.log(gpsLocationObj);
     return (
           <div className="col-md-12">
                 <h1>Points Of Interest {this.props.loading && <LoadingDots interval={100} dots={20}/>} </h1>
@@ -112,13 +115,15 @@ class PointOfInterestPage extends React.Component {
                             {venue.VCity}
                           </td>
                           <td rowSpan="2"  >
-                              <SimpleMapExampleGoogleMap
+                              <DisplayMap
+                                  location={gpsLocationObj}
                                   containerElement={
                                            <div style={{ height: '200px', width:"200px"}} />
                                         }
                                         mapElement={
                                            <div style={{ height: '100%', width:"200px"}} />
                                         }
+
                                 />
                           </td>
                           <td rowSpan="2" >
@@ -185,31 +190,3 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(PointOfInterestPage);
-{/* <table style={{ "tableLayout": "fixed", "paddingRight": "10px",  "width":"760px"   }}>
-    <tbody>
-      <tr >
-        <td>
-          {venue.VName} <br/>
-          {venue.VCity}
-        </td>
-        <td rowSpan="2"  >
-            <SimpleMapExampleGoogleMap
-                containerElement={
-                         <div style={{ height: '200', width:"200"}} />
-                      }
-                      mapElement={
-                         <div style={{ height: '100%', width:"200"}} />
-                      }
-              />
-        </td>
-        <td rowSpan="2" >
-          <img src={venue.VImage} height="200" alt="" width="200" />
-        </td>
-      </tr>
-      <tr>
-        <td>
-          {venue.VDescription}
-        </td>
-      </tr>
-    </tbody>
-</table> */}

@@ -6,30 +6,7 @@ import * as actions from '../../actions/amenityActions';
 import LoadingDots from '../common/LoadingDots';
 import toastr from 'toastr';
 import AmenitiesTable from './AmenitiesTable';
-import {withGoogleMap, GoogleMap} from 'react-google-maps';
-
-// function renderSortArrow (sortKey, sortDesc, sortId) {
-//   return sortKey === sortId ? (sortDesc ? '↓' : '↑') : '';
-// }
-//
-// function SortHeaderCell ({children, sortBy, sortKey, sortDesc, columnKey}) {
-//     const clickFunc = () => sortBy(columnKey);
-//     return (
-//         <Cell >
-//           <a onClick={clickFunc}>
-//             {children} {renderSortArrow(sortKey, sortDesc, columnKey)}
-//           </a>
-//         </Cell>
-//     );
-// }
-
-const SimpleMapExampleGoogleMap = withGoogleMap(props => (
-  <GoogleMap
-    defaultZoom={8}
-    defaultCenter={{ lat: -34.397, lng: 150.644 }}
-  />
-));
-
+import {DisplayMap} from '../common/DisplayMap';
 
 class AmenitiesPage extends React.Component {
  componentWillMount() {
@@ -87,8 +64,17 @@ class AmenitiesPage extends React.Component {
     const amenities = this.props.amenities;
     let venue = this.props.amenities.venue;
     let localData = this.filterByType(this.props.amenities.data);
-    //debugger;
-    //localData = this.filterData(localData);
+    let locArray = [];
+    let gpsLocationObj = {};
+    try{
+        locArray = venue.VGPSLoc.split(',');
+        gpsLocationObj.lat = Number(locArray[0]);
+        gpsLocationObj.lng = Number(locArray[1]);
+    }
+    catch(ex){
+        gpsLocationObj.lat = -34.397;
+        gpsLocationObj.lng = 150.644;
+    }
     return (
           <div className="col-md-12">
                   <h1>Amenities at {this.props.amenities.venue.VName} {this.props.loading && <LoadingDots interval={100} dots={20}/>}
@@ -101,13 +87,15 @@ class AmenitiesPage extends React.Component {
                                 {venue.VCity}
                               </td>
                               <td rowSpan="2"  >
-                                  <SimpleMapExampleGoogleMap
+                                  <DisplayMap
+                                      location={gpsLocationObj}
                                       containerElement={
                                                <div style={{ height: '200px', width:"200px"}} />
                                             }
                                             mapElement={
                                                <div style={{ height: '100%', width:"200px"}} />
                                             }
+
                                     />
                               </td>
                               <td rowSpan="2" >

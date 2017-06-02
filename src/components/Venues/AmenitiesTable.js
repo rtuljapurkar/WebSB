@@ -67,7 +67,7 @@ const AmenitiesTable = ({ Amenity }) => {
                     <span style={{"float":"right"}}>
                         <a href={"/posts/amenities/add/"+id}>
                                 <Button bsStyle="primary" bsSize="small" >
-                                    <Glyphicon glyph="pencil" />  Review this Stadium
+                                    <Glyphicon glyph="pencil" />  Review
                                 </Button>
                         </a>
                    </span>
