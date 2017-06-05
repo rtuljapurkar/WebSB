@@ -143,6 +143,7 @@ div.ib{
       margin: 5px;
   }
 div.ibright{
+    /*border: solid red 1px;*/
       display: inline-block;
       min-width: 200px;
       vertical-align: middle;
@@ -150,6 +151,13 @@ div.ibright{
       margin: 5px;
       float:right;
   }
+
+/*@media handheld and (min-width: 20em), screen and (min-width: 20em) {
+  div.ibright{
+      float:left;
+  }
+};*/
+
 div.break {
     background-color: white;
     height: 2px;

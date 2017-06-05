@@ -78,8 +78,8 @@ class AmenitiesPage extends React.Component {
     }
     return (
           <div className="col-md-12">
-                  <h1>Amenities at {this.props.amenities.venue.VName} {this.props.loading && <LoadingDots interval={100} dots={20}/>}
-                  </h1>
+                  <h3>Amenities at {this.props.amenities.venue.VName} {this.props.loading && <LoadingDots interval={100} dots={20}/>}
+              </h3>
                       <table className="table table-striped table-responsive table-hover mainScreen visible-md visible-lg">
                           <tbody style={{"height":"200px"}}>
                             <tr >
@@ -110,7 +110,6 @@ class AmenitiesPage extends React.Component {
                             </tr>
                           </tbody>
                       </table>
-                      <br /><br />
                       <br/>
                         <select className="btn btn-primary"
                             onChange={this.handleFilterDropdownChange()}>

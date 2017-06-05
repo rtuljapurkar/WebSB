@@ -115,7 +115,7 @@ const AmenitiesTable = ({ Amenity }) => {
                     <div className="ibright">{buttonRow}</div>
                     <div className="ib">{rows}</div>
                     <div className="ibright">{rowImage}</div>
-                    <div className="break"></div>
+                    <div className="break">&nbsp;</div>
              </div>
 
     );

@@ -97,7 +97,7 @@ class PostsPage extends React.Component {
                                   }
                               </tbody>
                        </table> */}
-                          <div style={{"max-height":"650px", "overflow": "auto"}}>
+                          <div style={{"max-height":"700px", "overflow": "auto"}}>
                            {
                                    localData.map((post, index) => {
                                          return(

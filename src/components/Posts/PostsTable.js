@@ -45,7 +45,7 @@ const PostsTable = ({post, venues, users}) => {
     let userName = post["UserName"];
     let vname = "";
     let userImage = "";
-    
+
     if(isNaN(venueID))
     {
       venueID = 0;
@@ -69,15 +69,15 @@ const PostsTable = ({post, venues, users}) => {
         userImage ="";
     }
     return (
-            <div  className="rowContainer col-md-12">
-                <div className="row blackBg col-md-8" >
-                    <div className="blackBg col-md-12 ">
-                        <div className="blackBgInLine">
+            <div className="blackBg">
+                <div className="ib">
+                    <div>
+                        <div>
                             {userImage =="" && <img src= {require('../../images/favicon.ico')} width="30" height="30" alt="logo"/>}
                             {userImage !="" && <img src= {userImage} width="30" height="30" alt=""/>}
                             <br/>
                         </div>
-                        <div className="blackBgInLine">
+                        <div style={{"vertical-align": "middle"}}>
                            {post["UserName"]} <br/>
                            <ReactStars
                            name={name}
@@ -89,24 +89,26 @@ const PostsTable = ({post, venues, users}) => {
                            color2={'#ffd700'} />
                        </div>
                     </div>
-                    <div className="blackBg">
+                    <div>&nbsp;<br/></div>
+                    <div>
                         {vname}
                     </div>
-                    <div className="blackBg">
+                    <div >
                         {post["Text"]}
                     </div>
-                    <div className="blackBg">
+                    <div>&nbsp;<br/></div>
+                    <div>
                        <span style={{"textAlign":"Right"}}> Posted {postedTime}<br/></span>
                     </div>
-                    {post["Image"] &&
-                    <div className="blackBg col-md-6" >
+                </div>
+                {post["Image"] &&
+                    <div className="ibright">
                         <img src={post["Image"]} height="200" alt="" width="200" />
                     </div>}
-                    {!post["Image"] &&
-                        <div className="col-md-6" >
-                        </div>}
-                </div>
-
+                {!post["Image"] &&
+                    <div className="ibright">
+                    </div>}
+                <div className="break"></div>
               </div>
             );
 };
@@ -129,3 +131,44 @@ PostsTable.propTypes = {
 };
 
 export default PostsTable;
+
+//
+// <div  className="rowContainer col-md-12">
+//     <div className="row blackBg col-md-8" >
+//         <div className="blackBg col-md-12 ">
+//             <div className="blackBgInLine">
+//                 {userImage =="" && <img src= {require('../../images/favicon.ico')} width="30" height="30" alt="logo"/>}
+//                 {userImage !="" && <img src= {userImage} width="30" height="30" alt=""/>}
+//                 <br/>
+//             </div>
+//             <div className="blackBgInLine">
+//                {post["UserName"]} <br/>
+//                <ReactStars
+//                name={name}
+//                count={5}
+//                className="form-control"
+//                size={24}
+//                edit={false}
+//                value={post["Stars"]}
+//                color2={'#ffd700'} />
+//            </div>
+//         </div>
+//         <div className="blackBg">
+//             {vname}
+//         </div>
+//         <div className="blackBg">
+//             {post["Text"]}
+//         </div>
+//         <div className="blackBg">
+//            <span style={{"textAlign":"Right"}}> Posted {postedTime}<br/></span>
+//         </div>
+//         {post["Image"] &&
+//         <div className="blackBg col-md-6" >
+//             <img src={post["Image"]} height="200" alt="" width="200" />
+//         </div>}
+//         {!post["Image"] &&
+//             <div className="col-md-6" >
+//             </div>}
+//     </div>
+//
+//   </div>
