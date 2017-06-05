@@ -3,7 +3,7 @@ const uuidV1 = require('uuid/v1');
 import moment from 'moment';
 
 let dateNow = new Date();
-let dateTime = new Date("05/16/2017");
+let dateTime = new Date();
 dateTime = moment(dateTime, "MM-DD-YYYY").format("YYYY-MM-DD");
 
 export default {

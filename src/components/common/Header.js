@@ -57,20 +57,7 @@ render(){
                                          <li className="visible-sm visible-xs"><Link id="favoritesnav" to="favorites" className="nav navbar-nav">Favorites</Link></li>
                                          <li className="visible-sm visible-xs"><Link id="scoresnav" to="scores" className="nav navbar-nav">Scores</Link></li>
                             </ul>
-                            <ul className="nav navbar-nav">
-                               <li className="dropdown">
-                                 <Link id="privacynav" className="dropdown-toggle" data-toggle="dropdown" to="home">Page 1
-                                 <span className="caret"></span></Link>
-                                 <ul className="dropdown-menu">
-                                   <li><Link id="cookiesnav"  to="posts">Cookie</Link></li>
-                                 </ul>
-                               </li>
-                             </ul>
-                             <li className="dropdown">
-                                <Link id="anav" to="c" className="dropdown-toggle" data-toggle="dropdown">ALink<b className="caret"></b></Link>
-                             		<ul className="dropdown-menu"><li><Link id="anav" to="a" className="nav navbar-nav">ALink</Link></li>
-                             			<li><Link id="bnav" to="b" className="nav navbar-nav">BLink</Link></li>
-                             		</ul></li>
+                            
                           <Nav pullRight>
                               <ul className="nav navbar-nav navbar-right">
                                 <li><Link id="termsnav" to="/about" className="nav navbar-nav" >Terms</Link></li>
