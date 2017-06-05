@@ -160,7 +160,7 @@ $breakpoint-alpha: 480px;
       padding-bottom: .5em;
     }
 
-    &:before {
+    /*&:before {
       content: attr(data-th)": ";
       font-weight: bold;
 
@@ -172,7 +172,7 @@ $breakpoint-alpha: 480px;
       @media (min-width: $breakpoint-alpha) {
         display: none;
       }
-    }
+    }*/
   }
 
   th, td {
@@ -225,12 +225,11 @@ h1 {
       padding: 1em !important;
     }
   }
-  th, td:before {
+  /*th, td:before {
     color: #dd5;
-  }
+  }*/
 }
 /*=============================================================================================*/
-
 /* Navigation bar */
 #main_navbar .navbar-default, .dropdown-menu {
 	background-color: #A94442;
@@ -269,12 +268,15 @@ h1 {
 	border-width: 10px;
 	left: 50%;
 	margin-left: -10px;
-	border-color: #843534 transparent transparent transparent;  /*#843534*/
+	border-color: yellow transparent transparent transparent;
 }
 
 /* Navigation highlight for current page */
-body#home a#homenav, body#about a#aboutnav, body#menupage a#menunav, body#contact a#contactnav {
-	background-color: yellow/*#843534;*/
+body#home a#homenav, body#about a#aboutnav, body#menupage a#menunav, body#contact a#contactnav,
+body#venues a#venuesnav, body#scores a#scoresnav, body#favorites a#favoritesnav, body#teams a#teamsnav,
+body#posts a#postsnav, body#terms a#termsnav, body#help a#helpnav, body#more a#morenav,
+body#cookie a#cookienav{
+	background-color: #843534;
 }
 
 .current:after {
@@ -285,7 +287,8 @@ body#home a#homenav, body#about a#aboutnav, body#menupage a#menunav, body#contac
 	border-width: 10px;
 	left: 50%;
 	margin-left: -10px;
-	border-color: #843534 transparent transparent transparent;
+	border-color: yellow transparent transparent transparent;
+
 }
 
 /* Navigation bar border */
