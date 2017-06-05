@@ -43,6 +43,7 @@ class AmenitiesPage extends React.Component {
     filterByType (localData) {
       const {filterType} = this.props.amenities;
       const str = filterType.toLowerCase();
+      console.log(str);
       return str !== ''
           ? localData.filter((r) => r.AType.toLowerCase() === str)
           : localData;
@@ -79,7 +80,7 @@ class AmenitiesPage extends React.Component {
           <div className="col-md-12">
                   <h1>Amenities at {this.props.amenities.venue.VName} {this.props.loading && <LoadingDots interval={100} dots={20}/>}
                   </h1>
-                      <table className="table table-striped table-responsive table-hover mainScreen">
+                      <table className="table table-striped table-responsive table-hover mainScreen visible-md visible-lg">
                           <tbody style={{"height":"200px"}}>
                             <tr >
                               <td className="blackBg">
@@ -114,24 +115,32 @@ class AmenitiesPage extends React.Component {
                         <select className="btn btn-primary"
                             onChange={this.handleFilterDropdownChange()}>
                           <option value="">All Categories</option>
-                          <option value="Attraction">Attractions</option>
-                          <option value="Food & Beverage">Food & Beverage</option>
+                          <option value="Miscellaneous">Miscellaneous</option>
+                          <option value="Food and Beverage">Food & Beverage</option>
                           <option value="Information">Information</option>
                           <option value="Merchandise">Merchandise</option>
                           <option value="Parking">Parking</option>
-                          <option value="Bathroom">Restrooms</option>
+                          <option value="Restrooms">Restrooms</option>
                         </select>
                        <br /><br />
                        {
+                        //    localData.length > 0 &&
+                        //     <table className="table table-striped table-bordered table-responsive table-hover mainScreen" >
+                        //         <tbody className="blackBg">
+                        //                 {localData.map((Amenity, index) => {
+                        //                       return(
+                        //                             <AmenitiesTable Amenity={Amenity} key={index}  />
+                        //                         );})}
+                        //         </tbody>
+                        //     </table>
+
                            localData.length > 0 &&
-                            <table className="table table-striped table-bordered table-responsive table-hover mainScreen" >
-                                <tbody className="blackBg">
-                                        {localData.map((Amenity, index) => {
+                            <div style={{"max-height":"650px", "overflow": "auto"}}>
+                                 {localData.map((Amenity, index) => {
                                               return(
                                                     <AmenitiesTable Amenity={Amenity} key={index}  />
-                                                );})}
-                                </tbody>
-                            </table>
+                                );})}
+                            </div>
                       }
                       {
                           localData.length == 0 &&

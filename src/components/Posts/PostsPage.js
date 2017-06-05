@@ -97,7 +97,7 @@ class PostsPage extends React.Component {
                                   }
                               </tbody>
                        </table> */}
-                          <div style={{"overflow-y":"scroll", "overflow-x":"hidden","max-height":"650px", "max-width":"900px", "horizontalAligh":"center"}}>
+                          <div style={{"max-height":"650px", "overflow": "auto"}}>
                            {
                                    localData.map((post, index) => {
                                          return(
@@ -122,7 +122,7 @@ PostsPage.propTypes = {
 };
 
 
-function mapStateToProps(state, ownProps) {    
+function mapStateToProps(state, ownProps) {
     return {
         posts: state.posts
   };

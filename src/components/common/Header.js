@@ -41,8 +41,10 @@ render(){
                         <Navbar inverse collapseOnSelect>
                         <Navbar.Header>
                           <Navbar.Brand>
-                                  <a href="http://www.stadiumbee.com">React</a>
-                            {/* <a href="http://www.stadiumbee.com"><span style={{"color":"white", "fontFamily":"Montserrat"}}>Stadium</span><span style={{"color":"yellow"}}>Bee</span></a> */}
+                                   <a href="http://www.stadiumbee.com">React</a>
+{/*<a href="http://www.stadiumbee.com">
+                             <span><img src="https://irp-cdn.multiscreensite.com/39b086a4/dms3rep/multi/avatar-1200x1200.png" height="40"  width="40"></img></span>
+                               <span style={{"color":"white", "fontFamily":"Montserrat"}}>Stadium</span><span style={{"color":"yellow"}}>Bee</span></a> */}
                           </Navbar.Brand>
                           <Navbar.Toggle />
                         </Navbar.Header>
@@ -57,7 +59,7 @@ render(){
                                          <li className="visible-sm visible-xs"><Link id="favoritesnav" to="favorites" className="nav navbar-nav">Favorites</Link></li>
                                          <li className="visible-sm visible-xs"><Link id="scoresnav" to="scores" className="nav navbar-nav">Scores</Link></li>
                             </ul>
-                            
+
                           <Nav pullRight>
                               <ul className="nav navbar-nav navbar-right">
                                 <li><Link id="termsnav" to="/about" className="nav navbar-nav" >Terms</Link></li>

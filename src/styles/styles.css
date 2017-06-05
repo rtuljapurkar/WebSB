@@ -133,6 +133,34 @@ div.blackBgInLine {
 div.rowContainer{
     padding: 5px;
 }
+
+div.ib{
+     /*border: solid red 1px;*/
+      display: inline-block;
+      width:50%;
+      vertical-align: middle;
+      padding: 5px;
+      margin: 5px;
+  }
+div.ibright{
+      display: inline-block;
+      min-width: 200px;
+      vertical-align: middle;
+      padding: 5px;
+      margin: 5px;
+      float:right;
+  }
+div.break {
+    background-color: white;
+    height: 2px;
+    margin: 5px 0 10px 0;
+    width: 100%;
+    clear: both;
+}
+
+span.spanAmenities{
+    word-wrap:normal;
+}
 /*-------------------------------------------------------------------------------------------------------------------*/
 /*-------------------------------------------------------------------------------------------------------------------*/
 /*-------------------------------------------------------------------------------------------------------------------*/
