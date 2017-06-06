@@ -144,20 +144,20 @@ div.ib{
   }
 div.ibright{
     /*border: solid red 1px;*/
-      display: inline-block;
+      /*display: inline-block;*/
       min-width: 200px;
       vertical-align: middle;
       padding: 5px;
       margin: 5px;
-      float:right;
+      /*float:right;*/
   }
 
-/*@media handheld and (min-width: 20em), screen and (min-width: 20em) {
-  div.ibright{
-      float:left;
+@media screen and (min-width: 650px) {
+      div.ibright {
+          display:inline-block;
+          float:right;
+      }
   }
-};*/
-
 div.break {
     background-color: white;
     height: 2px;
