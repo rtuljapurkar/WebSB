@@ -12,54 +12,44 @@ function renderSortArrow (sortKey, sortDesc, sortId) {
 //  --------------------------------------------------------------------------------------------------------------//
 const VenuesTable = ({venue, venues }) => {
     return (
-        <tr >
-              <td className="blackBg" >
-                  <table className="col-md-12 mainScreen " >
-                      <tbody style={{"height":"200px", "overflow":"hidden"}} >
-                      <tr  style={{"height":"75px"}}>
-                          <td>
-                              {venue["VName"]} <br/>
-                              {venue["VCity"]}
-                          </td>
-                      </tr>
-                      <tr>
-                          <td  style={{"height":"75px"}}>
-                            {venue["VDescription"]}
-                          </td>
-                      </tr>
-                      <tr className="col-md-12">
-                          <td>
-                              <span>&nbsp;&nbsp;&nbsp;</span>
-                              <span style={{"float":"left"}}>
-                                  <a href={"/posts/add/"+venue.id}>
-                                          <Button bsStyle="primary" bsSize="small" >
-                                              <Glyphicon glyph="pencil" />  Review this Stadium
-                                          </Button>
-                                  </a>
-                             </span>
-                             <span>&nbsp;&nbsp;&nbsp;</span>
-                              <a href={"/poi/"+venue.id}>
-                                      <Button bsStyle="primary" bsSize="small"  >
-                                          <Glyphicon glyph="pencil" />  Local 411
-                                      </Button>
-                                 </a>
-                            <span>&nbsp;&nbsp;&nbsp;</span>
-                                    <span style={{"float":"right"}}>
-                                          <a href={"/amenities/"+venue.id}>
-                                              <Button bsStyle="primary" bsSize="small"  >
-                                                  <Glyphicon glyph="pencil" />  Amenities
-                                              </Button>
-                                          </a>
-                                    </span>
-                          </td>
-                      </tr>
-                      </tbody>
-                </table>
-              </td>
-              <td>
+        <div className="blackBg">
+            <div className="ib" >
+                <div className="ib" style={{"max-width":"100%"}}>
+                      {venue["VName"]} <br/>
+                      {venue["VCity"]}
+                </div>
+                <div className="ib" style={{"max-width":"100%"}}>
+                    {venue["VDescription"]}
+                </div>
+                <div className="ib" style={{"max-width":"100%"}}>
+                    <div className="ibInline">
+                            <a href={"/amenities/"+venue.id}>
+                                <Button bsStyle="primary" bsSize="small"  >
+                                    <Glyphicon glyph="pencil" />  Amenities
+                                </Button>
+                            </a>
+                     </div>
+                     <div className="ibInline">
+                            <a href={"/poi/"+venue.id}>
+                                    <Button bsStyle="primary" bsSize="small"  >
+                                        <Glyphicon glyph="pencil" />  Local 411
+                                    </Button>
+                               </a>
+                     </div>
+                     <div className="ibInline">
+                           <a href={"/posts/add/"+venue.id}>
+                                   <Button bsStyle="primary" bsSize="small" >
+                                       <Glyphicon glyph="pencil" />  Review this Stadium
+                                   </Button>
+                           </a>
+                     </div>
+                </div>
+            </div>
+            <div className="ibright">
                  <img src={venue["VImage"]} height="200" width="200" alt=""   />
-              </td>
-        </tr>
+            </div>
+            <div className="break">&nbsp;</div>
+        </div>
     );
 
 };

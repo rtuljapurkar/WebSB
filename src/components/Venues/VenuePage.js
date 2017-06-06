@@ -70,19 +70,14 @@ constructor(props){
               type="text" placeholder="Filter Rows"
               autoCorrect="off" autoCapitalize="off" spellCheck="false" />
             <br /><br />
-            <table className="table  table-striped table-bordered table-responsive table-hover mainScreen" >
-                  <tbody>
-                      <tr>
-                          <th colSpan="2"><b>Venues</b></th>
-                      </tr>
+                <div style={{"max-height":"650px", "overflow": "auto"}}>
                       {
                               localData.map((venue, index) => {
                                     return(
                                             <VenuesTable  key={venue.id} venue={venue} venues={venues} />
                                       );})
-                      }
-                  </tbody>
-           </table>
+                      }                 
+               </div>
 
           </div>
     );

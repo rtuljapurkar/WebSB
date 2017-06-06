@@ -136,11 +136,14 @@ div.rowContainer{
 
 div.ib{
      /*border: solid red 1px;*/
-      display: inline-block;
-      width:50%;
+      /*display: inline-block;
+      width:50%;*/
+      max-width: 70%;
+      min-width: 70%;
       vertical-align: middle;
       padding: 5px;
       margin: 5px;
+      float: left;
   }
 div.ibright{
     /*border: solid red 1px;*/
@@ -150,18 +153,34 @@ div.ibright{
       padding: 5px;
       margin: 5px;
       /*float:right;*/
+      float: left;
   }
+  div.ibInline{
+      /*border: solid red 1px;*/
+        display: inline;
+        min-width: 100px;
+        vertical-align: middle;
+        /*padding: 10px;*/
+        margin-top:  5px;
+        margin-bottom: 5px;
+        margin-left: 5px;
+        margin-right: 5px;
+    }
 
-@media screen and (min-width: 650px) {
-      div.ibright {
+/*@media screen and (min-width:1025px) {
+      div.ibright, div.ibInline {
           display:inline-block;
           float:right;
       }
-  }
+     div.ib{
+         width:"100%";
+     }
+  }*/
+
 div.break {
     background-color: white;
     height: 2px;
-    margin: 5px 0 10px 0;
+    /*margin: 5px 0 10px 0;*/
     width: 100%;
     clear: both;
 }
@@ -172,99 +191,7 @@ span.spanAmenities{
 /*-------------------------------------------------------------------------------------------------------------------*/
 /*-------------------------------------------------------------------------------------------------------------------*/
 /*-------------------------------------------------------------------------------------------------------------------*/
-$breakpoint-alpha: 480px;
-.rwd-table {
-  margin: 1em 0;
-  min-width: 300px;
 
-  tr {
-    border-top: 1px solid #ddd;
-    border-bottom: 1px solid #ddd;
-  }
-
-  th {
-    display: none;
-  }
-
-  td {
-    display: block;
-
-    &:first-child {
-      padding-top: .5em;
-    }
-    &:last-child {
-      padding-bottom: .5em;
-    }
-
-    /*&:before {
-      content: attr(data-th)": ";
-      font-weight: bold;
-
-      // optional stuff to make it look nicer
-      width: 6.5em;
-      display: inline-block;
-      // end options
-
-      @media (min-width: $breakpoint-alpha) {
-        display: none;
-      }
-    }*/
-  }
-
-  th, td {
-    text-align: left;
-
-    @media (min-width: $breakpoint-alpha) {
-      display: table-cell;
-      padding: .25em .5em;
-
-      &:first-child {
-        padding-left: 0;
-      }
-
-      &:last-child {
-        padding-right: 0;
-      }
-    }
-
-  }
-}
-
-@import 'https://fonts.googleapis.com/css?family=Montserrat:300,400,700';
-
-body {
-  padding: 0 2em;
-  font-family: Montserrat, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  /*text-rendering: optimizeLegibility;*/
-  color: black;
-  background: #ffff99;
-}
-
-h1 {
-  font-weight: normal;
-  letter-spacing: -1px;
-  color: #34495E;
-}
-
-.rwd-table {
-  background: #34495E;
-  color: #fff;
-  border-radius: .4em;
-  overflow: hidden;
-  tr {
-    border-color: lighten(#34495E, 10%);
-  }
-  th, td {
-    margin: .5em 1em;
-    @media (min-width: $breakpoint-alpha) {
-      padding: 1em !important;
-    }
-  }
-  /*th, td:before {
-    color: #dd5;
-  }*/
-}
 /*=============================================================================================*/
 /* Navigation bar */
 #main_navbar .navbar-default, .dropdown-menu {

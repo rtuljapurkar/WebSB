@@ -100,42 +100,37 @@ class PointOfInterestPage extends React.Component {
     catch(ex){
         gpsLocationObj.lat = -34.397;
         gpsLocationObj.lng = 150.644;
-    }    
+    }
     return (
-          <div className="col-md-12">
-                <h1>Points Of Interest {this.props.loading && <LoadingDots interval={100} dots={20}/>} </h1>
+          <div className="col-md-12" >
+              <h1>Points Of Interest {this.props.loading && <LoadingDots interval={100} dots={20}/>} </h1>
 
-                  <table className="table table-striped table-responsive table-hover mainScreen">
-                      <tbody style={{"height":"200px"}}>
-                        <tr >
-                          <td className="blackBg">
+              <div className="blackBg visible-md visible-lg visible-xl" style={{"min-height":"210", "overflow":"auto"}}>
+                   <div className="ib"  style={{"min-width":"15%", "max-width":"45%"}}>
+                        <div  className="ib"   >
                             {venue.VName} <br/>
                             {venue.VCity}
-                          </td>
-                          <td rowSpan="2"  >
-                              <DisplayMap
-                                  location={gpsLocationObj}
-                                  containerElement={
-                                           <div style={{ height: '200px', width:"200px"}} />
-                                        }
-                                        mapElement={
-                                           <div style={{ height: '100%', width:"200px"}} />
-                                        }
-
-                                />
-                          </td>
-                          <td rowSpan="2" >
-                            <img src={venue.VImage} height="200" alt="" width="200" />
-                          </td>
-                        </tr>
-                        <tr>
-                          <td className="blackBg">
-                            {venue.VDescription}
-                          </td>
-                        </tr>
-                      </tbody>
-                  </table>
-                  <br /><br />
+                         </div>
+                         <div  className="ib"    >
+                             {venue.VDescription}
+                         </div>
+                    </div>
+                     <div className="ibInline" >
+                        <img src={venue.VImage} height="200" alt="" width="200" />
+                     </div>
+                     <div className="ibInline" style={{"float":"right"}}>
+                          <DisplayMap
+                              location={gpsLocationObj}
+                              containerElement={
+                                       <div style={{ height: '200px', width:"200px"}} />
+                                    }
+                                    mapElement={
+                                       <div style={{ height: '100%', width:"200px"}} />
+                                    }
+                            />
+                     </div>
+                 </div>
+                  <br/><br />
                   <input className="filter-input" value={filterString}
                      onChange={this.handleFilterStringChange()}
                      type="text" placeholder="Filter Rows"
@@ -188,3 +183,35 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(PointOfInterestPage);
+/*
+
+<table className="table table-striped table-responsive table-hover mainScreen">
+    <tbody style={{"height":"200px"}}>
+      <tr >
+        <td className="blackBg">
+          {venue.VName} <br/>
+          {venue.VCity}
+        </td>
+        <td rowSpan="2"  >
+            <DisplayMap
+                location={gpsLocationObj}
+                containerElement={
+                         <div style={{ height: '200px', width:"200px"}} />
+                      }
+                      mapElement={
+                         <div style={{ height: '100%', width:"200px"}} />
+                      }
+
+              />
+        </td>
+        <td rowSpan="2" >
+          <img src={venue.VImage} height="200" alt="" width="200" />
+        </td>
+      </tr>
+      <tr>
+        <td className="blackBg">
+          {venue.VDescription}
+        </td>
+      </tr>
+    </tbody>
+</table>*/
