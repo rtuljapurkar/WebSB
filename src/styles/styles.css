@@ -15,7 +15,7 @@ table.scroll thead tr th {
     height: 30px;
     /*line-height: 30px;
     text-align: left;*/
-    background-color: lightGrey;
+    background-color: Grey;
 }
 table.scroll tbody {
     height: 200px;
@@ -23,7 +23,7 @@ table.scroll tbody {
     overflow-y: auto;
     overflow-x: hidden;
 }
-table.scroll tbody { border-top: 2px solid black; }
+table.scroll tbody { border-top: 2px #262626; }
 table.scroll tbody td {
     width: 20%; /* Optional */
     text-align: left;
@@ -96,34 +96,34 @@ table.mainScreen tbody td:last-child, thead th:last-child {
 /*-------------------------------------------------------------------------------------------------------------------*/
 
 td.blackBg {
-    background-color: black;
+    background-color: #262626;
     color: white;
 }
 
 tr.blackBg {
-    background-color: black;
+    background-color: #262626;
     color: white;
     width:inherit;
 }
 a.blackBg {
-    background-color: black;
+    background-color: #262626;
     color: white;
     width:inherit;
 }
 tbody.blackBg {
-    background-color: black;
+    background-color: #262626;
     color: white;
     width:inherit;
 }
 div.blackBg {
-    background-color: black;
+    background-color: #262626;
     color: white;
     padding: 10px;
     word-wrap: break-word;
     word-break: break-all;
 }
 div.blackBgInLine {
-    background-color: black;
+    background-color: #262626;
     color: white;
     padding: 5px;
     vertical-align: middle;
@@ -188,10 +188,109 @@ div.break {
 span.spanAmenities{
     word-wrap:normal;
 }
-/*-------------------------------------------------------------------------------------------------------------------*/
-/*-------------------------------------------------------------------------------------------------------------------*/
-/*-------------------------------------------------------------------------------------------------------------------*/
 
+.navbar-inverse {
+     background-color: #262626;
+     border-color: #262626;
+}
+/*-------------------------------------------------------------------------------------------------------------------*/
+/*-------------------------------------------------------------------------------------------------------------------*/
+/*-------------------------------------------------------------------------------------------------------------------*/
+$breakpoint-alpha: 480px;
+.rwd-table {
+  margin: 1em 0;
+  min-width: 300px;
+
+  tr {
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+  }
+
+  th {
+    display: none;
+  }
+
+  td {
+    display: block;
+
+    &:first-child {
+      padding-top: .5em;
+    }
+    &:last-child {
+      padding-bottom: .5em;
+    }
+
+    /*&:before {
+      content: attr(data-th)": ";
+      font-weight: bold;
+
+      // optional stuff to make it look nicer
+      width: 6.5em;
+      display: inline-block;
+      // end options
+
+      @media (min-width: $breakpoint-alpha) {
+        display: none;
+      }
+    }*/
+  }
+
+  th, td {
+    text-align: left;
+
+    @media (min-width: $breakpoint-alpha) {
+      display: table-cell;
+      padding: .25em .5em;
+
+      &:first-child {
+        padding-left: 0;
+      }
+
+      &:last-child {
+        padding-right: 0;
+      }
+    }
+
+  }
+}
+
+@import 'https://fonts.googleapis.com/css?family=Montserrat:300,400,700';
+
+body {
+  padding: 0 2em;
+  font-family: Montserrat, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  /*text-rendering: optimizeLegibility;*/
+  color: black;
+  background: #ffcb45;
+  /*background: url("../images/main.jpg") no-repeat #ffff99;
+  background-size: cover;*/
+}
+
+h1 {
+  font-weight: normal;
+  letter-spacing: -1px;
+  color: #34495E;
+}
+
+.rwd-table {
+  background: #34495E;
+  color: #fff;
+  border-radius: .4em;
+  overflow: hidden;
+  tr {
+    border-color: lighten(#34495E, 10%);
+  }
+  th, td {
+    margin: .5em 1em;
+    @media (min-width: $breakpoint-alpha) {
+      padding: 1em !important;
+    }
+  }
+  /*th, td:before {
+    color: #dd5;
+  }*/
+}
 /*=============================================================================================*/
 /* Navigation bar */
 #main_navbar .navbar-default, .dropdown-menu {

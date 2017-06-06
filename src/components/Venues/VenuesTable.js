@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import toastr from 'toastr';
 import {Button, Glyphicon} from 'react-bootstrap';
 import { withGoogleMap, GoogleMap, Marker } from "react-google-maps";
+import {Link} from 'react-router';
 
 // Stateless cell components for Table component
 function renderSortArrow (sortKey, sortDesc, sortId) {
@@ -23,30 +24,32 @@ const VenuesTable = ({venue, venues }) => {
                 </div>
                 <div className="ib" style={{"max-width":"100%"}}>
                     <div className="ibInline">
-                            <a href={"/amenities/"+venue.id}>
+                            <Link to={"/amenities/"+venue.id}>
                                 <Button bsStyle="primary" bsSize="small"  >
                                     <Glyphicon glyph="pencil" />  Amenities
                                 </Button>
-                            </a>
+                            </Link>
                      </div>
                      <div className="ibInline">
-                            <a href={"/poi/"+venue.id}>
+                             <Link to={"/poi/"+venue.id}>
                                     <Button bsStyle="primary" bsSize="small"  >
                                         <Glyphicon glyph="pencil" />  Local 411
                                     </Button>
-                               </a>
+                                </Link>
                      </div>
                      <div className="ibInline">
-                           <a href={"/posts/add/"+venue.id}>
+                         <Link to={"/posts/add/"+venue.id}>
                                    <Button bsStyle="primary" bsSize="small" >
                                        <Glyphicon glyph="pencil" />  Review this Stadium
                                    </Button>
-                           </a>
+                          </Link>
                      </div>
                 </div>
             </div>
             <div className="ibright">
+                <a href={"/posts/add/"+venue.id}>
                  <img src={venue["VImage"]} height="200" width="200" alt=""   />
+                 </a>
             </div>
             <div className="break">&nbsp;</div>
         </div>
