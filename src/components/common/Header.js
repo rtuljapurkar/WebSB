@@ -54,7 +54,7 @@ render(){
                                          <li><Link id="venuesnav" to="/venues" className="nav navbar-nav">Venues</Link></li>
 
                                          <li><Link id="teamsnav" to="/teams" className="nav navbar-nav">Teams</Link></li>
-                                         <li><Link id="postsnav" to="/posts" className="nav navbar-nav">Post</Link></li>
+                                         <li><Link id="postsnav" to="/posts" className="nav navbar-nav">Posts</Link></li>
                                          <li className="visible-sm visible-xs"><Link id="favoritesnav" to="/favorites" className="nav navbar-nav">Favorites</Link></li>
                                          <li className="visible-sm visible-xs"><Link id="scoresnav" to="/scores" className="nav navbar-nav">Scores</Link></li>
                             </ul>

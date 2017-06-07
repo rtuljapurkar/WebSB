@@ -7,7 +7,7 @@ function handleErrors(response) {
 
 class PostsApi {
 
-        static getAllPosts() {
+        static getVenuePosts() {
             const host = `${process.env.API_HOST}`;
             const request = new Request(`${process.env.API_HOST}/sb_post_venue`, {
               method: 'GET'
@@ -21,6 +21,51 @@ class PostsApi {
                     throw error;
                 });
             }
+
+        static getAmenityPosts(venueID) {
+            let filter ="";
+            if (!isNaN(venueID)){
+                  filter = "filter[where][VenueID]=" + venueID; //131
+                }
+                else {
+                  filter = "filter[where][VenueID]=0"; //131
+                }
+            const host = `${process.env.API_HOST}`;
+            const request = new Request(`${process.env.API_HOST}/sb_post_venue_amenity?` + filter, {
+              method: 'GET'
+            });
+
+            return fetch(request)
+            .then(handleErrors)
+            .then(response => {
+                    return response.json();
+                }).catch(error => {
+                    throw error;
+                });
+            }
+
+        static getPOIPosts(venueID) {
+         
+                let filter ="";
+                if (!isNaN(venueID)){
+                      filter = "filter[where][VenueID]=" + venueID; //131
+                    }
+                    else {
+                      filter = "filter[where][VenueID]=0"; //131
+                    }
+                const host = `${process.env.API_HOST}`;
+                const request = new Request(`${process.env.API_HOST}/sb_post_venue_poi?` + filter, {
+                  method: 'GET'
+                });
+
+                return fetch(request)
+                .then(handleErrors)
+                .then(response => {
+                        return response.json();
+                    }).catch(error => {
+                        throw error;
+                    });
+                }
 
         static getVenueByID(ID) {
               const host = `${process.env.API_HOST}`;
@@ -52,15 +97,35 @@ class PostsApi {
                         });
                     }
 
-        static savePost(post) {            
+            static getPOIByID(ID) {
+                      const host = `${process.env.API_HOST}`;
+                      const request = new Request(`${process.env.API_HOST}/sb_POI/`+ ID, {
+                        method: 'GET'
+                      });
+
+                      return fetch(request)
+                      .then(handleErrors)
+                      .then(response => {
+                              return response.json();
+                          }).catch(error => {
+                              throw error;
+                          });
+                      }
+
+
+        static savePost(post) {
                 post.UploadTime = new Date();
                 let url = "";
-                if(post.AmenityID == 0){
+                if(post.AmenityID == 0 && post.POIID == 0){
                          url = `${process.env.API_HOST}/sb_post_venue`;
                     }
-                    else {
+                else if(post.AmenityID != 0 && post.POIID == 0){
                          url = `${process.env.API_HOST}/sb_post_venue_amenity`;
                     }
+                else if(post.AmenityID == 0 && post.POIID != 0){
+                         url = `${process.env.API_HOST}/sb_post_venue_poi`;
+                    }
+
                 return fetch(url, {
                      method: 'POST',
                      headers: {

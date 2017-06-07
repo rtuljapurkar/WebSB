@@ -8,6 +8,7 @@ import AboutPage from './components/About/AboutPage';
 import FavoritesPage from './components/Favorites/FavoritesPage';
 import ScoresPage from './components/Scores/ScoresPage';
 import VenuesPage from './components/Venues/VenuePage';
+import VenueDetailPage from './components/Venues/VenueDetailPage';
 import AmenitiesPage from './components/Venues/AmenitiesPage';
 import PointOfInterestPage from './components/Venues/PointOfInterestPage';
 import TeamsList from './components/Teams/TeamList';
@@ -26,12 +27,14 @@ export default (
     <Route path="/home" component={HomePage} />
     <Route path="/register" component={RegisterPage} />
     <Route path="/venues" component={VenuesPage} onEnter={requireAuth}/>
+    <Route path="/venues/:venueId" component={VenueDetailPage} onEnter={requireAuth}/>
     <Route path="/teams" component={TeamsList} onEnter={requireAuth}/>
     <Route path="/posts" component={PostsPage} onEnter={requireAuth}/>
     <Route path="/favorites" component={FavoritesPage} onEnter={requireAuth}/>
     <Route path="/scores" component={ScoresPage} onEnter={requireAuth}/>
     <Route path="/posts/add/:venueId" component={ManagePostPage} onEnter={requireAuth}/>
     <Route path="/posts/amenities/add/:amenityId" component={ManagePostPage} onEnter={requireAuth}/>
+    <Route path="/posts/poi/add/:poiId" component={ManagePostPage} onEnter={requireAuth}/>
     <Route path="/amenities/:venueId" component={AmenitiesPage} onEnter={requireAuth}/>
     <Route path="/poi/:venueId" component={PointOfInterestPage} onEnter={requireAuth}/>
 

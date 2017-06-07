@@ -37,6 +37,13 @@ class ManagePostPage extends React.Component {
                     toastr.error(error);
         });
     }
+    if (this.props.params.poiId && this.props.post.pointOfInterest.id==0) {
+        this.props.actions.addPostPOILoad(this.props.params.poiId)
+        .then()
+        .catch( error => {
+                    toastr.error(error);
+        });
+    }
   }
 
   // componentWillReceiveProps(nextProps) {
@@ -85,6 +92,7 @@ class ManagePostPage extends React.Component {
     let postToSubmit = this.state.post;
     postToSubmit.VenueID = this.props.post.venue.id;
     postToSubmit.AmenityID = this.props.post.amenity.id;
+    postToSubmit.POIID = this.props.post.pointOfInterest.id;
 
     this.props.actions.savePost(postToSubmit)
       .then(() => this.redirect())
@@ -106,10 +114,13 @@ cancelPost(event){
   }
 
   render() {
+      console.log(this.props.post.amenity);
+      console.log(this.props.post.pointOfInterest);
     return (
       <PostForm
         venue={this.props.post.venue}
         amenity={this.props.post.amenity}
+        poi={this.props.post.pointOfInterest}
         onChange={this.updatePostState}
         onSave={this.savePost}
         post={this.state.post}
@@ -126,8 +137,9 @@ ManagePostPage.propTypes = {
   post: PropTypes.object.isRequired,
   actions: PropTypes.object.isRequired,
   venue: PropTypes.object.isRequired,
-  params:  PropTypes.object.isRequired,
-  amenity:PropTypes.object
+  params: PropTypes.object.isRequired,
+  amenity: PropTypes.object,
+  poi: PropTypes.object
 };
 
 //Pull in the React Router context so router is available on this.context.router.
@@ -142,7 +154,7 @@ ManagePostPage.contextTypes = {
 // }
 
 
-function mapStateToProps(state, ownProps) {  
+function mapStateToProps(state, ownProps) {
   return {
         post: state.newPost
     };

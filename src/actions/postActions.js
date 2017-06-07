@@ -32,12 +32,15 @@ export function loadUsersSuccess(data) {
 export function addPostAmenityLoadSuccess(data) {
   return {type: types.ADDPOST_AMENITY_LOAD, data};
 }
+export function addPostPOILoadSuccess(data) {
+  return {type: types.ADDPOST_POI_LOAD, data};
+}
 
-export function loadPosts() {
+export function loadVenuePosts() {
   // make async call to api, handle promise, dispatch action when promise is resolved
   return function(dispatch) {
         dispatch( beginAjaxCall());
-        return postsApi.getAllPosts().then(data => {
+        return postsApi.getVenuePosts().then(data => {
              dispatch(loadPostsSuccess(data));
          }).catch(error => {
              dispatch(ajaxCallError(error));
@@ -59,13 +62,33 @@ export function loadPosts() {
       };
   }
 
+  export function addPostPOILoad(ID) {
+     return function(dispatch) {
+           dispatch( beginAjaxCall());
+           return postsApi.getPOIByID(ID).then(data => {
+                     if(data.VenueID > 0){
+                        postsApi.getVenueByID(data.VenueID).then(venueData => {
+                                data.venue = venueData;
+                                dispatch(addPostPOILoadSuccess(data));
+                              }).catch(error => {
+                                  dispatch(ajaxCallError(error));
+                                  throw(error);
+                              });
+                     }
+            }).catch(error => {
+                dispatch(ajaxCallError(error));
+                throw(error);
+            });
+        };
+    }
+
   export function addPostAmenityLoad(ID) {
     // make async call to api, handle promise, dispatch action when promise is resolved
     return function(dispatch) {
           dispatch( beginAjaxCall());
           return postsApi.getAmenityByID(ID).then(data => {
-                    if(data.id > 0){
-                       postsApi.getVenueByID(data.id).then(venueData => {
+                    if(data.VenueID > 0){
+                       postsApi.getVenueByID(data.VenueID).then(venueData => {
                                data.venue = venueData;
                                dispatch(addPostAmenityLoadSuccess(data));
                              }).catch(error => {

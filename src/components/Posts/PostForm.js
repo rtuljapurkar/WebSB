@@ -5,7 +5,7 @@ import {Button, Glyphicon} from 'react-bootstrap';
 //import {glyphicon} from 'react-router';
 import ReactStars from 'react-stars';
 
-const PostForm = ({post, onSave, onChange, saving, errors, venue, amenity, onCancel, onStarRatingChange}) => {
+const PostForm = ({post, onSave, onChange, saving, errors, venue, amenity, poi, onCancel, onStarRatingChange}) => {
   return (
     <form>
       <h1>Add Post</h1>
@@ -14,20 +14,23 @@ const PostForm = ({post, onSave, onChange, saving, errors, venue, amenity, onCan
             <tr style={{"backgroundColor": "black"}} >
               <td style={{"fontWeight": "bold", "color": "white", "paddingLeft": "10px", "fontSize": "14px",
                   "wordWrap":"break-word",  "fontFamily": "Helvetica",  "width":"600px"}}>
-                {amenity && <h3>{amenity.AName} <br/></h3>}
+                {amenity.id > 0 && <h3>{amenity.AName} <br/></h3>}
+                {poi.id > 0 && <h3>{poi.POIName} <br/></h3>}
                 {venue.VName} <br/>
                 {venue.VCity}
               </td>
               <td rowSpan="3"  style={{"paddingLeft": "15px"}}>
-                {amenity && <img src={amenity.AImage} height="200" alt="" width="200" />}
-                {!amenity && <img src={venue.VImage} height="200" alt="" width="200" />}
+                {amenity.id > 0 && poi.id ==0  && <img src={amenity.AImage} height="200" alt="" width="200" />}
+                {amenity.id == 0 && poi.id > 0 && <img src={poi.POIImage} height="200" alt="" width="200" />}
+                {amenity.id == 0  && poi.id ==0 && <img src={venue.VImage} height="200" alt="" width="200" />}
               </td>
             </tr>
             <tr style={{"backgroundColor": "black" }}>
               <td style={{"color": "white", "paddingLeft": "10px", "fontFamily": "Helvetica", "fontSize": "14px",
                              "wordWrap":"break-word"}}>
-                {!amenity && venue.VDescription}
-                {amenity && amenity.AType}
+                {amenity.id ==0  && poi.id ==0 && venue.VDescription}
+                {amenity.id > 0 && amenity.AType}
+                {poi.id > 0 && poi.POIType}
               </td>
             </tr>
           </tbody>
@@ -87,7 +90,8 @@ PostForm.propTypes = {
   errors: React.PropTypes.object,
   venue: React.PropTypes.object,
   onStarRatingChange: React.PropTypes.func.isRequired,
-  amenity: React.PropTypes.object
+  amenity: React.PropTypes.object,
+  poi: React.PropTypes.object
 };
 
 export default PostForm;

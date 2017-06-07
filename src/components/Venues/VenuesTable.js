@@ -38,16 +38,16 @@ const VenuesTable = ({venue, venues }) => {
                                 </Link>
                      </div>
                      <div className="ibInline">
-                         <Link to={"/posts/add/"+venue.id}>
+                         <a href={"/posts/add/"+venue.id}>
                                    <Button bsStyle="primary" bsSize="small" >
                                        <Glyphicon glyph="pencil" />  Review this Stadium
                                    </Button>
-                          </Link>
+                          </a>
                      </div>
                 </div>
             </div>
             <div className="ibright">
-                <a href={"/posts/add/"+venue.id}>
+                <a href={"/venues/"+venue.id}>
                  <img src={venue["VImage"]} height="200" width="200" alt=""   />
                  </a>
             </div>

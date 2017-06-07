@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import toastr from 'toastr';
+import {Button, Glyphicon, SplitButton, MenuItem} from 'react-bootstrap';
+
 //import '../../styles/fixed-data-table.css';
 //import {Button, Glyphicon} from 'react-bootstrap';
 
@@ -15,6 +17,11 @@ const PointOfInterestTable = ({ PointOfInterest, venue }) => {
                 let modifiedkey = key.substr(3);
                 if(modifiedkey == "Name"){
                     rows.push(<p style={{"fontSize":"24px"}}><b>{value}</b></p>);
+                    rows.push(<a href={"/posts/poi/add/"+id}>
+                                    <Button bsStyle="primary" bsSize="small" >
+                                        <Glyphicon glyph="pencil" />  Review
+                                    </Button>
+                                </a>);
                 }
                 else
                  {

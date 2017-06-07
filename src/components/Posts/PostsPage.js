@@ -12,7 +12,7 @@ import { Table, Pagination } from 'react-bootstrap';
 class PostsPage extends React.Component {
       componentWillMount() {
           if (this.props.posts.data == [] || this.props.posts.data.length == 1) {
-                this.props.actions.loadPosts()
+                this.props.actions.loadVenuePosts()
                 .then()
                 .catch( error => {
                         toastr.error(error);

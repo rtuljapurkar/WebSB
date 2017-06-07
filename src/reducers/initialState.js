@@ -110,7 +110,7 @@ export default {
                             "POITags": "",
                             "Active": 1,
                             "POIImage": "1",
-                            "id": 1
+                            "id": 0
                         }]
             },
     favorites: {
@@ -140,12 +140,65 @@ export default {
               filterString: '',
               dateSelected: dateTime
           },
-    newPost:{   data: {Text: '', VenueID: '', AmenityID:'', UserName:localStorage.username, Stars:0,  UploadTime: new Date(), Active:1, Image: '', Reply: ''},
+    newPost:{   data: {Text: '', VenueID:0, POIID: 0, AmenityID:'', UserName:localStorage.username, Stars:0,  UploadTime: new Date(), Active:1, Image: '', Reply: ''},
+
                 venue:{ id:0, VName:'', VCity:'', VImage:'', VDescription:''},
+
                 amenity: {    "VenueID":0,"AName": '',"ASection": '',"AChildAmenity": '',"AType": '',"ASubType": '', "AMainFood": '',"AVeggieFood": '',
                               "AVeganFood": '',"AGFFood": '',"ABeverages": '', "ADomesticBeer": '',"ACraftBeer": '',"AMixedDrinks": '',"ATags": '',"ACost": '',
                               "ADistance": '',"AWalkingTime": '',"ALotLocation": '',"AKidsOk": '',"Active":1,"AImage": "",
                               "id":0
-                          }
-           }
+                          },
+                pointOfInterest: {
+                                      "VenueID": 0,
+                                      "POIName": "",
+                                      "POIType": "",
+                                      "POIAddress": "",
+                                      "POICity": "",
+                                      "POIState": "",
+                                      "POIZip": "",
+                                      "POIGPSLoc": "",
+                                      "POIPhone": "",
+                                      "POIDescription": "",
+                                      "POIDetails": "",
+                                      "POITags": "",
+                                      "Active": 1,
+                                      "POIImage": "1",
+                                      "id": 0
+                                  }
+           },
+
+    venueDetail: {
+              sortDesc: true,
+               sortKey: 'UploadTime',
+               venueRelatedPosts: [{
+                                     "VenueID": 0,
+                                     "AmenityID": 0,
+                                     "POIID": 0,
+                                     "UserName": "",
+                                     "Image": "",
+                                     "Text": "",
+                                     "Stars": 0,
+                                     "UploadTime": "",
+                                     "Reply": "",
+                                     "Active": 1,
+                                     "id": 0
+                                 }],
+             venue:  {
+                         "VName": "",
+                         "VAddress": "",
+                         "VCity": "",
+                         "VState": "",
+                         "VZip": "",
+                         "VGPSLoc": "",
+                         "VDescription": "",
+                         "VCapacity": "" ,
+                         "VDetails": "",
+                         "VTags": "",
+                         "Active": 1,
+                         "VImage": "",
+                         "id": 0
+                     }
+                 }
+
 };
