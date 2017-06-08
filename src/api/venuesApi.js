@@ -131,6 +131,21 @@ class VenuesApi {
                           throw error;
                       });
                   }
+
+                  static getScoresAvailableDates() {
+                        const host = `${process.env.API_HOST}`;
+                        const request = new Request(`${process.env.API_HOST}/vwGetDates`, {
+                          method: 'GET'
+                        });
+
+                        return fetch(request)
+                        .then(handleErrors)
+                        .then(response => {
+                                return response.json();
+                            }).catch(error => {
+                                throw error;
+                            });
+                        }
 }
 
 export default VenuesApi;

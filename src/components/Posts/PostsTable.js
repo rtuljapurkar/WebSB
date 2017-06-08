@@ -51,7 +51,7 @@ const PostsTable = ({post, venues, users}) => {
       venueID = 0;
     }
     try{
-      vname = venues[venueID].VName;
+      vname = venues[venueID-1].VName; //.filter((u)=> u.id == venueID); //[venueID-1].VName;
     }
     catch(ex) {
       vname = "";

@@ -13,13 +13,19 @@ class ScoresPage extends React.Component {
     constructor(props){
         super(props);
         this.changeDate = this.changeDate.bind(this);
-        this.state = {dateSelected : ""};
+        //this.state = {dateSelected : ""};
     }
 
   componentWillMount() {
-       this.setState({dateSelected: this.props.scores.dateSelected});
+        //this.setState({dateSelected: this.props.scores.dateSelected});
         if (this.props.scores.data == [] || this.props.scores.data.length == 1) {
             this.props.actions.loadScores()
+            .then()
+            .catch( error => {
+                toastr.error(error);
+            });
+
+            this.props.actions.loadScoresAvailableDates()
             .then()
             .catch( error => {
                 toastr.error(error);
@@ -33,19 +39,24 @@ class ScoresPage extends React.Component {
 
 
     filterData (localData) {
-        let selected = moment(this.state.dateSelected);
+        let selected = moment(this.props.scores.dateSelected);
+
         const {filterString} = this.props.scores;
         const str = filterString.toLowerCase();
       //  const dateSelected = new Date(this.state.dateSelected);
         return localData.filter((r) => {
-              let gameDate =  moment(r.GameDate);
+              let gameDate =  moment(r.GameDate).format("YYYY-MM-DD");
+              //console.log(gameDate);
+        //       if(moment(selected).isSame(gameDate)){
+        //       console.log(gameDate);
+        //   }
               //  let gameDate = new Date(r.GameDate);
-            return  (moment.duration(selected.diff(gameDate)).get("days") === 0);
+            return  (moment(selected).isSame(gameDate));
      });
     }
 
 changeDate(event){
-    let dateNow = moment(this.state.dateSelected);
+    let dateNow = moment(this.props.scores.dateSelected);
     let newDate;
 
     let type = event.target.getAttribute("data-type");
@@ -57,18 +68,24 @@ changeDate(event){
     }
 
     let currentDate = moment(moment().format("YYYY-MM-DD"));
-  if (moment.duration(currentDate.diff(dateNow)).get("days") >=0)
+  if (moment.duration(currentDate.diff(dateNow)).get("days") >=1)
   {
-    this.setState({dateSelected: newDate});
+    //this.setState({dateSelected: newDate});
+    this.props.actions.changeSelectedDate(newDate)
   }
 
 
 }
 
   render() {
-    let dateSelected = this.state.dateSelected;
+    let dateSelected = this.props.scores.dateSelected;
     let scoresData = this.props.scores.data;
+    //let lastDate = "";
+    //let numberofDates = this.props.scores.AvailableDates.length;
+    //lastDate = this.props.scores.AvailableDates[numberofDates-1].Dates;
+    //console.log(lastDate);
     scoresData = this.filterData(scoresData);
+
     return (
             <table className="table table-striped table-bordered
                             table-responsive table-hover scroll" >

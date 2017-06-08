@@ -11,7 +11,7 @@ class PostsApi {
             let filter ="";
             filter = "filter[where][Active]=1";
             const host = `${process.env.API_HOST}`;
-            const request = new Request(`${process.env.API_HOST}/sb_post_venue`, {
+            const request = new Request(`${process.env.API_HOST}/sb_post_venue?` + filter, {
               method: 'GET'
             });
 

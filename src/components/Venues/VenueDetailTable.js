@@ -56,15 +56,15 @@ const VenueDetailTable = ({post, venue, amenities, pointOfInterests, users}) => 
         let userImage = "";
 
         let amenityName = "";
-        let amenityImage = "";
+        //let amenityImage = "";
         if(post.AmenityID > 0)
         {
             try{
-                amenityName = amenities[post.AmenityID].AName;
-                amenityImage = amenities[post.AmenityID].AImage;
+                amenityName = amenities[post.AmenityID -1].AName;
+                //amenityImage = amenities[post.AmenityID -1 ].AImage;
             }catch(ex){
-                amenityImage = "";
-                amenityName = "";
+                //amenityImage = "";
+            amenityName = "";
             }
         }
 

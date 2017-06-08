@@ -3,8 +3,8 @@ const uuidV1 = require('uuid/v1');
 import moment from 'moment';
 
 let dateNow = new Date();
-let dateTime = new Date();
-dateTime = moment(dateTime, "MM-DD-YYYY").format("YYYY-MM-DD");
+let dateTime = new Date() ;
+dateTime = moment(dateTime, "MM-DD-YYYY").subtract(1,'days').format("YYYY-MM-DD");
 
 export default {
     venues: {
@@ -45,7 +45,8 @@ export default {
                         "PPasswordConfirm":'',
                         "PEmailA1": '',
                         "PLoginSessionAccessToken": uuidV1(),
-                        "PUserLastLogin": dateNow
+                        "PUserLastLogin": dateNow,
+                        "PUserImage":""
                     }
            },
     amenities: {
@@ -135,6 +136,11 @@ export default {
                       "APoints": 0,
                       "Active": 0
                }],
+              AvailableDates: [
+                  {
+                      "Dates": ""
+                  }
+              ],
               sortDesc: false,
               sortKey: 'VName',
               filterString: '',
