@@ -3,9 +3,11 @@ import React from 'react';
 class AboutPage extends React.Component {
   render() {
     return (
-      <div>
+      <div className="blackBg">
         <h1>About</h1>
-        <p>SB Site</p>
+        <p >
+           <span style={{"color":"white", "fontFamily":"Montserrat"}}>Stadium</span>
+           <span style={{"color":"yellow"}}>Bee</span></p>
       </div>
     );
   }

@@ -10,20 +10,18 @@ import {DisplayMap} from '../common/DisplayMap';
 
 class AmenitiesPage extends React.Component {
  componentWillMount() {
-    if (this.props.amenities.data == [] || this.props.amenities.data.length == 1) {
-        this.props.actions.loadAmenities(this.props.params.venueId)
-        .then()
-        .catch( error => {
-            toastr.error(error);
-        });
-    }
+    if (this.props.params.venueId > 0) {
+            this.props.actions.loadAmenities(this.props.params.venueId)
+            .then()
+            .catch( error => {
+                toastr.error(error);
+            });
 
-    if (this.props.amenities.venue.id == 0) {
-              this.props.actions.getVenueByID(this.props.params.venueId)
-              .then()
-              .catch( error => {
-                          toastr.error(error);
-              });
+            this.props.actions.getVenueByID(this.props.params.venueId)
+            .then()
+            .catch( error => {
+                      toastr.error(error);
+            });
       }
     }
 
@@ -42,8 +40,7 @@ class AmenitiesPage extends React.Component {
 
     filterByType (localData) {
       const {filterType} = this.props.amenities;
-      const str = filterType.toLowerCase();
-      console.log(str);
+      const str = filterType.toLowerCase();      
       return str !== ''
           ? localData.filter((r) => r.AType.toLowerCase() === str)
           : localData;
@@ -81,7 +78,7 @@ class AmenitiesPage extends React.Component {
                   <h3>Amenities at {this.props.amenities.venue.VName} {this.props.loading && <LoadingDots interval={100} dots={20}/>}
               </h3>
                       <table className="table table-striped table-responsive table-hover mainScreen visible-md visible-lg">
-                          <tbody style={{"height":"200px"}}>
+                          <tbody style={{"height":"250px", "overflow":"none"}}>
                             <tr >
                               <td className="blackBg">
                                 {venue.VName} <br/>

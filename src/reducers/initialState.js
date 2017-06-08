@@ -198,7 +198,54 @@ export default {
                          "Active": 1,
                          "VImage": "",
                          "id": 0
-                     }
+                     },
+             amenities: [{
+                     "VenueID": "",
+                      "AName": "",
+                      "AType": "",
+                      "AMainFood": "",
+                      "AVeggieFood": "",
+                      "AVeganFood": null,
+                      "AGFFood": "",
+                      "ABeverages": "",
+                      "ADomesticBeer": "",
+                      "ACraftBeer": "",
+                      "AMixedDrinks": null,
+                      "ANearestGates": "",
+                      "ATags": "",
+                      "ACost": null,
+                      "ADistance": null,
+                      "AWalkingTime": null,
+                      "ALotLocation": null,
+                      "Active": "1",
+                      "AImage": "",
+                      "id": 0
+                  }],
+            pointOfInterests: [{
+                        "VenueID": 0,
+                        "POIName": "",
+                        "POIType": "",
+                        "POIAddress": "",
+                        "POICity": "",
+                        "POIState": "",
+                        "POIZip": "",
+                        "POIGPSLoc": "",
+                        "POIPhone": "",
+                        "POIDescription": "",
+                        "POIDetails": "",
+                        "POITags": "",
+                        "Active": 1,
+                        "POIImage": "",
+                        "id": 0
+                    }],
+            users: [{
+                      "PUserName": '',
+                      "PPassword": '',
+                      "PUserImage":'',
+                      "PEmailA1": '',
+                      "PLoginSessionAccessToken": '',
+                      "PUserLastLogin": '',
+                      id: 0
+                  }]
                  }
-
 };

@@ -14,16 +14,32 @@ constructor(props){
 }
 
   componentWillMount() {
-    if (this.props.venueDetail.venue.id == 0 && this.props.params.venueId > 0) {
+    if (this.props.params.venueId > 0) {
         this.props.actions.getVenueByID(this.props.params.venueId)
         .then()
         .catch( error => {
             toastr.error(error);
         });
-    }
 
-    if (this.props.venueDetail.venueRelatedPosts.length == 1 && this.props.venueDetail.venueRelatedPosts[0].id == 0) {
-        this.props.actions.getAllPosts(this.props.params.venueId)
+        this.props.actions.getAllPostsByVenue(this.props.params.venueId)
+        .then()
+        .catch( error => {
+            toastr.error(error);
+        });
+
+        this.props.actions.getAmenitiesByVenue(this.props.params.venueId)
+        .then()
+        .catch( error => {
+            toastr.error(error);
+        });
+
+        this.props.actions.getPointOfInterestsByVenue(this.props.params.venueId)
+        .then()
+        .catch( error => {
+            toastr.error(error);
+        });
+
+        this.props.actions.getAllUsers()
         .then()
         .catch( error => {
             toastr.error(error);
@@ -52,8 +68,11 @@ constructor(props){
 
   render() {
         const venue = this.props.venueDetail.venue;
+        const amenities = this.props.venueDetail.amenities;
+        const pointOfInterests = this.props.venueDetail.pointOfInterests;
+        const users = this.props.venueDetail.users;
         let localData = this.sortData();
-        console.log(localData)  ;  
+        console.log(localData)  ;
         return (
           <div className="col-md-12">
             <h1>{venue.VName} {this.props.loading && <LoadingDots interval={100} dots={20}/>}
@@ -97,19 +116,19 @@ constructor(props){
                      <img src={venue["VImage"]} height="200" width="200" alt=""   />
                      </a>
                 </div>
-                    <div className="break">&nbsp;</div>
+                    <div className="clear">&nbsp;</div>
                 </div>
                     <br /><br />
-                <div style={{"max-height":"650px", "overflow": "auto"}}>
-                    {
-                    localData.map((post, index) => {
-                           return(
-                                        <VenueDetailTable  key={post.id} post={post} venue={venue} />
-                                   );
-                        })
 
+                    {localData.length > 0 &&
+                        <div style={{"max-height":"650px", "overflow": "auto"}}>
+                          {localData.map((post, index) => {
+                               return(<VenueDetailTable  key={post.id} post={post} venue={venue} amenities={amenities} pointOfInterests={pointOfInterests} users={users}/>
+                                       );})}
+                        </div>
                     }
-               </div>
+                    {localData.length == 0 &&
+                        <h3>No posts found</h3>}
           </div>
     );
   }
@@ -119,8 +138,8 @@ VenueDetailPage.propTypes = {
   venueDetail: PropTypes.object.isRequired,
   children: PropTypes.object,
   actions: PropTypes.object.isRequired,
-  loading: PropTypes.bool.isRequired
-
+  loading: PropTypes.bool.isRequired,
+  params: PropTypes.object
 };
 
 

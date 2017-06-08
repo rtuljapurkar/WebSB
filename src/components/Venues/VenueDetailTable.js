@@ -39,7 +39,7 @@ function timeSince(date) {
 
 
 //  --------------------------------------------------------------------------------------------------------------//
-const VenueDetailTable = ({post, venue}) => {
+const VenueDetailTable = ({post, venue, amenities, pointOfInterests, users}) => {
         let ONE_DAY = 1000 * 60 * 60 * 24;
         // Convert both dates to milliseconds
         let currentDate = new Date().getTime();
@@ -55,13 +55,32 @@ const VenueDetailTable = ({post, venue}) => {
         let vname = "";
         let userImage = "";
 
-        // let amenityName = "";
-        // amenityName = "Amenity: " + post.AmenityID;
-        //
-        //
-        // let poiName = "";
-        // poiName = "POI: " + post.POIID ;
-    //console.log(post);
+        let amenityName = "";
+        let amenityImage = "";
+        if(post.AmenityID > 0)
+        {
+            try{
+                amenityName = amenities[post.AmenityID].AName;
+                amenityImage = amenities[post.AmenityID].AImage;
+            }catch(ex){
+                amenityImage = "";
+                amenityName = "";
+            }
+        }
+
+        let poiName = "";
+        let poiImage = "";
+        if(post.POIID > 0)
+        {
+            poiName = "POI: " + post.POIID ;
+            try{
+                poiName = pointOfInterests[post.POIID].POIName;
+                poiImage = pointOfInterests[post.POIID].POIImage;
+            }catch(ex){
+                poiName = "";
+                poiImage = "";
+            }
+        }
 
         if(isNaN(venueID))
         {
@@ -75,8 +94,8 @@ const VenueDetailTable = ({post, venue}) => {
         }
 
         try{
-            //let user = users.filter((u)=> u.PUserName.toLowerCase() == userName.toLowerCase());
-            userImage =  ""; //user[0].PUserImage;
+            let user = users.filter((u)=> u.PUserName.toLowerCase() == userName.toLowerCase());
+            userImage = user[0].PUserImage;
         }
         catch (ex) {
             userImage = "";
@@ -85,7 +104,7 @@ const VenueDetailTable = ({post, venue}) => {
         {
             userImage ="";
         }
-        //console.log(post);
+
         return (
                 <div className="blackBg">
                     <div className="ib">
@@ -109,9 +128,10 @@ const VenueDetailTable = ({post, venue}) => {
                         </div>
                         <div>&nbsp;<br/></div>
                         <div>
-                            {vname}
-                            {/* {amenityName}
-                            {poiName} */}
+                            {amenityName =="" && poiName =="" && vname}
+                            {amenityName!="" && amenityName + " at " + vname}
+                            {poiName!="" &&  poiName +" at " + vname}
+                            <br/><br/>
                         </div>
                         <div >
                             {post["Text"]}
@@ -145,8 +165,11 @@ VenueDetailTable.propTypes = {
   sortKey: PropTypes.string,
   sortDesc: PropTypes.bool,
   post: PropTypes.array,
-  actions:PropTypes.object,
-  venue:PropTypes.object
+  actions: PropTypes.object,
+  venue:PropTypes.object,
+  amenities: PropTypes.object,
+  pointOfInterests: PropTypes.object,
+  users: PropTypes.object
 };
 
 export default VenueDetailTable;

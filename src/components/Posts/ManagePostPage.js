@@ -23,21 +23,21 @@ class ManagePostPage extends React.Component {
   }
 
   componentWillMount() {
-    if (this.props.params.venueId && this.props.post.venue.id==0) {
+    if (this.props.params.venueId) {
         this.props.actions.addPostVenueLoad(this.props.params.venueId)
         .then()
         .catch( error => {
                     toastr.error(error);
         });
     }
-    if (this.props.params.amenityId && this.props.post.amenity.id==0) {
+    if (this.props.params.amenityId) {
         this.props.actions.addPostAmenityLoad(this.props.params.amenityId)
         .then()
         .catch( error => {
                     toastr.error(error);
         });
     }
-    if (this.props.params.poiId && this.props.post.pointOfInterest.id==0) {
+    if (this.props.params.poiId) {
         this.props.actions.addPostPOILoad(this.props.params.poiId)
         .then()
         .catch( error => {
@@ -45,12 +45,6 @@ class ManagePostPage extends React.Component {
         });
     }
   }
-
-  // componentWillReceiveProps(nextProps) {
-  //   if (this.props.post.VenueID != nextProps.post.VenueID) {
-  //     this.setState({post: Object.assign({}, nextProps.post)});
-  //   }
-  // }
 
   updatePostState(event) {
     const field = event.target.name;
@@ -114,8 +108,6 @@ cancelPost(event){
   }
 
   render() {
-      console.log(this.props.post.amenity);
-      console.log(this.props.post.pointOfInterest);
     return (
       <PostForm
         venue={this.props.post.venue}

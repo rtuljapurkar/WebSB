@@ -12,36 +12,15 @@ import {DisplayMap} from '../common/DisplayMap';
   return sortKey === sortId ? (sortDesc ? '↓' : '↑') : '';
 }
 
-// function SortHeaderCell ({children, sortBy, sortKey, sortDesc, columnKey}) {
-//     const clickFunc = () => sortBy(columnKey);
-//     return (
-//         <Cell >
-//           <a onClick={clickFunc}>
-//             {children} {renderSortArrow(sortKey, sortDesc, columnKey)}
-//           </a>
-//         </Cell>
-//     );
-// }
-
-// SortHeaderCell.propTypes = {
-//   sortBy: PropTypes.func.isRequired,
-//   sortKey: PropTypes.string.isRequired,
-//   sortDesc: PropTypes.bool.isRequired,
-//   columnKey: PropTypes.string,
-//   children: PropTypes.element.isRequired
-// };
-
 class PointOfInterestPage extends React.Component {
-  componentWillMount() {
-    if (this.props.pointOfInterests.data == [] || this.props.pointOfInterests.data.length == 1) {
-        this.props.actions.loadPointOfInterests(this.props.params.venueId)
-        .then()
-        .catch( error => {
-            toastr.error(error);
-        });
-    }
+  componentWillMount() {      
+      if (this.props.params.venueId > 0) {
+            this.props.actions.loadPointOfInterests(this.props.params.venueId)
+            .then()
+            .catch( error => {
+                toastr.error(error);
+            });
 
-    if (this.props.pointOfInterests.venue.id == 0 ) {
               this.props.actions.getVenueByID(this.props.params.venueId)
               .then()
               .catch( error => {
@@ -103,22 +82,16 @@ class PointOfInterestPage extends React.Component {
     }
     return (
           <div className="col-md-12" >
-              <h1>Points Of Interest {this.props.loading && <LoadingDots interval={100} dots={20}/>} </h1>
+              <h1>Points Of Interests {this.props.loading && <LoadingDots interval={100} dots={20}/>} </h1>
 
-              <div className="blackBg visible-md visible-lg visible-xl" style={{"min-height":"210", "overflow":"auto"}}>
-                   <div className="ib"  style={{"min-width":"15%", "max-width":"45%"}}>
-                        <div  className="ib"   >
-                            {venue.VName} <br/>
-                            {venue.VCity}
-                         </div>
-                         <div  className="ib"    >
-                             {venue.VDescription}
-                         </div>
-                    </div>
-                     <div className="ibInline" >
-                        <img src={venue.VImage} height="200" alt="" width="200" />
-                     </div>
-                     <div className="ibInline" style={{"float":"right"}}>
+              <table className="table table-striped table-responsive table-hover mainScreen visible-md visible-lg">
+                  <tbody style={{"height":"250px", "overflow":"none"}}>
+                    <tr >
+                      <td className="blackBg">
+                        {venue.VName} <br/>
+                        {venue.VCity}
+                      </td>
+                      <td rowSpan="2"  >
                           <DisplayMap
                               location={gpsLocationObj}
                               containerElement={
@@ -127,9 +100,20 @@ class PointOfInterestPage extends React.Component {
                                     mapElement={
                                        <div style={{ height: '100%', width:"200px"}} />
                                     }
+
                             />
-                     </div>
-                 </div>
+                      </td>
+                      <td rowSpan="2" >
+                        <img src={venue.VImage} height="200" alt="" width="200" />
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="blackBg">
+                        {venue.VDescription}
+                      </td>
+                    </tr>
+                  </tbody>
+              </table>
                   <br/><br />
                   <input className="filter-input" value={filterString}
                      onChange={this.handleFilterStringChange()}
@@ -138,16 +122,15 @@ class PointOfInterestPage extends React.Component {
                    <br /><br />
                    {
                        localData.length > 0 &&
-                      <table className="table table-striped table-bordered table-responsive table-hover mainScreen" >
-                            <tbody>{
+                     <div style={{"max-height":"650px", "overflow": "auto"}}>
+                            {
                                         localData.map((PointOfInterest, index) => {
                                           return(
                                                   <PointOfInterestTable  key={index}
                                                       PointOfInterest={PointOfInterest} venue={venue}  />
                                             );})
                                     }
-                            </tbody>
-                      </table>
+                      </div>
                   }
                   {
                       localData.length == 0 &&
@@ -183,35 +166,3 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(PointOfInterestPage);
-/*
-
-<table className="table table-striped table-responsive table-hover mainScreen">
-    <tbody style={{"height":"200px"}}>
-      <tr >
-        <td className="blackBg">
-          {venue.VName} <br/>
-          {venue.VCity}
-        </td>
-        <td rowSpan="2"  >
-            <DisplayMap
-                location={gpsLocationObj}
-                containerElement={
-                         <div style={{ height: '200px', width:"200px"}} />
-                      }
-                      mapElement={
-                         <div style={{ height: '100%', width:"200px"}} />
-                      }
-
-              />
-        </td>
-        <td rowSpan="2" >
-          <img src={venue.VImage} height="200" alt="" width="200" />
-        </td>
-      </tr>
-      <tr>
-        <td className="blackBg">
-          {venue.VDescription}
-        </td>
-      </tr>
-    </tbody>
-</table>*/

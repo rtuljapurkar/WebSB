@@ -6,6 +6,13 @@ import Header from './common/Header';
 
 class MasterPage extends React.Component {
   render() {
+       let title = "";
+      try {
+          title = this.props.children.props.routes[2].title;
+      }
+      catch (ex){
+         title = "";
+      }
     return (
       // <div className='MasterPage'>
       //   <Header />
@@ -14,6 +21,8 @@ class MasterPage extends React.Component {
  <div>
         <div>
           <Header/>
+          {/* {//console.log(this.props)} */}
+          <title>{title}</title>
         </div>
         <div id="body" >
             <div  className="col-md-2 visible-md visible-lg">

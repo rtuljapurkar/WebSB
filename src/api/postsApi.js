@@ -8,8 +8,32 @@ function handleErrors(response) {
 class PostsApi {
 
         static getVenuePosts() {
+            let filter ="";
+            filter = "filter[where][Active]=1";
             const host = `${process.env.API_HOST}`;
             const request = new Request(`${process.env.API_HOST}/sb_post_venue`, {
+              method: 'GET'
+            });
+
+            return fetch(request)
+            .then(handleErrors)
+            .then(response => {
+                    return response.json();
+                }).catch(error => {
+                    throw error;
+                });
+            }
+
+        static getVenuePostsByVenue(venueID) {
+            let filter ="";
+            if (!isNaN(venueID)){
+                  filter = "filter[where][VenueID]=" + venueID + "&filter[where][Active]=1"; //131
+                }
+                else {
+                  filter = "filter[where][VenueID]=0&filter[where][Active]=1"; //131
+                }
+            const host = `${process.env.API_HOST}`;
+            const request = new Request(`${process.env.API_HOST}/sb_post_venue?` + filter, {
               method: 'GET'
             });
 
@@ -25,10 +49,10 @@ class PostsApi {
         static getAmenityPosts(venueID) {
             let filter ="";
             if (!isNaN(venueID)){
-                  filter = "filter[where][VenueID]=" + venueID; //131
+                  filter = "filter[where][VenueID]=" + venueID + "&filter[where][Active]=1"; //131
                 }
                 else {
-                  filter = "filter[where][VenueID]=0"; //131
+                  filter = "filter[where][VenueID]=0&filter[where][Active]=1"; //131
                 }
             const host = `${process.env.API_HOST}`;
             const request = new Request(`${process.env.API_HOST}/sb_post_venue_amenity?` + filter, {
@@ -45,13 +69,12 @@ class PostsApi {
             }
 
         static getPOIPosts(venueID) {
-         
                 let filter ="";
                 if (!isNaN(venueID)){
-                      filter = "filter[where][VenueID]=" + venueID; //131
+                      filter = "filter[where][VenueID]=" + venueID + "&filter[where][Active]=1"; //131
                     }
                     else {
-                      filter = "filter[where][VenueID]=0"; //131
+                      filter = "filter[where][VenueID]=0&filter[where][Active]=1"; //131
                     }
                 const host = `${process.env.API_HOST}`;
                 const request = new Request(`${process.env.API_HOST}/sb_post_venue_poi?` + filter, {

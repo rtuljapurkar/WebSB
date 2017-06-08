@@ -10,18 +10,26 @@ import {Button, Glyphicon, SplitButton, MenuItem} from 'react-bootstrap';
 const PointOfInterestTable = ({ PointOfInterest, venue }) => {
     let id = PointOfInterest["id"];
     let rows = [];
+    let rowHeader = [];
+    let rowImage = [];
+    let buttonRow = [];
     for (let key in PointOfInterest)
     {
-      if (PointOfInterest.hasOwnProperty(key) && key!= "id" && key!= "VenueID" && key!= "Active" && key!= "POIGPSLoc" && key!= "POIImage") {
+      if (PointOfInterest.hasOwnProperty(key) && key!= "id" && key!= "VenueID" && key!= "Active"
+      && key!= "POIGPSLoc") {
                 let value = PointOfInterest[key] == null ? "": PointOfInterest[key];
-                let modifiedkey = key.substr(3);
+                let modifiedkey = key.substr(3);                
                 if(modifiedkey == "Name"){
-                    rows.push(<p style={{"fontSize":"24px"}}><b>{value}</b></p>);
-                    rows.push(<a href={"/posts/poi/add/"+id}>
+                    rowHeader.push(<p style={{"fontSize":"24px"}}><b>{value}</b></p>);
+                    buttonRow.push(<a href={"/posts/poi/add/"+id}>
                                     <Button bsStyle="primary" bsSize="small" >
                                         <Glyphicon glyph="pencil" />  Review
                                     </Button>
                                 </a>);
+                }
+
+                else if(modifiedkey == "Image"){
+                        rowImage.push(<img src={value} height="200" width="200" alt=""/>);
                 }
                 else
                  {
@@ -31,14 +39,21 @@ const PointOfInterestTable = ({ PointOfInterest, venue }) => {
      }
 
     return (
-                <tr >
-                   <td  className="blackBg" >
-                      {rows}
-                  </td>
-                  <td>
-                     <img src={PointOfInterest["POIImage"]} height="200" width="200" alt=""   />
-                  </td>
-                </tr>
+                // <tr >
+                //    <td  className="blackBg" >
+                //       {rows}
+                //   </td>
+                //   <td>
+                //      <img src={PointOfInterest["POIImage"]} height="200" width="200" alt=""   />
+                //   </td>
+                // </tr>
+                <div className="blackBg">
+                       <div className="ib">{rowHeader}</div>
+                       <div className="ibright">{buttonRow}</div>
+                       <div className="ib">{rows}</div>
+                       <div className="ibright">{rowImage}</div>
+                       <div className="break">&nbsp;</div>
+                </div>
     );
 };
 

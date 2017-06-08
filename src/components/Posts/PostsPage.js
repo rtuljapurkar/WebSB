@@ -50,8 +50,6 @@ class PostsPage extends React.Component {
   filterData (localData) {
     const {filterString} = this.props.posts;
     const str = filterString.toLowerCase();
-    console.log(str);
-    console.log(localData);
     return str !== ''
       ? localData.filter((r) => Object.values(r).some(this.doesMatch(str)))
       : localData;
@@ -74,7 +72,6 @@ class PostsPage extends React.Component {
       const { filterString, sortKey, sortDesc } = this.props.posts;
       let localData = this.sortData();
       localData = this.filterData(localData);
-      console.log(localData);
       return (
                     <div style={{"align":"center"}} >
                         <h1>Posts {this.props.loading && <LoadingDots interval={100} dots={20}/>}</h1>

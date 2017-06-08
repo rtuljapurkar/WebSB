@@ -5,6 +5,8 @@ import App from './components/app';
 import HomePage from './components/Home/HomePage';
 import MasterPage from './components/MasterPage';
 import AboutPage from './components/About/AboutPage';
+import TermsPage from './components/Terms/TermsPage';
+import HelpPage from './components/Help/HelpPage';
 import FavoritesPage from './components/Favorites/FavoritesPage';
 import ScoresPage from './components/Scores/ScoresPage';
 import VenuesPage from './components/Venues/VenuePage';
@@ -23,22 +25,23 @@ export default (
   <Router history={history}>
   <Route path="/" component={MasterPage}>
     <IndexRoute component={HomePage} />
-    <Route path="/login" component={LoginPage} />
-    <Route path="/home" component={HomePage} />
-    <Route path="/register" component={RegisterPage} />
-    <Route path="/venues" component={VenuesPage} onEnter={requireAuth}/>
+    <Route path="/login" title="Login"  component={LoginPage} />
+    <Route path="/home" title="Home" component={HomePage} />
+    <Route path="/register" title="Register" component={RegisterPage} />
+    <Route path="/venues" title="Venues" component={VenuesPage} onEnter={requireAuth}/>
     <Route path="/venues/:venueId" component={VenueDetailPage} onEnter={requireAuth}/>
-    <Route path="/teams" component={TeamsList} onEnter={requireAuth}/>
-    <Route path="/posts" component={PostsPage} onEnter={requireAuth}/>
-    <Route path="/favorites" component={FavoritesPage} onEnter={requireAuth}/>
-    <Route path="/scores" component={ScoresPage} onEnter={requireAuth}/>
-    <Route path="/posts/add/:venueId" component={ManagePostPage} onEnter={requireAuth}/>
-    <Route path="/posts/amenities/add/:amenityId" component={ManagePostPage} onEnter={requireAuth}/>
-    <Route path="/posts/poi/add/:poiId" component={ManagePostPage} onEnter={requireAuth}/>
-    <Route path="/amenities/:venueId" component={AmenitiesPage} onEnter={requireAuth}/>
-    <Route path="/poi/:venueId" component={PointOfInterestPage} onEnter={requireAuth}/>
-
-    <Route path="/about" component={AboutPage} />
+    <Route path="/teams" title="Teams" component={TeamsList} onEnter={requireAuth}/>
+    <Route path="/posts"  title="Posts"  component={PostsPage} onEnter={requireAuth}/>
+    <Route path="/favorites" title="Favorites" component={FavoritesPage} onEnter={requireAuth}/>
+    <Route path="/scores" title="Scores" component={ScoresPage} onEnter={requireAuth}/>
+    <Route path="/posts/add/:venueId" title="Manage Venue Post" component={ManagePostPage} onEnter={requireAuth}/>
+    <Route path="/posts/amenities/add/:amenityId" title="Manage Amenity Post" component={ManagePostPage} onEnter={requireAuth}/>
+    <Route path="/posts/poi/add/:poiId" title="Manage POI Post" component={ManagePostPage} onEnter={requireAuth}/>
+    <Route path="/amenities/:venueId" title="Amenities" component={AmenitiesPage} onEnter={requireAuth}/>
+    <Route path="/poi/:venueId" title="Point Of Interests" component={PointOfInterestPage} onEnter={requireAuth}/>
+    <Route path="/about" title="About StadiumBee"  component={AboutPage} />
+    <Route path="/help" title="Help"  component={HelpPage} />
+    <Route path="/terms" title="Terms"  component={TermsPage} />
   </Route>
   </Router>
 );

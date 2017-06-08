@@ -61,9 +61,9 @@ render(){
 
                           <Nav pullRight>
                               <ul className="nav navbar-nav navbar-right">
-                                <li><Link id="termsnav" to="/about" className="nav navbar-nav" >Terms</Link></li>
+                                <li><Link id="termsnav" to="/terms" className="nav navbar-nav" >Terms</Link></li>
                                 <li><Link id="aboutnav" to="/about" className="nav navbar-nav">About</Link></li>
-                                <li><Link id="helpnav" to="/about" className="nav navbar-nav">Help</Link></li>
+                                <li><Link id="helpnav" to="/help" className="nav navbar-nav">Help</Link></li>
                                 <li><a href="/logout" onClick={this.logOut}>log out {localStorage.username}</a></li>
                               </ul>
                           </Nav>
@@ -99,10 +99,10 @@ render(){
                           <MenuItem eventKey={3.3}>Separated link</MenuItem> */}
                         </NavDropdown>
                         <ul className="nav navbar-nav navbar-right">
-                          <li className="nav"><Link to="/about" >Terms</Link></li>
-                          <li className="nav"><Link to="/about" >About</Link></li>
-                          <li className="nav"><Link to="/about" >Help</Link></li>
-                          <li className="nav"><Link to="/login" >Login</Link></li>
+                          <li className="nav"><Link to="/about">Terms</Link></li>
+                          <li className="nav"><Link to="/about">About</Link></li>
+                          <li className="nav"><Link to="/help">Help</Link></li>
+                          <li className="nav"><Link to="/login">Login</Link></li>
                         </ul>
                     </Nav>
                   </Navbar.Collapse>
