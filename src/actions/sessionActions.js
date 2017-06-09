@@ -103,7 +103,7 @@ export function saveUser(user) {
         .then(response => {
             localStorage.setItem('jwt', true);
             localStorage.setItem('username', user.PUserName);
-            sessionApi.getUser(user).then(response => {               
+            sessionApi.getUser(user).then(response => {
                 response = response.filter( r => r.PEmailA1.toLowerCase() == user.PEmailA1.toLowerCase() );
                 if(response && response[0] && response[0].id && response[0].id > 0)
                   {
@@ -122,5 +122,5 @@ export function saveUser(user) {
 
 export function logOutUser() {
   auth.logOut();
-  return {type: types.LOG_OUT};
+  return {type: types.LOG_OUT_SUCCESS};
 }

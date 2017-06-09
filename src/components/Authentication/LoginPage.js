@@ -81,7 +81,8 @@ class LoginPage extends React.Component {
     redirect() {
           this.setState({saving: false});
           toastr.success('Login Successful');
-          this.context.router.push('/home');
+          //this.context.router.push('/home');
+          window.location = "/home";
     }
 
 

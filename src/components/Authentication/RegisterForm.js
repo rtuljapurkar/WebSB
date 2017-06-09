@@ -23,6 +23,7 @@ const RegisterForm = ({user, onSave, onChange, saving, errors, venue}) => {
             <TextInput
                 name="PPassword"
                 label="Password"
+                type="password"
                 value={user.PPassword}
                 onChange={onChange}
                 error={errors.PPassword}/>
@@ -30,6 +31,7 @@ const RegisterForm = ({user, onSave, onChange, saving, errors, venue}) => {
             <TextInput
                 name="PPasswordConfirm"
                 label="Confirm Password"
+                type="password"
                 value={user.PPasswordConfirm}
                 onChange={onChange}
                 error={errors.PPasswordConfirm}/>

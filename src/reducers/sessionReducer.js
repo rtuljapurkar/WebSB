@@ -9,7 +9,7 @@ export default function sessionReducer(state = initialState.session, action) {
         return Object.assign({}, state, {
            isUserLoggedIn: !!localStorage.jwt
          });
-    case types.LOG_OUT:        
+    case types.LOG_OUT_SUCCESS:
         //return !!localStorage.jwt
         return Object.assign({}, state, {
          isUserLoggedIn: !!localStorage.jwt

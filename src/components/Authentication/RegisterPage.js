@@ -105,7 +105,8 @@ class RegisterPage extends React.Component {
   redirect() {
     this.setState({saving: false});
     toastr.success('Registration Successful');
-    browserHistory.push('/venues');
+    //browserHistory.push('/venues');
+     window.location = "/home";
   }
 
   render() {

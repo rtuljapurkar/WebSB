@@ -28,7 +28,8 @@ class  Header extends React.Component {
     logOut(event) {
         event.preventDefault();
         this.props.actions.logOutUser();
-        browserHistory.push("/");
+
+        //window.location.href = "/login";
     }
 
 render(){
@@ -50,7 +51,7 @@ render(){
                         <Navbar.Collapse>
 
                             <ul className="nav navbar-nav" id="ulid">
-                                         <li><Link id="homenav" to="/home" className="nav navbar-nav current">Home</Link></li>
+                                         <li><Link id="homenav" to="/posts" className="nav navbar-nav current">Home</Link></li>
                                          <li><Link id="venuesnav" to="/venues" className="nav navbar-nav">Venues</Link></li>
 
                                          {/* <li><Link id="teamsnav" to="/teams" className="nav navbar-nav">Teams</Link></li> */}
@@ -85,10 +86,10 @@ render(){
                   </Navbar.Header>
                   <Navbar.Collapse>
                       <ul className="nav navbar-nav">
-                                   <li className="nav active"><a href="/">Home</a></li>
-                                   <li className="nav"><a href="/venues">Venues</a></li>
+                                   <li className="nav active"><Link to="/home">Home</Link></li>
+                                   <li className="nav"><Link to="/venues">Venues</Link></li>
                                    {/* <li className="nav"><a href="/teams">Teams</a></li> */}
-                                   <li className="nav"><a href="/posts">Posts</a></li>
+                                   <li className="nav"><Link to="/posts">Posts</Link></li>
                       </ul>
                     <Nav pullRight>
                         <NavDropdown eventKey={3} title="More" id="basic-nav-dropdown">

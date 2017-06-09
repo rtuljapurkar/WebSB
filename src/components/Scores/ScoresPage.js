@@ -13,12 +13,13 @@ class ScoresPage extends React.Component {
     constructor(props){
         super(props);
         this.changeDate = this.changeDate.bind(this);
+        this.changeDate = this.changeDate.bind(this);
         //this.state = {dateSelected : ""};
     }
 
   componentWillMount() {
         //this.setState({dateSelected: this.props.scores.dateSelected});
-        if (this.props.scores.data == [] || this.props.scores.data.length == 1) {
+        if (localStorage.username != undefined && (this.props.scores.data == [] || this.props.scores.data.length == 1)) {
             this.props.actions.loadScores()
             .then()
             .catch( error => {
@@ -40,50 +41,68 @@ class ScoresPage extends React.Component {
 
     filterData (localData) {
         let selected = moment(this.props.scores.dateSelected);
-
         const {filterString} = this.props.scores;
         const str = filterString.toLowerCase();
-      //  const dateSelected = new Date(this.state.dateSelected);
         return localData.filter((r) => {
               let gameDate =  moment(r.GameDate).format("YYYY-MM-DD");
-              //console.log(gameDate);
-        //       if(moment(selected).isSame(gameDate)){
-        //       console.log(gameDate);
-        //   }
-              //  let gameDate = new Date(r.GameDate);
             return  (moment(selected).isSame(gameDate));
      });
     }
 
+    sortData () {
+      const data = [...this.props.scores.AvailableDates] ;
+      const sortKey = "Dates";
+      const sortDesc =  false;
+      const multiplier = sortDesc ? -1 : 1;
+      data.sort((a, b) => {
+        const aVal = Date(a[sortKey]["Dates"])  || 0;
+        const bVal = Date(b[sortKey]["Dates"])  || 0;
+        return aVal > bVal ? multiplier : (aVal < bVal ? -multiplier : 0);
+      });
+      return data;
+    }
+
+findByAttribute(array, attr, value) {
+    for(let i = 0; i < array.length; i += 1) {
+        if(array[i][attr] === value) {
+            return i;
+        }
+    }
+    return -1;
+}
+
 changeDate(event){
     let dateNow = moment(this.props.scores.dateSelected);
-    let newDate;
+    let newDate = dateNow;
 
     let type = event.target.getAttribute("data-type");
+    let availableDates = this.sortData();
+    let totalDates = availableDates.length;
+
+    let selectDateIndex = this.findByAttribute(availableDates, "Dates", this.props.scores.dateSelected); // availableDates.indexOf(this.props.scores.dateSelected);
+
     if(type=="minus"){
-         newDate = dateNow.subtract(1, 'day').format("YYYY-MM-DD");
+        if(selectDateIndex > 0)
+        {
+            newDate = availableDates[selectDateIndex - 1]["Dates"];
+        }
     }
     if(type=="plus") {
-        newDate = dateNow.add(1, 'day').format("YYYY-MM-DD");
+        if(selectDateIndex < totalDates-1)
+        {
+            newDate = availableDates[selectDateIndex + 1]["Dates"];
+        }
     }
 
-    let currentDate = moment(moment().format("YYYY-MM-DD"));
-  if (moment.duration(currentDate.diff(dateNow)).get("days") >=1)
-  {
-    //this.setState({dateSelected: newDate});
-    this.props.actions.changeSelectedDate(newDate)
-  }
-
-
+    if (dateNow != newDate)
+    {
+        this.props.actions.changeSelectedDate(newDate)
+    }
 }
 
   render() {
     let dateSelected = this.props.scores.dateSelected;
     let scoresData = this.props.scores.data;
-    //let lastDate = "";
-    //let numberofDates = this.props.scores.AvailableDates.length;
-    //lastDate = this.props.scores.AvailableDates[numberofDates-1].Dates;
-    //console.log(lastDate);
     scoresData = this.filterData(scoresData);
 
     return (

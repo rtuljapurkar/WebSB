@@ -7,8 +7,8 @@ class HomePage extends React.Component {
         <div >
             <div className="jumbotron" >
                 <h2 style={{"text-align":"center"}}>
-                   <span style={{"color":"white", "fontFamily":"Montserrat"}}>Stadium</span>
-                   <span style={{"color":"yellow"}}>Bee</span></h2>
+                   <span style={{"color":"white", "fontFamily":"Montserrat"}}>S</span>
+                   <span style={{"color":"yellow"}}>B</span></h2>
             </div>
             <div>
                 <Link to="login" className="btn btn-primary btn-md">Please Proceed</Link>

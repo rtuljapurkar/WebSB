@@ -26,7 +26,7 @@ export default (
   <Route path="/" component={MasterPage}>
     <IndexRoute component={HomePage} />
     <Route path="/login" title="Login"  component={LoginPage} />
-    <Route path="/home" title="Home" component={HomePage} />
+    <Route path="/home" title="Home" component={PostsPage} onEnter={requireAuth}/>
     <Route path="/register" title="Register" component={RegisterPage} />
     <Route path="/venues" title="Venues" component={VenuesPage} onEnter={requireAuth}/>
     <Route path="/venues/:venueId" component={VenueDetailPage} onEnter={requireAuth}/>
