@@ -33,7 +33,7 @@ class MasterPage extends React.Component {
                   </div>
             </div>
         </div>
-        <div className="col-md-8" >
+        <div className="col-md-7" >
             {this.props.children}
         </div>
         <div id="sidebar" className="col-md-2 visible-md visible-lg">

@@ -123,7 +123,7 @@ div.blackBg {
     color: white;
     padding: 10px;
     word-wrap: break-word;
-    word-break: break-all;
+    word-break: normal;
 }
 div.blackBgInLine {
     background-color: #262626;
@@ -341,7 +341,7 @@ h1 {
 	border-width: 10px;
 	left: 50%;
 	margin-left: -10px;
-	border-color: yellow transparent transparent transparent;
+	border-color: #ffcb45 transparent transparent transparent;
 }
 
 /* Navigation highlight for current page */
@@ -360,7 +360,7 @@ body#cookie a#cookienav{
 	border-width: 10px;
 	left: 50%;
 	margin-left: -10px;
-	border-color: yellow transparent transparent transparent;
+	border-color: #ffcb45 transparent transparent transparent;
 
 }
 
