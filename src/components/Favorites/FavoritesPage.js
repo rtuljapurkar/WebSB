@@ -33,7 +33,7 @@ class FavoritesPage extends React.Component {
     return (
 
               <table className="table table-fixed table-striped table-bordered
-                              table-responsive table-hover scroll" >
+                              table-responsive table-hover scroll" style={{"paddingRight": "2px"}}>
                   <thead>
                       <tr>
                           <th>

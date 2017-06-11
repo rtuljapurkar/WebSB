@@ -29,7 +29,8 @@ const appReducer = combineReducers({
 });
 
 export const rootReducer = (state, action) => {
-    if (action.type === 'LOG_OUT_SUCCESS') {        
+    console.log(action.type);
+    if (action.type === 'LOG_OUT_SUCCESS') {
         state = initialState;
     }
     return appReducer(state, action);

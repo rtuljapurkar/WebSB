@@ -18,31 +18,31 @@ class MasterPage extends React.Component {
       //   <Header />
       //   { this.props.children }
       // </div>
- <div>
-        <div>
+ <div >
+        <div className="col-md-12">
           <Header/>
           {/* {//console.log(this.props)} */}
           <title>{title}</title>
         </div>
-        <div id="body" >
-            <div  className="col-md-2 visible-md visible-lg">
+        <div id="body" className="col-md-12" >
+            <div  className="col-md-3  visible-md visible-lg " style={{"paddingLeft": "2px"}}>
                   <ScoresPage/>
-                  <div style={{"marginTop":"35px"}} className="">
+                  <div style={{"marginTop":"35px", "textAlign":"center"}}>
                       <img src= {require('../images/AdSample.png')}
-                      className="img-thumbnail" width="250" alt="Ad"/>
+                      className="img-thumbnail" width="90%" alt="Ad"/>
                   </div>
             </div>
-        </div>
-        <div className="col-md-7" >
-            {this.props.children}
-        </div>
-        <div id="sidebar" className="col-md-2 visible-md visible-lg">
-            <FavoritesPage/>
-             <div style={{"marginTop":"35px"}} >
-                  <img src= {require('../images/AdSample.png')}
-                  className="img-thumbnail" width="250" alt="Ad"/>
+            <div className="col-md-7" >
+                {this.props.children}
             </div>
-         </div>
+            <div id="sidebar" className="col-md-2 visible-md visible-lg" style={{"paddingRight": "2px"}}>
+                <FavoritesPage/>
+                 <div style={{"marginTop":"35px"}} >
+                      <img src= {require('../images/AdSample.png')}
+                      className="img-thumbnail" width="100%" alt="Ad"/>
+                </div>
+             </div>
+        </div>
    </div>
     );
   }

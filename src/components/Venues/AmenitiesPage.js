@@ -40,7 +40,7 @@ class AmenitiesPage extends React.Component {
 
     filterByType (localData) {
       const {filterType} = this.props.amenities;
-      const str = filterType.toLowerCase();      
+      const str = filterType.toLowerCase();
       return str !== ''
           ? localData.filter((r) => r.AType.toLowerCase() === str)
           : localData;
@@ -131,10 +131,10 @@ class AmenitiesPage extends React.Component {
                         //     </table>
 
                            localData.length > 0 &&
-                            <div style={{"max-height":"650px", "overflow": "auto"}}>
+                            <div style={{"maxHeight":"650px", "overflow": "auto"}}>
                                  {localData.map((Amenity, index) => {
                                               return(
-                                                    <AmenitiesTable Amenity={Amenity} key={index}  />
+                                                    <AmenitiesTable key={Amenity.id} Amenity={Amenity} key={index}  />
                                 );})}
                             </div>
                       }

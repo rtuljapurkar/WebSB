@@ -5,13 +5,13 @@ import {Link} from 'react-router';
 const ScoresTable = ({score}) => {
   return (
            <div className="blackBg">
-               <div style={{"backgroundColor":"#ffcb45","font-family": "Montserrat, sans-serif",
-                   "font-size":"12px", "font-weight":"bold", "margin-bottom":"10px", "word-break":"normal" , "color":"#262626","textAlign":"center" }}>
+               <div style={{"backgroundColor":"#ffcb45","fontFamily": "Montserrat, sans-serif",
+                   "fontSize":"12px", "fontWeight":"bold", "marginBottom":"10px", "wordBreak":"normal" , "color":"#262626","textAlign":"center" }}>
                         {score.League} <br/>
                         {score.VName}  <br/>
                         <b>{score.Status}</b>
                 </div>
-               <div style={{"margin-bottom":"10px", "textAlign":"center"}}>
+               <div style={{"marginBottom":"10px", "textAlign":"center"}}>
                          <img src={score.HomeLogo} alt={score.HomeTeam}
                                height="20" width="20"/>&nbsp; {score.HomeTeam }&nbsp;&nbsp;
                                {(score.HPoints > score.APoints) && <b style={{"color":"#ffcb45"}}>{score.HPoints}</b>}

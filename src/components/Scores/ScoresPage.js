@@ -106,7 +106,7 @@ changeDate(event){
     scoresData = this.filterData(scoresData);
 
     return (
-            <div className="col-md-12"  style={{"margin-bottom": "50px"}}  >
+            <div className="col-md-12"  style={{"marginBottom": "50px","paddingLeft": "0px"}}  >
                 <div className="blackBg" style={{"textAlign":"center", "width":"100%"}} >
                                 <span className="glyphicon glyphicon-chevron-left text-warning"
                                      style={{"textAlign":"left"}} data-type="minus" onClick={this.changeDate}>
