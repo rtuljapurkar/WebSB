@@ -15,7 +15,7 @@ constructor(props){
 
   componentWillMount() {
     if (this.props.venues.data == [] || this.props.venues.data.length == 1) {
-        this.props.actions.loadVenues()
+        this.props.actions.loadVenuesMain()
         .then()
         .catch( error => {
             toastr.error(error);
@@ -63,20 +63,20 @@ constructor(props){
 
         return (
           <div className="col-md-12">
-            <h1>Venues {this.props.loading && <LoadingDots interval={100} dots={20}/>}
-            </h1>
-            <input className="filter-input" value={filterString}
+            <h1>Venues</h1> {this.props.loading && <h4><b><LoadingDots interval={100} dots={20}/></b></h4>}
+
+            {!this.props.loading && <input className="filter-input" value={filterString}
               onChange={this.handleFilterStringChange()}
               type="text" placeholder="Filter Rows"
-              autoCorrect="off" autoCapitalize="off" spellCheck="false" />
+              autoCorrect="off" autoCapitalize="off" spellCheck="false" />}
             <br /><br />
                 <div style={{"max-height":"650px", "overflow": "auto"}}>
-                      {
+                      {!this.props.loading &&
                               localData.map((venue, index) => {
                                     return(
                                             <VenuesTable  key={venue.id} venue={venue} venues={venues} />
                                       );})
-                      }                 
+                      }
                </div>
 
           </div>
@@ -93,11 +93,11 @@ VenuesPage.propTypes = {
 };
 
 
-function mapStateToProps(state, ownProps) {
+function mapStateToProps(state, ownProps) {    
   if (state.venues.data && state.venues.data.length > 0) {
     return {
             venues: state.venues,
-            loading: state.ajaxCallsInProgress > 0
+            loading: state.loadingStatus.ajaxCallsInProgress > 0
     };
   }
   else  {
@@ -108,7 +108,7 @@ function mapStateToProps(state, ownProps) {
                   sortKey: 'VName',
                   filterString: ''
               },
-                loading: state.ajaxCallsInProgress > 0
+                loading: state.loadingStatus.ajaxCallsInProgress > 0
             };
   }
 }

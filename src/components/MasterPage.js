@@ -25,19 +25,24 @@ class MasterPage extends React.Component {
           <title>{title}</title>
         </div>
         <div id="body" className="col-md-12" >
-            <div  className="col-md-3  visible-md visible-lg " style={{"paddingLeft": "2px"}}>
+            <div  className="col-md-3  visible-md visible-lg " >
                   <ScoresPage/>
-                  <div style={{"marginTop":"35px", "textAlign":"center"}}>
-                      <img src= {require('../images/AdSample.png')}
-                      className="img-thumbnail" width="90%" alt="Ad"/>
+                  <div style={{"clear":"both"}}></div>
+                  <div >
+                      <img style={{"display":"block", "margin":" 20px auto"}}  src= {require('../images/AdSample.png')}
+                      className="img-thumbnail" alt="Ad" width="80%"/>
                   </div>
+                  <div style={{"clear":"both"}}></div>
             </div>
+
             <div className="col-md-7" >
                 {this.props.children}
             </div>
+
             <div id="sidebar" className="col-md-2 visible-md visible-lg" style={{"paddingRight": "2px"}}>
                 <FavoritesPage/>
-                 <div style={{"marginTop":"35px"}} >
+                <div style={{"clear":"both"}}></div>
+                 <div >
                       <img src= {require('../images/AdSample.png')}
                       className="img-thumbnail" width="100%" alt="Ad"/>
                 </div>

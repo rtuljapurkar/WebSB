@@ -1,4 +1,4 @@
-import delay from './delay';
+import {fetchWithDelay} from './delay';
 
 
 const md5 = require('md5');
@@ -73,7 +73,7 @@ class SessionApi {
 
           static getAllUsers() {
             const url = `${process.env.API_HOST}/sb_users`;
-            return fetch(url)
+            return fetchWithDelay(url)
             .then(handleErrors)
             .then(response => {
                 return response.json();

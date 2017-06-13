@@ -1,6 +1,6 @@
 import * as types from './actionTypes';
 import venuesApi from '../api/venuesApi';
-import {beginAjaxCall, ajaxCallError} from './ajaxStatusActions';
+import {beginAjaxCall, beginAmenitiesAjaxCall, ajaxCallError} from './ajaxStatusActions';
 
 export function loadAmenitiesSuccess(data) {
   return {type: types.LOAD_AMENITIES_SUCCESS, data};
@@ -23,7 +23,7 @@ export function loadAmenitiesVenuesSuccess (data) {
 
  export function loadAmenities(venueId) {
          return function(dispatch) {
-         dispatch( beginAjaxCall());
+         dispatch( beginAmenitiesAjaxCall());
          return venuesApi.getAllAmenities(venueId).then(data => {
               dispatch(loadAmenitiesSuccess(data));
           }).catch(error => {

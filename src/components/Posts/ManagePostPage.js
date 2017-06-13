@@ -89,7 +89,15 @@ class ManagePostPage extends React.Component {
     postToSubmit.POIID = this.props.post.pointOfInterest.id;
 
     this.props.actions.savePost(postToSubmit)
-      .then(() => this.redirect())
+    .then( () =>{
+                    if(postToSubmit.AmenityID > 0 || postToSubmit.POIID > 0)
+                    {
+                        this.redirect(1, postToSubmit.VenueID);
+                    }else{
+                        this.redirect(0, 0);
+                    }
+                }
+        )
       .catch(error => {
         toastr.error(error);
         this.setState({saving: false});
@@ -101,10 +109,15 @@ cancelPost(event){
     event.preventDefault();
     this.context.router.push('/venues');
 }
-  redirect() {
+  redirect(toVenueDetail, venueID) {
     this.setState({saving: false});
     toastr.success('Post saved');
-    this.context.router.push('/posts');
+    //this.context.router.push('/posts');
+    if(toVenueDetail == 1){
+        window.location = "/venues/" + venueID;
+    }else{
+        window.location = "/posts";
+        }
   }
 
   render() {

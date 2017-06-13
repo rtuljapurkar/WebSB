@@ -1,3 +1,5 @@
+import {fetchWithDelay} from  './delay';
+
 function handleErrors(response) {
      if (!response.ok) {
          throw Error(response.statusText);
@@ -13,9 +15,8 @@ class PostsApi {
             const host = `${process.env.API_HOST}`;
             const request = new Request(`${process.env.API_HOST}/sb_post_venue?` + filter, {
               method: 'GET'
-            });
-
-            return fetch(request)
+            });            
+            return fetchWithDelay(request)
             .then(handleErrors)
             .then(response => {
                     return response.json();

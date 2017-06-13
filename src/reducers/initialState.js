@@ -37,7 +37,11 @@ export default {
                       VDescription:''
                 }]
     },
-    ajaxCallsInProgress: 0,
+    loadingStatus: {
+                ajaxCallsInProgress: 0,
+                loadingFavorites: 0,
+                loadingScores: 0
+            },
     session: {
               isUserLoggedIn: !!localStorage.jwt,
               user: {   "PUserName": '',

@@ -1,5 +1,10 @@
-export default 1000;
+export default 0;
 
-export function sleep (time) {
-  return new Promise((resolve) => setTimeout(resolve, time));
+
+export function fetchWithDelay(request){
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+                resolve (fetch(request));
+            }, 2500);
+    });
 }

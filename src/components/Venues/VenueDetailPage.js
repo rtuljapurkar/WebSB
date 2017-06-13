@@ -14,7 +14,8 @@ constructor(props){
 }
 
   componentWillMount() {
-    if (this.props.params.venueId > 0) {
+    if (this.props.params.venueId > 0 && this.props.params.venueId != this.props.venueDetail.venue.id) {
+
         this.props.actions.getVenueByID(this.props.params.venueId)
         .then()
         .catch( error => {
@@ -72,13 +73,11 @@ constructor(props){
         const pointOfInterests = this.props.venueDetail.pointOfInterests;
         const users = this.props.venueDetail.users;
         let localData = this.sortData();
-        console.log(localData)  ;
         return (
           <div className="col-md-12">
-            <h1>{venue.VName} {this.props.loading && <LoadingDots interval={100} dots={20}/>}
-            </h1>
+             <h1>{venue.VName}</h1> {this.props.loading && <h4><b><LoadingDots interval={100} dots={20}/></b></h4>}
             <br /><br />
-            <div className="blackBg">
+            {!this.props.loading && <div className="blackBg">
                 <div className="ib" >
                     <div className="ib" style={{"max-width":"100%"}}>
                           {venue["VName"]} <br/>
@@ -116,18 +115,17 @@ constructor(props){
                      <img src={venue["VImage"]} height="200" width="200" alt=""   />
                      </a>
                 </div>
-                    <div className="clear">&nbsp;</div>
-                </div>
+                <div className="clear">&nbsp;</div>
+            </div>}
                     <br /><br />
-
-                    {localData.length > 0 &&
+                    {!this.props.loading && localData.length > 0 &&
                         <div style={{"max-height":"650px", "overflow": "auto"}}>
                           {localData.map((post, index) => {
                                return(<VenueDetailTable  key={post.id} post={post} venue={venue} amenities={amenities} pointOfInterests={pointOfInterests} users={users}/>
                                        );})}
                         </div>
                     }
-                    {localData.length == 0 &&
+                    {!this.props.loading && localData.length == 0 &&
                         <h3>No posts found</h3>}
           </div>
     );
@@ -145,7 +143,8 @@ VenueDetailPage.propTypes = {
 
 function mapStateToProps(state, ownProps) {
   return {
-            venueDetail: state.venueDetail
+            venueDetail: state.venueDetail,
+            loading: state.loadingStatus.ajaxCallsInProgress > 0
     };
 }
 

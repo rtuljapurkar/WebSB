@@ -32,25 +32,49 @@ class FavoritesPage extends React.Component {
     const favorites = this.props.favorites.data;
     return (
 
-              <table className="table table-fixed table-striped table-bordered
-                              table-responsive table-hover scroll" style={{"paddingRight": "2px"}}>
-                  <thead>
-                      <tr>
-                          <th>
-                            Favorites
-                          </th>
-                       </tr>
-                  </thead>
-                  <tbody>
-                      {favorites.map((favorite, index) => {
-                          if(favorite.VenueID > 0){
-                                return(
-                                          <FavoritesTable key={favorite.id} favorite={favorite} venueID={favorite.VenueID} venues={this.props.venues}/>
-                                        );
-                                }
-                              })}
-                  </tbody>
-              </table>
+            <div className="col-md-12"  style={{"marginBottom": "50px","paddingRight": "4px" }}  >
+             {this.props.loading &&
+                        <div className="blackBg" style={{"textAlign":"left", "width":"100%"}} >
+                                 <h4><LoadingDots interval={100} dots={5}/></h4>
+                        </div>}
+                        {!this.props.loading &&
+                        <div className="blackBg" style={{"textAlign":"center", "width":"100%"}} >
+                                 Favorites
+                        </div>}
+              {!this.props.loading &&
+                  <div style={{"height":"200px", "width":"100%","overflow": "auto"}}>
+                   {favorites.map((favorite, index) => {
+                       if(favorite.VenueID > 0){
+                             return(
+                                       <FavoritesTable key={favorite.id} favorite={favorite} venueID={favorite.VenueID} venues={this.props.venues}/>
+                                     );
+                             }
+                           })}
+               </div>}
+            </div>
+            //   <table className="table table-fixed table-striped table-bordered
+            //                   table-responsive table-hover scroll" style={{"paddingRight": "2px"}}>
+            //   {this.props.loading &&
+            //           <div className="blackBg" style={{"textAlign":"left", "width":"100%"}} >
+            //                    <h4><LoadingDots interval={100} dots={5}/></h4>
+            //           </div>}
+            //     {!this.props.loading &&   <thead>
+            //           <tr>
+            //               <th>
+            //                 Favorites
+            //               </th>
+            //            </tr>
+            //       </thead>}
+            //      {!this.props.loading &&  <tbody>
+            //           {favorites.map((favorite, index) => {
+            //               if(favorite.VenueID > 0){
+            //                     return(
+            //                               <FavoritesTable key={favorite.id} favorite={favorite} venueID={favorite.VenueID} venues={this.props.venues}/>
+            //                             );
+            //                     }
+            //                   })}
+            //       </tbody>}
+            //   </table>
     );
   }
 }
@@ -69,7 +93,7 @@ FavoritesPage.propTypes = {
 function mapStateToProps(state, ownProps) {
      return {
             favorites: state.favorites,
-            loading: state.ajaxCallsInProgress > 0,
+            loading: state.loadingStatus.loadingFavorites > 0,
             venues: state.venues
     };
 }
@@ -81,3 +105,29 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(FavoritesPage);
+/*
+
+<table className="table table-fixed table-striped table-bordered
+                table-responsive table-hover scroll" style={{"paddingRight": "2px"}}>
+{this.props.loading &&
+        <div className="blackBg" style={{"textAlign":"left", "width":"100%"}} >
+                 <h4><LoadingDots interval={100} dots={5}/></h4>
+        </div>}
+  {!this.props.loading &&   <thead>
+        <tr>
+            <th>
+              Favorites
+            </th>
+         </tr>
+    </thead>}
+   {!this.props.loading &&  <tbody>
+        {favorites.map((favorite, index) => {
+            if(favorite.VenueID > 0){
+                  return(
+                            <FavoritesTable key={favorite.id} favorite={favorite} venueID={favorite.VenueID} venues={this.props.venues}/>
+                          );
+                  }
+                })}
+    </tbody>}
+</table>
+*/

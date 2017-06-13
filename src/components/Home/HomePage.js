@@ -6,7 +6,7 @@ class HomePage extends React.Component {
     return (
         <div >
             <div className="jumbotron" >
-                <h2 style={{"text-align":"center"}}>
+                <h2 style={{"textAlign":"center"}}>
                    <span style={{"color":"white", "fontFamily":"Montserrat"}}>S</span>
                    <span style={{"color":"yellow"}}>B</span></h2>
             </div>

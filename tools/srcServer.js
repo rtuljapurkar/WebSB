@@ -21,7 +21,7 @@ app.use(favicon(path.join(__dirname,'assets','public','favicon.ico')));
 app.use(express.static(path.join(__dirname + "/images")));
 
 app.use((req,res,next)=>{
-  const delay=597;
+  const delay=0;
   setTimeout(next,delay);
 });
 

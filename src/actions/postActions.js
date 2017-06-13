@@ -2,7 +2,7 @@ import * as types from './actionTypes';
 import postsApi from '../api/postsApi';
 import venuesApi from '../api/venuesApi';
 import sessionApi from '../api/sessionApi';
-import {beginAjaxCall, ajaxCallError} from './ajaxStatusActions';
+import {beginAjaxCall, beginPostsAjaxCall, ajaxCallError} from './ajaxStatusActions';
 
 export function loadPostsSuccess(data) {
   return {type: types.LOAD_POSTS_SUCCESS, data};
@@ -39,7 +39,7 @@ export function addPostPOILoadSuccess(data) {
 export function loadVenuePosts() {
   // make async call to api, handle promise, dispatch action when promise is resolved
   return function(dispatch) {
-        dispatch( beginAjaxCall());
+        dispatch(beginPostsAjaxCall());
         return postsApi.getVenuePosts().then(data => {
              dispatch(loadPostsSuccess(data));
          }).catch(error => {

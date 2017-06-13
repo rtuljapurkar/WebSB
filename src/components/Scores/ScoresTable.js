@@ -12,15 +12,21 @@ const ScoresTable = ({score}) => {
                         <b>{score.Status}</b>
                 </div>
                <div style={{"marginBottom":"10px", "textAlign":"center"}}>
-                         <img src={score.HomeLogo} alt={score.HomeTeam}
-                               height="20" width="20"/>&nbsp; {score.HomeTeam }&nbsp;&nbsp;
-                               {(score.HPoints > score.APoints) && <b style={{"color":"#ffcb45"}}>{score.HPoints}</b>}
-                               {(score.HPoints <= score.APoints) && <b>{score.HPoints}</b>}
-                               <br/>
-                          <img src={score.AwayLogo} alt={score.AwayTeam}
-                                 height="20" width="20"/>&nbsp; {score.AwayTeam }&nbsp;&nbsp;
-                                {(score.APoints > score.HPoints) && <b style={{"color":"#ffcb45"}}>{score.APoints}</b>}
-                                {(score.APoints <= score.HPoints) && <b>{score.APoints}</b>}
+                   <div>
+                       <img src={score.HomeLogo} alt={score.HomeTeam}
+                             height="20" width="20"/>&nbsp; {score.HomeTeam}&nbsp;&nbsp;
+                             {(score.HPoints > score.APoints) && <b style={{"color":"#ffcb45"}}>{score.HPoints}</b>}
+                             {(score.HPoints <= score.APoints) && <b>{score.HPoints}</b>}
+                   </div>
+                   <div>
+                       <img src={score.AwayLogo} alt={score.AwayTeam}
+                              height="20" width="20"/>&nbsp; {score.AwayTeam}&nbsp;&nbsp;
+                             {(score.APoints > score.HPoints) && <b style={{"color":"#ffcb45"}}>{score.APoints}</b>}
+                             {(score.APoints <= score.HPoints) && <b>{score.APoints}</b>}
+                   </div>
+
+
+
                 </div>
                 <div className="break">
                     &nbsp;

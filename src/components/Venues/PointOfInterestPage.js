@@ -13,18 +13,18 @@ import {DisplayMap} from '../common/DisplayMap';
 }
 
 class PointOfInterestPage extends React.Component {
-  componentWillMount() {      
-      if (this.props.params.venueId > 0) {
-            this.props.actions.loadPointOfInterests(this.props.params.venueId)
-            .then()
-            .catch( error => {
-                toastr.error(error);
-            });
-
+  componentWillMount() {
+      if (this.props.params.venueId > 0 && this.props.params.venueId != this.props.pointOfInterests.venue.id) {
               this.props.actions.getVenueByID(this.props.params.venueId)
               .then()
               .catch( error => {
                           toastr.error(error);
+              });
+
+              this.props.actions.loadPointOfInterests(this.props.params.venueId)
+              .then()
+              .catch( error => {
+                  toastr.error(error);
               });
       }
     }
@@ -82,9 +82,9 @@ class PointOfInterestPage extends React.Component {
     }
     return (
           <div className="col-md-12" >
-              <h1>Points Of Interests {this.props.loading && <LoadingDots interval={100} dots={20}/>} </h1>
+              <h1>Points Of Interests at {venue.VName}</h1> {this.props.loading && <h4><b><LoadingDots interval={100} dots={20}/></b></h4>}
 
-              <table className="table table-striped table-responsive table-hover mainScreen visible-md visible-lg">
+            {!this.props.loading &&  <table className="table table-striped table-responsive table-hover mainScreen visible-md visible-lg">
                   <tbody style={{"height":"250px", "overflow":"none"}}>
                     <tr >
                       <td className="blackBg">
@@ -113,14 +113,14 @@ class PointOfInterestPage extends React.Component {
                       </td>
                     </tr>
                   </tbody>
-              </table>
+              </table>}
                   <br/><br />
-                  <input className="filter-input" value={filterString}
+                  {!this.props.loading &&  <input className="filter-input" value={filterString}
                      onChange={this.handleFilterStringChange()}
                      type="text" placeholder="Filter Rows"
-                     autoCorrect="off" autoCapitalize="off" spellCheck="false" />
+                     autoCorrect="off" autoCapitalize="off" spellCheck="false" />}
                    <br /><br />
-                   {
+                   {!this.props.loading &&
                        localData.length > 0 &&
                      <div style={{"max-height":"650px", "overflow": "auto"}}>
                             {
@@ -132,7 +132,7 @@ class PointOfInterestPage extends React.Component {
                                     }
                       </div>
                   }
-                  {
+                  {!this.props.loading &&
                       localData.length == 0 &&
                       <h3>No points of interest found</h3>
                   }
@@ -154,7 +154,7 @@ PointOfInterestPage.propTypes = {
 function mapStateToProps(state, ownProps) {
   return {
             pointOfInterests: state.pointOfInterests,
-            loading: state.ajaxCallsInProgress > 0
+            loading: state.loadingStatus.ajaxCallsInProgress > 0
     };
 
 }

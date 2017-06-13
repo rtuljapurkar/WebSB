@@ -33,7 +33,7 @@ class TeamList extends React.Component {
     }
 
     render(){
-        const per_page = 6;        
+        const per_page = 6;
         const pages = Math.ceil(this.props.teams.length / per_page);
         const current_page =  this.props.page;
         const start_offset = (current_page - 1) * per_page;
@@ -91,7 +91,7 @@ function mapStateToProps(state, ownProps) {
                     routing: state.routing,
                     page: state.routing.locationBeforeTransitions ?
                         Number(state.routing.locationBeforeTransitions.query.page) || 1 : 1,
-                    loading: state.ajaxCallsInProgress > 0
+                    loading: state.loadingStatus.ajaxCallsInProgress > 0
                 });
             }
       else  {
@@ -99,7 +99,7 @@ function mapStateToProps(state, ownProps) {
                             teams: [{Active:'', Description: '', League: '', Logo: '', Name: '',
                             Tags: '',  VenueID: '', id: ''  }],
                             page: 1,
-                            loading: state.ajaxCallsInProgress > 0
+                            loading: state.loadingStatus.ajaxCallsInProgress > 0
                         });
       }
 }

@@ -11,7 +11,7 @@ export default function favoritesReducer(state =initialState.favorites, action) 
              return Object.assign({}, state, {
                 data: action.data
               });
-        }
+        }        
         default:
           return state;
       }

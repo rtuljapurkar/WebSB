@@ -1,9 +1,9 @@
 import * as types from './actionTypes';
 import venuesApi from '../api/venuesApi';
-import {beginAjaxCall, ajaxCallError} from './ajaxStatusActions';
+import {beginAjaxCall, beginVenuesAjaxCall, ajaxCallError} from './ajaxStatusActions';
 
 export function loadVenuesSuccess(data) {
-  return {type: types.LOAD_VENUES_SUCCESS, data};
+  return {type: types.LOAD_VENUESMAIN_SUCCESS, data};
 }
 
 export function filterBy (filterString) {
@@ -14,10 +14,10 @@ export function sortBy (sortKey) {
   return {type: types.SORT_VENUES_DATA, sortKey};
 }
 
-export function loadVenues() {
+export function loadVenuesMain() {
   // make async call to api
   return function(dispatch) {
-        dispatch( beginAjaxCall());
+        dispatch( beginVenuesAjaxCall());
         return venuesApi.getAllVenues().then(data => {
              dispatch(loadVenuesSuccess(data));
          }).catch(error => {

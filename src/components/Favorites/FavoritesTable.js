@@ -16,9 +16,15 @@ const FavoritesTable = ({favorite, venueID, venues}) => {
     vname = "";
   }
   return (
-        <tr key={favorite.ID}>
-                  <td className="blackBg"><a className="blackBg" href={"/amenities/"+venueID}>{vname}</a></td>
-        </tr>
+        <div className="blackBg">
+            <div style={{"backgroundColor":"#ffcb45","fontFamily": "Montserrat, sans-serif",
+                "fontSize":"12px", "fontWeight":"bold", "marginBottom":"10px", "wordBreak":"normal" , "color":"#262626","textAlign":"center" }}>
+                  <Link id="amenitiesnav" to={"/amenities/"+venueID}>{vname}</Link>
+             </div>
+             <div className="break">
+                 &nbsp;
+             </div>
+        </div>
   );
 };
 
@@ -29,3 +35,9 @@ FavoritesTable.propTypes = {
 };
 
 export default FavoritesTable;
+
+/*
+<tr key={favorite.ID}>
+          <td className="blackBg"><a className="blackBg" href={"/amenities/"+venueID}>{vname}</a></td>
+</tr>
+*/

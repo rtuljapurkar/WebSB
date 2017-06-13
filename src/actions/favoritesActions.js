@@ -1,6 +1,6 @@
 import * as types from './actionTypes';
 import venuesApi from '../api/venuesApi';
-import {beginAjaxCall, ajaxCallError} from './ajaxStatusActions';
+import {beginAjaxCall, beginFavoritesAjaxCall, ajaxCallError} from './ajaxStatusActions';
 
 export function loadFavoritesSuccess(data) {
   return {type: types.LOAD_FAVORITES_SUCCESS, data};
@@ -11,7 +11,7 @@ export function loadVenuesSuccess(data) {
 export function loadFavorites() {
   // make async call to api, handle promise, dispatch action when promise is resolved
   return function(dispatch) {
-        dispatch( beginAjaxCall());
+        dispatch( beginFavoritesAjaxCall());
         return venuesApi.getFavorites().then(data => {
              dispatch(loadFavoritesSuccess(data));
          }).catch(error => {

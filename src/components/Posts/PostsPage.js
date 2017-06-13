@@ -74,14 +74,14 @@ class PostsPage extends React.Component {
       localData = this.filterData(localData);
       return (
                     <div style={{"align":"center"}} >
-                        <h1>Posts {this.props.loading && <LoadingDots interval={100} dots={20}/>}</h1>
+                        <h1>Posts</h1> {this.props.loading && <h4><b><LoadingDots interval={100} dots={20}/></b></h4>}
 
-                        <div>
+                        {!this.props.loading && <div>
                           <input className="filter-input" value={filterString}
                             onChange={this.handleFilterStringChange()}
                             type="text" placeholder="Filter Rows"
                             autoCorrect="off" autoCapitalize="off" spellCheck="false" />
-                        </div>
+                        </div>}
                          <br />
                         {/* <table className="table  table-striped table-bordered table-responsive table-hover mainScreen" >
                               <tbody>
@@ -98,10 +98,11 @@ class PostsPage extends React.Component {
                               </tbody>
                        </table> */}
                           <div style={{"max-height":"700px", "overflow": "auto"}}>
-                           {
+                           {!this.props.loading &&
                                    localData.map((post, index) => {
                                          return(
-                                                 <PostsTable  key={post.id} post={post} venues={this.props.posts.venues} users={this.props.posts.users} />
+                                                 <PostsTable  key={post.id} post={post}
+                                                     venues={this.props.posts.venues} users={this.props.posts.users} />
                                            );})
 
                            }
@@ -124,7 +125,8 @@ PostsPage.propTypes = {
 
 function mapStateToProps(state, ownProps) {
     return {
-        posts: state.posts
+        posts: state.posts,
+        loading: state.loadingStatus.ajaxCallsInProgress > 0
   };
 }
 

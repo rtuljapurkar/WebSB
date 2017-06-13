@@ -8,7 +8,7 @@ import venueDetail from './venueDetailReducer';
 import favorites from './favoritesReducer';
 import scores from './scoresReducer';
 import pointOfInterests from './pointOfInterestReducer';
-import ajaxCallsInProgress from './ajaxStatusReducer';
+import loadingStatus from './ajaxStatusReducer';
 import newPost from './newPostReducer';
 import initialState from './initialState';
 import { routerReducer } from 'react-router-redux';
@@ -19,7 +19,7 @@ const appReducer = combineReducers({
     venues: venues,
     teams: teams,
     amenities: amenities,
-    ajaxCallsInProgress: ajaxCallsInProgress,
+    loadingStatus: loadingStatus,
     posts: posts,
     pointOfInterests: pointOfInterests,
     favorites: favorites,
@@ -28,8 +28,7 @@ const appReducer = combineReducers({
     venueDetail: venueDetail
 });
 
-export const rootReducer = (state, action) => {
-    console.log(action.type);
+export const rootReducer = (state, action) => {    
     if (action.type === 'LOG_OUT_SUCCESS') {
         state = initialState;
     }

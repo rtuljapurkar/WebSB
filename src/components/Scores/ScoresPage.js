@@ -20,17 +20,19 @@ class ScoresPage extends React.Component {
   componentWillMount() {
         //this.setState({dateSelected: this.props.scores.dateSelected});
         if (localStorage.username != undefined && (this.props.scores.data == [] || this.props.scores.data.length == 1)) {
+            this.props.actions.loadScoresAvailableDates()
+            .then()
+            .catch( error => {
+                toastr.error(error);
+            });
+
             this.props.actions.loadScores()
             .then()
             .catch( error => {
                 toastr.error(error);
             });
 
-            this.props.actions.loadScoresAvailableDates()
-            .then()
-            .catch( error => {
-                toastr.error(error);
-            });
+
         }
   }
 
@@ -96,7 +98,7 @@ changeDate(event){
 
     if (dateNow != newDate)
     {
-        this.props.actions.changeSelectedDate(newDate)
+        this.props.actions.changeSelectedDate(newDate);
     }
 }
 
@@ -106,25 +108,32 @@ changeDate(event){
     scoresData = this.filterData(scoresData);
 
     return (
-            <div className="col-md-12"  style={{"marginBottom": "50px","paddingLeft": "0px"}}  >
+            <div className="col-md-12"  style={{"marginBottom": "50px","paddingLeft": "4px","paddingRight": "4px"}}  >
+                {this.props.loading &&
+                        <div className="blackBg" style={{"textAlign":"left", "width":"100%"}} >
+                                 <h4><LoadingDots interval={100} dots={5}/></h4>
+                        </div>}
+                {!this.props.loading &&
                 <div className="blackBg" style={{"textAlign":"center", "width":"100%"}} >
                                 <span className="glyphicon glyphicon-chevron-left text-warning"
                                      style={{"textAlign":"left"}} data-type="minus" onClick={this.changeDate}>
                                 </span>
-                                <span> </span>
+                                <span>&nbsp;&nbsp;&nbsp; </span>
                                 {dateSelected}
-                                <span> </span>
+                                <span>&nbsp;&nbsp;&nbsp; </span>
                                 <span className="glyphicon glyphicon-chevron-right text-warning"
-                                     style={{"textAlign":"right"}} data-type="plus" disabled="true" onClick={this.changeDate}>
+                                     style={{"textAlign":"right"}} data-type="plus"
+                                     disabled="true" onClick={this.changeDate}>
                                 </span>
-                </div>
+                </div>}
+                {!this.props.loading &&
                 <div style={{"height":"200px", "width":"100%","overflow": "auto"}}>
                     {scoresData.map((score, index) => {
                                   return(
                                         <ScoresTable key={score.ID} score= {score} />
                                       );
                             })}
-                </div>
+                </div>}
           </div>
 
     );
@@ -146,7 +155,7 @@ function mapStateToProps(state, ownProps) {
      return {
             scores: state.scores,
             dateSelected: state.scores.dateSelected,
-            loading: state.ajaxCallsInProgress > 0,
+            loading: state.loadingStatus.loadingScores > 0,
             venues: state.venues
     };
 }
@@ -159,33 +168,4 @@ function mapDispatchToProps(dispatch) {
 
 export default connect(mapStateToProps, mapDispatchToProps)(ScoresPage);
 
-
-/*
-<table className="table table-striped table-bordered
-                table-responsive table-hover scroll" >
-    <thead>
-        <tr>
-            <th>
-                <span className="glyphicon glyphicon-chevron-left text-success"
-                     style={{"textAlign":"left"}} data-type="minus" onClick={this.changeDate}>
-                </span>
-                <span> </span>
-                {dateSelected}
-                <span> </span>
-                <span className="glyphicon glyphicon-chevron-right text-success"
-                     style={{"textAlign":"right"}} data-type="plus" disabled="true" onClick={this.changeDate}>
-                </span>
-
-            </th>
-         </tr>
-    </thead>
-
-<tbody>
-    {scoresData.map((score, index) => {
-                  return(
-                        <ScoresTable key={score.ID} score= {score} />
-                      );
-            })}
-</tbody>
-</table>
-*/
+ 

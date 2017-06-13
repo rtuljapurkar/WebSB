@@ -1,6 +1,6 @@
 import * as types from './actionTypes';
 import venuesApi from '../api/venuesApi';
-import {beginAjaxCall, ajaxCallError} from './ajaxStatusActions';
+import {beginAjaxCall, beginVenueDetailsAjaxCall, ajaxCallError} from './ajaxStatusActions';
 import postsApi from '../api/postsApi';
 import VenuesApi from '../api/venuesApi';
 import sessionApi from '../api/sessionApi';
@@ -28,7 +28,7 @@ export function loadVenueDetailUsersSuccess (data) {
 export function getVenueByID(ID) {
     // make async call to api
     return function(dispatch) {
-          dispatch( beginAjaxCall());
+          dispatch( beginVenueDetailsAjaxCall());
           return venuesApi.getVenueByID(ID).then(data => {
                dispatch(loadVenueDetailSuccess(data));
            }).catch(error => {
@@ -44,7 +44,7 @@ export function getAllPostsByVenue(venueID) {
             return postsApi.getVenuePostsByVenue(venueID).then(data => {
                      postsApi.getAmenityPosts(venueID).then(amenityPostData => {
                                 data = data.concat(amenityPostData);
-                                 postsApi.getPOIPosts(venueID).then(poiPostData => {                                
+                                 postsApi.getPOIPosts(venueID).then(poiPostData => {
                                          data = data.concat(poiPostData);
                                          dispatch(loadVenueDetailPostsSuccess(data));
                                        }).catch(error => {

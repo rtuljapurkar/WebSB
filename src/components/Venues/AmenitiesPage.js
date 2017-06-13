@@ -9,24 +9,31 @@ import AmenitiesTable from './AmenitiesTable';
 import {DisplayMap} from '../common/DisplayMap';
 
 class AmenitiesPage extends React.Component {
- componentWillMount() {
-    if (this.props.params.venueId > 0) {
-            this.props.actions.loadAmenities(this.props.params.venueId)
-            .then()
-            .catch( error => {
-                toastr.error(error);
-            });
-
-            this.props.actions.getVenueByID(this.props.params.venueId)
-            .then()
-            .catch( error => {
-                      toastr.error(error);
-            });
+  componentWillMount() {
+    if (this.props.params.venueId > 0 && this.props.params.venueId != this.props.amenities.venue.id ) {
+            this.LoadProps(this.props.params.venueId);
       }
     }
+    componentWillReceiveProps (nextProps) {
+       if(nextProps.params.venueId !== this.props.params.venueId) {
+        this.LoadProps(nextProps.params.venueId);
+       }
+    }
 
+    LoadProps(venueId){
+        this.props.actions.getVenueByID(venueId)
+        .then()
+        .catch( error => {
+                  toastr.error(error);
+        });
 
-
+        this.props.actions.loadAmenities(venueId)
+        .then()
+        .catch( error => {
+            toastr.error(error);
+        });
+    }
+    
     handleFilterDropdownChange () {
        return (e) => {
          e.preventDefault();
@@ -75,9 +82,9 @@ class AmenitiesPage extends React.Component {
     }
     return (
           <div className="col-md-12">
-                  <h3>Amenities at {this.props.amenities.venue.VName} {this.props.loading && <LoadingDots interval={100} dots={20}/>}
-              </h3>
-                      <table className="table table-striped table-responsive table-hover mainScreen visible-md visible-lg">
+              <h1>Amenities at {this.props.amenities.venue.VName}</h1> {this.props.loading && <h4><b><LoadingDots interval={100} dots={20}/></b></h4>}
+
+                {!this.props.loading &&   <table className="table table-striped table-responsive table-hover mainScreen visible-md visible-lg">
                           <tbody style={{"height":"250px", "overflow":"none"}}>
                             <tr >
                               <td className="blackBg">
@@ -106,9 +113,9 @@ class AmenitiesPage extends React.Component {
                               </td>
                             </tr>
                           </tbody>
-                      </table>
+                      </table>}
                       <br/>
-                        <select className="btn btn-primary"
+                    {!this.props.loading &&     <select className="btn btn-primary"
                             onChange={this.handleFilterDropdownChange()}>
                           <option value="">All Categories</option>
                           <option value="Miscellaneous">Miscellaneous</option>
@@ -117,28 +124,18 @@ class AmenitiesPage extends React.Component {
                           <option value="Merchandise">Merchandise</option>
                           <option value="Parking">Parking</option>
                           <option value="Restrooms">Restrooms</option>
-                        </select>
+                      </select>}
                        <br /><br />
-                       {
-                        //    localData.length > 0 &&
-                        //     <table className="table table-striped table-bordered table-responsive table-hover mainScreen" >
-                        //         <tbody className="blackBg">
-                        //                 {localData.map((Amenity, index) => {
-                        //                       return(
-                        //                             <AmenitiesTable Amenity={Amenity} key={index}  />
-                        //                         );})}
-                        //         </tbody>
-                        //     </table>
-
+                       {!this.props.loading &&
                            localData.length > 0 &&
                             <div style={{"maxHeight":"650px", "overflow": "auto"}}>
                                  {localData.map((Amenity, index) => {
                                               return(
-                                                    <AmenitiesTable key={Amenity.id} Amenity={Amenity} key={index}  />
+                                                    <AmenitiesTable key={Amenity.id} Amenity={Amenity}  />
                                 );})}
                             </div>
                       }
-                      {
+                      {!this.props.loading &&
                           localData.length == 0 &&
                           <h3>No amenities found</h3>
                       }
@@ -158,7 +155,7 @@ AmenitiesPage.propTypes = {
 function mapStateToProps(state, ownProps) {
   return {
             amenities: state.amenities,
-            loading: state.ajaxCallsInProgress > 0
+            loading: state.loadingStatus.ajaxCallsInProgress > 0
     };
 }
 

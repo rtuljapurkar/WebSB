@@ -333,7 +333,8 @@ h1 {
 	background-color: #A94442;
 }
 
-#main_navbar li:hover:after {
+/*displays yellow color pointer ABOVE the menu item while selecting a menu item*/
+/*#main_navbar li:hover:after {
 	content: ' ';
 	position: absolute;
 	border: solid 10px transparent;
@@ -342,7 +343,7 @@ h1 {
 	left: 50%;
 	margin-left: -10px;
 	border-color: #ffcb45 transparent transparent transparent;
-}
+}*/
 
 /* Navigation highlight for current page */
 body#home a#homenav, body#about a#aboutnav, body#menupage a#menunav, body#contact a#contactnav,

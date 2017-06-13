@@ -46,7 +46,7 @@ export default (
   </Router>
 );
 
-function requireAuth(nextState, replace) {    
+function requireAuth(nextState, replace) {
       if (!auth.loggedIn()) {
         replace({
                   pathname: '/login',

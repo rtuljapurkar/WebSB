@@ -1,6 +1,6 @@
 import * as types from './actionTypes';
 import venuesApi from '../api/venuesApi';
-import {beginAjaxCall, ajaxCallError} from './ajaxStatusActions';
+import {beginAjaxCall, beginPOIAjaxCall, ajaxCallError} from './ajaxStatusActions';
 
 export function loadPointOfInterestSuccess(data) {
   return {type: types.LOAD_POI_SUCCESS, data};
@@ -17,7 +17,7 @@ export function loadPOIVenuesSuccess (data) {
 
  export function loadPointOfInterests(venueId) {
          return function(dispatch) {
-         dispatch( beginAjaxCall());
+         dispatch( beginPOIAjaxCall());
          return venuesApi.getPointOfInterests(venueId).then(data => {
               dispatch(loadPointOfInterestSuccess(data));
           }).catch(error => {
