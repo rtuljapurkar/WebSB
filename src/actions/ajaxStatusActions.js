@@ -29,3 +29,9 @@ export function beginScoresAjaxCall() {
 export function beginVenueDetailsAjaxCall() {
   return {type: types.BEGIN_VENUEDETAILS_AJAX_CALL};
 }
+export function ajaxScoresCallError() {
+  return {type: types.AJAX_SCORES_CALL_ERROR};
+}
+export function ajaxFavoritesCallError() {
+  return {type: types.AJAX_FAVORITES_CALL_ERROR};
+}

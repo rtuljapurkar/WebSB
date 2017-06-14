@@ -1,4 +1,4 @@
-import React, {PropTypes} from 'react';
+import React  from 'react';
 import {Link, browserHistory} from 'react-router';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
@@ -7,6 +7,7 @@ import LoadingDots from '../common/LoadingDots';
 import toastr from 'toastr';
 import PointOfInterestTable from './PointOfInterestTable';
 import {DisplayMap} from '../common/DisplayMap';
+import {PropTypes} from 'prop-types';
 
  function renderSortArrow (sortKey, sortDesc, sortId) {
   return sortKey === sortId ? (sortDesc ? '↓' : '↑') : '';
@@ -122,7 +123,7 @@ class PointOfInterestPage extends React.Component {
                    <br /><br />
                    {!this.props.loading &&
                        localData.length > 0 &&
-                     <div style={{"max-height":"650px", "overflow": "auto"}}>
+                     <div style={{"maxHeight":"650px", "overflow": "auto"}}>
                             {
                                         localData.map((PointOfInterest, index) => {
                                           return(

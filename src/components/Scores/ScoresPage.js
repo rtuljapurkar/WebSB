@@ -1,4 +1,4 @@
-import React, {PropTypes} from 'react';
+import React  from 'react';
 import {Link, browserHistory} from 'react-router';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
@@ -8,6 +8,7 @@ import toastr from 'toastr';
 import ScoresTable from './ScoresTable';
 import {Button, Glyphicon} from 'react-bootstrap';
 import moment from 'moment';
+import {PropTypes} from 'prop-types';
 
 class ScoresPage extends React.Component {
     constructor(props){
@@ -42,12 +43,12 @@ class ScoresPage extends React.Component {
 
 
     filterData (localData) {
-        let selected = moment(this.props.scores.dateSelected);
+        let selected = moment(this.props.scores.dateSelected, "YYYY-MM-DD").format("YYYY-MM-DD");
         const {filterString} = this.props.scores;
         const str = filterString.toLowerCase();
         return localData.filter((r) => {
-              let gameDate =  moment(r.GameDate).format("YYYY-MM-DD");
-            return  (moment(selected).isSame(gameDate));
+            let gameDate =  moment(r.GameDate, "MM/DD/YYYY").format("YYYY-MM-DD");
+            return  (selected == gameDate);
      });
     }
 
@@ -74,15 +75,15 @@ findByAttribute(array, attr, value) {
 }
 
 changeDate(event){
-    let dateNow = moment(this.props.scores.dateSelected);
+    let dateNow = moment(this.props.scores.dateSelected).format("MM/DD/YYYY");
     let newDate = dateNow;
 
     let type = event.target.getAttribute("data-type");
     let availableDates = this.sortData();
     let totalDates = availableDates.length;
 
-    let selectDateIndex = this.findByAttribute(availableDates, "Dates", this.props.scores.dateSelected); // availableDates.indexOf(this.props.scores.dateSelected);
-
+    let selectDateIndex = this.findByAttribute(availableDates, "Dates", dateNow); // availableDates.indexOf(this.props.scores.dateSelected);
+console.log(selectDateIndex);
     if(type=="minus"){
         if(selectDateIndex > 0)
         {
@@ -95,7 +96,6 @@ changeDate(event){
             newDate = availableDates[selectDateIndex + 1]["Dates"];
         }
     }
-
     if (dateNow != newDate)
     {
         this.props.actions.changeSelectedDate(newDate);
@@ -106,14 +106,14 @@ changeDate(event){
     let dateSelected = this.props.scores.dateSelected;
     let scoresData = this.props.scores.data;
     scoresData = this.filterData(scoresData);
-
+    //console.log(dateSelected);
     return (
             <div className="col-md-12"  style={{"marginBottom": "50px","paddingLeft": "4px","paddingRight": "4px"}}  >
                 {this.props.loading &&
                         <div className="blackBg" style={{"textAlign":"left", "width":"100%"}} >
                                  <h4><LoadingDots interval={100} dots={5}/></h4>
                         </div>}
-                {!this.props.loading &&
+                {!this.props.loading && //scoresData.length > 1 &&
                 <div className="blackBg" style={{"textAlign":"center", "width":"100%"}} >
                                 <span className="glyphicon glyphicon-chevron-left text-warning"
                                      style={{"textAlign":"left"}} data-type="minus" onClick={this.changeDate}>
@@ -126,14 +126,21 @@ changeDate(event){
                                      disabled="true" onClick={this.changeDate}>
                                 </span>
                 </div>}
-                {!this.props.loading &&
-                <div style={{"height":"200px", "width":"100%","overflow": "auto"}}>
-                    {scoresData.map((score, index) => {
-                                  return(
-                                        <ScoresTable key={score.ID} score= {score} />
-                                      );
-                            })}
+                {!this.props.loading && //scoresData.length > 1 &&
+                    <div style={{"height":"200px", "width":"100%","overflow": "auto"}}>
+                        {scoresData.map((score, index) => {
+                                      return(
+                                            <ScoresTable key={score.ID} score= {score} />
+                                          );
+                                })}
                 </div>}
+                {!this.props.loading && scoresData.length <=1 &&
+                    <div style={{"height":"20px"}}>
+                        <div className="blackBg">
+                            Scores Not found
+                        </div>
+                </div>}
+
           </div>
 
     );
@@ -167,5 +174,3 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ScoresPage);
-
- 

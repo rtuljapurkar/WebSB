@@ -1,10 +1,11 @@
-import React, {PropTypes} from 'react';
+import React from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as sessionActions from '../../actions/sessionActions';
 import RegisterForm from './RegisterForm';
 import toastr from 'toastr';
 import {Link, browserHistory} from 'react-router';
+import {PropTypes} from 'prop-types';
 
 class RegisterPage extends React.Component {
   constructor(props, context) {

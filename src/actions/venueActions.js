@@ -20,7 +20,7 @@ export function loadVenuesMain() {
         dispatch( beginVenuesAjaxCall());
         return venuesApi.getAllVenues().then(data => {
              dispatch(loadVenuesSuccess(data));
-         }).catch(error => {
+         }).catch(error => {            
              dispatch(ajaxCallError(error));
              throw(error);
          });

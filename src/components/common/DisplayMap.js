@@ -1,6 +1,6 @@
-import React, {PropTypes} from 'react';
+import React  from 'react';
 import {withGoogleMap, GoogleMap} from 'react-google-maps';
-
+import {PropTypes} from 'prop-types';
 
 export const DisplayMap = withGoogleMap(props => (
   <GoogleMap

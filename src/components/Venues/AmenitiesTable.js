@@ -38,19 +38,19 @@ const AmenitiesTable = ({ Amenity }) => {
                     let value = Amenity[key] == null ? "": Amenity[key];
                     let modifiedkey = key.substr(1);
                     if(modifiedkey == "Name"){
-                        rowHeader.push(<b style={{"fontSize":"24px"}}>{value}</b> );
-                        buttonRow.push(<a href={"/posts/amenities/add/"+id}>
+                        rowHeader.push(<b key={id} style={{"fontSize":"24px"}}>{value}</b> );
+                        buttonRow.push(<a key={id} href={"/posts/amenities/add/"+id}>
                                         <Button bsStyle="primary" bsSize="small" >
                                             <Glyphicon glyph="pencil" />  Review
                                         </Button>
                                     </a>);
                     }
                     else if(modifiedkey == "Image"){
-                            rowImage.push(<img src={value} height="200" width="200" alt=""/>);
+                            rowImage.push(<img src={value} key={id} height="200" width="200" alt=""/>);
                     }
                     else
                      {
-                        rows.push(<span className="spanAmenities">{modifiedkey}: {value}<br/> </span>);
+                        rows.push(<span key={modifiedkey+id}  className="spanAmenities">{modifiedkey}: {value}<br/> </span>);
                     }
 
                 }
@@ -59,7 +59,7 @@ const AmenitiesTable = ({ Amenity }) => {
 
     return (
              <div className="blackBg">
-                    <div className="ib">{rowHeader}</div>
+                    <div className="ib" >{rowHeader}</div>
                     <div className="ibright">{buttonRow}</div>
                     <div className="ib">{rows}</div>
                     <div className="ibright">{rowImage}</div>

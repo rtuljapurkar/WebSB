@@ -1,13 +1,12 @@
-import React, {PropTypes} from 'react';
+import React from 'react';
 import TextInput from '../common/TextInput';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import * as sessionActions from '../../actions/sessionActions';
 import {Link, browserHistory} from 'react-router';
-import {Button, Glyphicon} from 'react-bootstrap';
 import toastr from 'toastr';
 import LoginForm from './LoginForm';
-
+import {PropTypes} from 'prop-types';
 
 class LoginPage extends React.Component {
   constructor(props, context) {
@@ -101,8 +100,8 @@ class LoginPage extends React.Component {
 }
 
 LoginPage.propTypes = {
-    actions: React.PropTypes.object.isRequired,
-    session: React.PropTypes.object.isRequired
+    actions: PropTypes.object.isRequired,
+    session: PropTypes.object.isRequired
 };
 
 LoginPage.contextTypes = {

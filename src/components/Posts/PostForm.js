@@ -4,6 +4,7 @@ import StarInput from '../common/StarInput';
 import {Button, Glyphicon} from 'react-bootstrap';
 //import {glyphicon} from 'react-router';
 import ReactStars from 'react-stars';
+import {PropTypes} from 'prop-types';
 
 const PostForm = ({post, onSave, onChange, saving, errors, venue, amenity, poi, onCancel, onStarRatingChange}) => {
   return (
@@ -82,16 +83,16 @@ const PostForm = ({post, onSave, onChange, saving, errors, venue, amenity, poi, 
 };
 
 PostForm.propTypes = {
-  post: React.PropTypes.object.isRequired,
-  onSave: React.PropTypes.func.isRequired,
-  onCancel: React.PropTypes.func.isRequired,
-  onChange: React.PropTypes.func.isRequired,
-  saving: React.PropTypes.bool,
-  errors: React.PropTypes.object,
-  venue: React.PropTypes.object,
-  onStarRatingChange: React.PropTypes.func.isRequired,
-  amenity: React.PropTypes.object,
-  poi: React.PropTypes.object
+  post: PropTypes.object.isRequired,
+  onSave: PropTypes.func.isRequired,
+  onCancel: PropTypes.func.isRequired,
+  onChange: PropTypes.func.isRequired,
+  saving: PropTypes.bool,
+  errors: PropTypes.object,
+  venue: PropTypes.object,
+  onStarRatingChange: PropTypes.func.isRequired,
+  amenity: PropTypes.object,
+  poi: PropTypes.object
 };
 
 export default PostForm;

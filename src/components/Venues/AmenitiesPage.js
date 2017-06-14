@@ -1,4 +1,4 @@
-import React, {PropTypes} from 'react';
+import React  from 'react';
 import {Link, browserHistory} from 'react-router';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
@@ -7,6 +7,7 @@ import LoadingDots from '../common/LoadingDots';
 import toastr from 'toastr';
 import AmenitiesTable from './AmenitiesTable';
 import {DisplayMap} from '../common/DisplayMap';
+import {PropTypes} from 'prop-types';
 
 class AmenitiesPage extends React.Component {
   componentWillMount() {
@@ -33,7 +34,7 @@ class AmenitiesPage extends React.Component {
             toastr.error(error);
         });
     }
-    
+
     handleFilterDropdownChange () {
        return (e) => {
          e.preventDefault();

@@ -18,7 +18,8 @@ class VenuesApi {
         .then(handleErrors)
         .then(response => {
                 return response.json();
-            }).catch(error => {
+            })
+        .catch(error => {
                 throw error;
             });
         }
@@ -124,15 +125,19 @@ class VenuesApi {
           const request = new Request(`${process.env.API_HOST}/vwGameDetails`, {
             method: 'GET'
           });
-
-          return fetchWithDelay(request)
-          .then(handleErrors)
-          .then(response => {
-                  return response.json();
-              }).catch(error => {
-                  throw error;
-              });
-          }
+          try{
+                  return fetchWithDelay(request)
+                  .then(handleErrors)
+                  .then(response => {
+                          return response.json();
+                      }).catch(error => {
+                          throw error;
+                      });
+             }
+             catch(ex){
+                  throw ex;
+             }
+    }
 
     static getScoresAvailableDates() {
         const host = `${process.env.API_HOST}`;
@@ -140,14 +145,18 @@ class VenuesApi {
           method: 'GET'
         });
 
-        return fetch(request)
+        return fetchWithDelay(request)
         .then(handleErrors)
         .then(response => {
                 return response.json();
             }).catch(error => {
                 throw error;
             });
+
+
         }
+
+
     }
 
 export default VenuesApi;

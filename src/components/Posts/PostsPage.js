@@ -1,4 +1,4 @@
-import React, {PropTypes} from 'react';
+import React  from 'react';
 import {Link, browserHistory} from 'react-router';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
@@ -8,6 +8,7 @@ import LoadingDots from '../common/LoadingDots';
 import toastr from 'toastr';
 import PostsTable from './PostsTable';
 import { Table, Pagination } from 'react-bootstrap';
+import {PropTypes} from 'prop-types';
 
 class PostsPage extends React.Component {
       componentWillMount() {
@@ -68,45 +69,36 @@ class PostsPage extends React.Component {
   }
 
   render() {
-
+      const posts = this.props.posts.data;
       const { filterString, sortKey, sortDesc } = this.props.posts;
       let localData = this.sortData();
       localData = this.filterData(localData);
+      const postsFound = (posts.length > 1 || (posts.length == 1 && posts[0].id > 0));
       return (
                     <div style={{"align":"center"}} >
                         <h1>Posts</h1> {this.props.loading && <h4><b><LoadingDots interval={100} dots={20}/></b></h4>}
 
-                        {!this.props.loading && <div>
+                         {!this.props.loading &&  postsFound &&
+                         <div>
                           <input className="filter-input" value={filterString}
                             onChange={this.handleFilterStringChange()}
                             type="text" placeholder="Filter Rows"
                             autoCorrect="off" autoCapitalize="off" spellCheck="false" />
                         </div>}
                          <br />
-                        {/* <table className="table  table-striped table-bordered table-responsive table-hover mainScreen" >
-                              <tbody>
-                                  <tr>
-                                      <th colSpan="2">Posts</th>
-                                  </tr>
-                                  {
-                                          localData.map((post, index) => {
-                                                return(
-                                                        <PostsTable  key={post.id} post={post} venues={this.props.posts.venues} users={this.props.posts.users} props={this.props}/>
-                                                  );})
-
-                                  }
-                              </tbody>
-                       </table> */}
-                          <div style={{"max-height":"700px", "overflow": "auto"}}>
-                           {!this.props.loading &&
+                          <div style={{"maxHeight":"700px", "overflow": "auto"}}>
+                           {!this.props.loading &&  postsFound &&
                                    localData.map((post, index) => {
                                          return(
                                                  <PostsTable  key={post.id} post={post}
                                                      venues={this.props.posts.venues} users={this.props.posts.users} />
                                            );})
 
-                           }
-                           </div>
+                          }
+                          {!this.props.loading && !postsFound &&
+                              <h3>No Posts found</h3>
+                          }
+                          </div>
                    </div>
                );
 

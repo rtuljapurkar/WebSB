@@ -45,6 +45,7 @@ export default function ajaxStatusReducer(state = initialState.loadingStatus, ac
       case types.LOAD_AMENITIES_SUCCESS:
       case types.LOAD_POI_SUCCESS:
       case types.VENUE_DETAIL_USERS_SUCCESS:
+      case types.AJAX_CALL_ERROR:
       {
            return Object.assign({}, state, {
                ajaxCallsInProgress: 0
@@ -57,6 +58,7 @@ export default function ajaxStatusReducer(state = initialState.loadingStatus, ac
             });
       }
       case types.LOAD_FAVORITES_SUCCESS:
+      case types.AJAX_FAVORITES_CALL_ERROR:
       {
            return Object.assign({}, state, {
                loadingFavorites: 0
@@ -69,6 +71,7 @@ export default function ajaxStatusReducer(state = initialState.loadingStatus, ac
             });
       }
       case types.LOAD_SCORES_SUCCESS:
+      case types.AJAX_SCORES_CALL_ERROR:
       {
            return Object.assign({}, state, {
                loadingScores: 0

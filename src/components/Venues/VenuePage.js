@@ -1,4 +1,4 @@
-import React, {PropTypes} from 'react';
+import React  from 'react';
 import {Link, browserHistory} from 'react-router';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
@@ -7,6 +7,7 @@ import * as actions from '../../actions/venueActions';
 import LoadingDots from '../common/LoadingDots';
 import toastr from 'toastr';
 import VenuesTable from './VenuesTable';
+import {PropTypes} from 'prop-types';
 
 class VenuesPage extends React.Component {
 constructor(props){
@@ -70,12 +71,15 @@ constructor(props){
               type="text" placeholder="Filter Rows"
               autoCorrect="off" autoCapitalize="off" spellCheck="false" />}
             <br /><br />
-                <div style={{"max-height":"650px", "overflow": "auto"}}>
-                      {!this.props.loading &&
+                <div style={{"maxHeight":"650px", "overflow": "auto"}}>
+                      {!this.props.loading && localData.length > 1 &&
                               localData.map((venue, index) => {
                                     return(
                                             <VenuesTable  key={venue.id} venue={venue} venues={venues} />
                                       );})
+                      }
+                      {!this.props.loading && localData.length == 1 &&
+                          <h3>No Venues found</h3>
                       }
                </div>
 
@@ -93,7 +97,7 @@ VenuesPage.propTypes = {
 };
 
 
-function mapStateToProps(state, ownProps) {    
+function mapStateToProps(state, ownProps) {
   if (state.venues.data && state.venues.data.length > 0) {
     return {
             venues: state.venues,

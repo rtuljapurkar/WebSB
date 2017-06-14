@@ -77,7 +77,7 @@ const PostsTable = ({post, venues, users}) => {
                             {userImage !="" && <img src= {userImage} width="30" height="30" alt=""/>}
                             <br/>
                         </div>
-                        <div style={{"vertical-align": "middle"}}>
+                        <div style={{"verticalAlign": "middle"}}>
                            {post["UserName"]} <br/>
                            <ReactStars
                            name={name}

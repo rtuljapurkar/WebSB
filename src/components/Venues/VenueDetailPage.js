@@ -1,4 +1,4 @@
-import React, {PropTypes} from 'react';
+import React from 'react';
 import {Link, browserHistory} from 'react-router';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
@@ -7,6 +7,7 @@ import LoadingDots from '../common/LoadingDots';
 import toastr from 'toastr';
 import VenueDetailTable from './VenueDetailTable';
 import {Button, Glyphicon} from 'react-bootstrap';
+import {PropTypes} from 'prop-types';
 
 class VenueDetailPage extends React.Component {
 constructor(props){

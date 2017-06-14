@@ -1,6 +1,7 @@
 import React from 'react';
 import TextInput from '../common/TextInput';
 import {Button, Glyphicon} from 'react-bootstrap';
+import {PropTypes} from 'prop-types';
 
 const RegisterForm = ({user, onSave, onChange, saving, errors, venue}) => {
   return (
@@ -47,12 +48,12 @@ const RegisterForm = ({user, onSave, onChange, saving, errors, venue}) => {
 };
 
 RegisterForm.propTypes = {
-  user: React.PropTypes.object.isRequired,
-  onSave: React.PropTypes.func.isRequired,
-  onChange: React.PropTypes.func.isRequired,
-  saving: React.PropTypes.bool,
-  errors: React.PropTypes.object,
-  venue: React.PropTypes.object
+  user: PropTypes.object.isRequired,
+  onSave: PropTypes.func.isRequired,
+  onChange: PropTypes.func.isRequired,
+  saving: PropTypes.bool,
+  errors: PropTypes.object,
+  venue: PropTypes.object
 };
 
 export default RegisterForm;

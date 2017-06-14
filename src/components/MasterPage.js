@@ -3,6 +3,7 @@ import { Link } from 'react-router';
 import FavoritesPage from './Favorites/FavoritesPage';
 import ScoresPage from './Scores/ScoresPage';
 import Header from './common/Header';
+import {PropTypes} from 'prop-types';
 
 class MasterPage extends React.Component {
   render() {
@@ -54,7 +55,7 @@ class MasterPage extends React.Component {
 }
 
 MasterPage.propTypes = {
-    children: React.PropTypes.object.isRequired
+    children: PropTypes.object.isRequired
 };
 
 export default MasterPage;

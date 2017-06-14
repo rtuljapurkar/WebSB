@@ -1,4 +1,4 @@
-import React, {PropTypes} from 'react';
+import React  from 'react';
 import TeamListItem from './TeamListItem';
 import { Table, Pagination } from 'react-bootstrap';
 import {push} from 'react-router-redux';
@@ -8,6 +8,7 @@ import toastr from 'toastr';
 import LoadingDots from '../common/LoadingDots';
 import {bindActionCreators} from 'redux';
 import {Link, browserHistory} from 'react-router';
+import {PropTypes} from 'prop-types';
 
 class TeamList extends React.Component {
     constructor(props){

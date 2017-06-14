@@ -1,3 +1,5 @@
+import {PropTypes} from 'prop-types';
+
 let React = require('react');
 
 let PendingPool = {};
@@ -66,7 +68,7 @@ class ExampleImage extends React.Component{
 }
 
 ExampleImage.propTypes = {
-  src: React.PropTypes.string.isRequired
+  src: PropTypes.string.isRequired
 };
 
 export default ExampleImage;

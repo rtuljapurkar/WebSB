@@ -1,6 +1,6 @@
 import * as types from './actionTypes';
 import venuesApi from '../api/venuesApi';
-import {beginAjaxCall, beginScoresAjaxCall, ajaxCallError} from './ajaxStatusActions';
+import {beginAjaxCall, beginScoresAjaxCall, ajaxCallError, ajaxScoresCallError} from './ajaxStatusActions';
 
 export function loadScoresSuccess(data) {
   return {type: types.LOAD_SCORES_SUCCESS, data};
@@ -19,7 +19,7 @@ export function loadScores() {
         return venuesApi.getScores().then(data => {
              dispatch(loadScoresSuccess(data));
          }).catch(error => {
-             dispatch(ajaxCallError(error));
+             dispatch(ajaxScoresCallError(error));
              throw(error);
          });
      };
@@ -31,7 +31,7 @@ export function loadScores() {
           return venuesApi.getScoresAvailableDates().then(data => {
                dispatch(loadScoresAvailableDatesSuccess(data));
            }).catch(error => {
-               dispatch(ajaxCallError(error));
+               dispatch(ajaxScoresCallError(error));
                throw(error);
            });
        };

@@ -1,10 +1,11 @@
-import React, {PropTypes} from 'react';
+import React  from 'react';
 const uuidV1 = require('uuid/v1');
 import moment from 'moment';
+import {PropTypes} from 'prop-types';
 
 let dateNow = new Date();
 let dateTime = new Date() ;
-dateTime = moment(dateTime, "MM-DD-YYYY").subtract(1,'days').format("YYYY-MM-DD");
+dateTime = moment(dateTime,"YYYY-MM-DD").subtract(1,'days').format("YYYY-MM-DD");
 
 export default {
     venues: {

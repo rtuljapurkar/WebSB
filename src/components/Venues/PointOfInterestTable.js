@@ -18,10 +18,10 @@ const PointOfInterestTable = ({ PointOfInterest, venue }) => {
       if (PointOfInterest.hasOwnProperty(key) && key!= "id" && key!= "VenueID" && key!= "Active"
       && key!= "POIGPSLoc") {
                 let value = PointOfInterest[key] == null ? "": PointOfInterest[key];
-                let modifiedkey = key.substr(3);                
+                let modifiedkey = key.substr(3);
                 if(modifiedkey == "Name"){
-                    rowHeader.push(<p style={{"fontSize":"24px"}}><b>{value}</b></p>);
-                    buttonRow.push(<a href={"/posts/poi/add/"+id}>
+                    rowHeader.push(<p key={id} style={{"fontSize":"24px"}}><b>{value}</b></p>);
+                    buttonRow.push(<a key={id} href={"/posts/poi/add/"+id}>
                                     <Button bsStyle="primary" bsSize="small" >
                                         <Glyphicon glyph="pencil" />  Review
                                     </Button>
@@ -29,11 +29,11 @@ const PointOfInterestTable = ({ PointOfInterest, venue }) => {
                 }
 
                 else if(modifiedkey == "Image"){
-                        rowImage.push(<img src={value} height="200" width="200" alt=""/>);
+                        rowImage.push(<img src={value} key={id} height="200" width="200" alt=""/>);
                 }
                 else
                  {
-                    rows.push(<span>{modifiedkey}: {value}<br/> </span>);
+                    rows.push(<span key={modifiedkey+id}>{modifiedkey}: {value}<br/> </span>);
                 }
           }
      }

@@ -1,6 +1,6 @@
 import * as types from './actionTypes';
 import venuesApi from '../api/venuesApi';
-import {beginAjaxCall, beginFavoritesAjaxCall, ajaxCallError} from './ajaxStatusActions';
+import {beginAjaxCall, beginFavoritesAjaxCall, ajaxCallError, ajaxFavoritesCallError} from './ajaxStatusActions';
 
 export function loadFavoritesSuccess(data) {
   return {type: types.LOAD_FAVORITES_SUCCESS, data};
@@ -15,7 +15,7 @@ export function loadFavorites() {
         return venuesApi.getFavorites().then(data => {
              dispatch(loadFavoritesSuccess(data));
          }).catch(error => {
-             dispatch(ajaxCallError(error));
+             dispatch(ajaxFavoritesCallError(error));
              throw(error);
          });
      };
@@ -28,7 +28,7 @@ export function loadFavorites() {
          return venuesApi.getAllVenues().then(data => {
               dispatch(loadVenuesSuccess(data));
           }).catch(error => {
-              dispatch(ajaxCallError(error));
+              dispatch(ajaxFavoritesCallError(error));
               throw(error);
           });
       };

@@ -1,10 +1,10 @@
-import React, {PropTypes} from 'react';
+import React  from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as postActions from '../../actions/postActions';
 import PostForm from './PostForm';
 import toastr from 'toastr';
-
+import {PropTypes} from 'prop-types';
 
 class ManagePostPage extends React.Component {
   constructor(props, context) {

@@ -1,9 +1,11 @@
-import React, {PropTypes} from 'react';
+import React  from 'react';
 import { Link, IndexLink, browserHistory } from 'react-router';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as sessionActions from '../../actions/sessionActions';
-import {Navbar, Nav, NavItem, NavDropdown, MenuItem} from 'react-bootstrap';
+// import {Navbar, Nav, NavItem, NavDropdown, MenuItem} from 'react-bootstrap';
+import {PropTypes} from 'prop-types';
+
 let $ = require('jquery');
 
 class  Header extends React.Component {
@@ -38,76 +40,47 @@ render(){
         <div>
                 <div id="activeTracker">
                 </div>
-                    <div id="main_navbar">
-                        <Navbar inverse collapseOnSelect>
-                        <Navbar.Header>
-                          <Navbar.Brand>
-                                   <a href="http://www.stadiumbee.com">React</a>
-{/*<a href="http://www.stadiumbee.com">
-                               <span style={{"color":"white", "fontFamily":"Montserrat"}}>Stadium</span><span style={{"color":"yellow"}}>Bee</span></a> */}
-                          </Navbar.Brand>
-                          <Navbar.Toggle />
-                        </Navbar.Header>
-                        <Navbar.Collapse>
+                <div id="main_navbar">
+                        <nav className="navbar navbar-inverse navbar-collapse">
+                            <div className="container-fluid">
+                                <div className="navbar-header">
+                                                <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#myNavbar">
+                                                   <span className="icon-bar"></span>
+                                                   <span className="icon-bar"></span>
+                                                   <span className="icon-bar"></span>
+                                               </button>
+                                               <a className="navbar-brand" href="http://www.stadiumbee.com">React</a>
+                                                {/*<a class="navbar-brand" href="http://www.stadiumbee.com">
+                                           <span style={{"color":"white", "fontFamily":"Montserrat"}}>Stadium</span><span style={{"color":"yellow"}}>Bee</span></a> */}
+                                </div>
+                                <div className="collapse navbar-collapse" id="myNavbar">
+                                    <ul className="nav navbar-nav">
+                                                 <li><Link id="homenav" to="/posts" className="nav navbar-nav current">Home</Link></li>
+                                                 <li><Link id="venuesnav" to="/venues" className="nav navbar-nav">Venues</Link></li>
 
-                            <ul className="nav navbar-nav" id="ulid">
-                                         <li><Link id="homenav" to="/posts" className="nav navbar-nav current">Home</Link></li>
-                                         <li><Link id="venuesnav" to="/venues" className="nav navbar-nav">Venues</Link></li>
-
-                                         {/* <li><Link id="teamsnav" to="/teams" className="nav navbar-nav">Teams</Link></li> */}
-                                         <li><Link id="postsnav" to="/posts" className="nav navbar-nav">Posts</Link></li>
-                                         <li className="visible-sm visible-xs"><Link id="favoritesnav" to="/favorites" className="nav navbar-nav">Favorites</Link></li>
-                                         <li className="visible-sm visible-xs"><Link id="scoresnav" to="/scores" className="nav navbar-nav">Scores</Link></li>
-                            </ul>
-
-                          <Nav pullRight>
-                              <ul className="nav navbar-nav navbar-right">
-                                <li><Link id="termsnav" to="/terms" className="nav navbar-nav" >Terms</Link></li>
-                                <li><Link id="aboutnav" to="/about" className="nav navbar-nav">About</Link></li>
-                                <li><Link id="helpnav" to="/help" className="nav navbar-nav">Help</Link></li>
-                                <li><a href="/logout" onClick={this.logOut}>log out {localStorage.username}</a></li>
-                              </ul>
-                          </Nav>
-                        </Navbar.Collapse>
-                        </Navbar>
-                    </div>
+                                                 {/* <li><Link id="teamsnav" to="/teams" className="nav navbar-nav">Teams</Link></li> */}
+                                                 <li><Link id="postsnav" to="/posts" className="nav navbar-nav">Posts</Link></li>
+                                                 <li className="visible-sm visible-xs"><Link id="favoritesnav" to="/favorites" className="nav navbar-nav">Favorites</Link></li>
+                                                 <li className="visible-sm visible-xs"><Link id="scoresnav" to="/scores" className="nav navbar-nav">Scores</Link></li>
+                                    </ul>
+                                    <ul className="nav navbar-nav navbar-right">
+                                        <li><Link id="termsnav" to="/terms" className="nav navbar-nav" >Terms</Link></li>
+                                        <li><Link id="aboutnav" to="/about" className="nav navbar-nav">About</Link></li>
+                                        <li><Link id="helpnav" to="/help" className="nav navbar-nav">Help</Link></li>
+                                        <li><a href="/logout" onClick={this.logOut}>log out {localStorage.username}</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </nav>
+                </div>
         </div>
                 );
             }
             else
             {
               return (
-                  <Navbar inverse collapseOnSelect>
-                  <Navbar.Header>
-                    <Navbar.Brand>
-                      <a href="#">React-Bootstrap</a>
-                    </Navbar.Brand>
-                    <Navbar.Toggle />
-                  </Navbar.Header>
-                  <Navbar.Collapse>
-                      <ul className="nav navbar-nav">
-                                   <li className="nav active"><Link to="/home">Home</Link></li>
-                                   <li className="nav"><Link to="/venues">Venues</Link></li>
-                                   {/* <li className="nav"><a href="/teams">Teams</a></li> */}
-                                   <li className="nav"><Link to="/posts">Posts</Link></li>
-                      </ul>
-                    <Nav pullRight>
-                        <NavDropdown eventKey={3} title="More" id="basic-nav-dropdown">
-                          <MenuItem eventKey={3.1}>Privacy Policy</MenuItem>
-                          <MenuItem eventKey={3.2}>Cookie Policy</MenuItem>
-                          <MenuItem eventKey={3.3}>Disclaimer</MenuItem>
-                          {/* <MenuItem divider />
-                          <MenuItem eventKey={3.3}>Separated link</MenuItem> */}
-                        </NavDropdown>
-                        <ul className="nav navbar-nav navbar-right">
-                          <li className="nav"><Link to="/about">Terms</Link></li>
-                          <li className="nav"><Link to="/about">About</Link></li>
-                          <li className="nav"><Link to="/help">Help</Link></li>
-                          <li className="nav"><Link to="/login">Login</Link></li>
-                        </ul>
-                    </Nav>
-                  </Navbar.Collapse>
-                  </Navbar>
+                  <div></div>
+                
 
                     );
                 }
@@ -131,6 +104,40 @@ function mapDispatchToProps(dispatch) {
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header);
 
+
+{/* <Navbar inverse collapseOnSelect>
+<Navbar.Header>
+  <Navbar.Brand>
+           {/* <a href="http://www.stadiumbee.com">React</a> */}
+{/*             <a href="http://www.stadiumbee.com">
+               <span style={{"color":"white", "fontFamily":"Montserrat"}}>Stadium</span>
+               <span style={{"color":"#ffcb45"}}>Bee</span>
+           </a>
+  </Navbar.Brand>
+  <Navbar.Toggle />
+</Navbar.Header>
+<Navbar.Collapse>
+
+    <ul className="nav navbar-nav" id="ulid">
+                 <li><Link id="homenav" to="/posts" className="nav navbar-nav current">Home</Link></li>
+                 <li><Link id="venuesnav" to="/venues" className="nav navbar-nav">Venues</Link></li>
+
+                 {/* <li><Link id="teamsnav" to="/teams" className="nav navbar-nav">Teams</Link></li> */}
+{/*                  <li><Link id="postsnav" to="/posts" className="nav navbar-nav">Posts</Link></li>
+                 <li className="visible-sm visible-xs"><Link id="favoritesnav" to="/favorites" className="nav navbar-nav">Favorites</Link></li>
+                 <li className="visible-sm visible-xs"><Link id="scoresnav" to="/scores" className="nav navbar-nav">Scores</Link></li>
+    </ul>
+
+  <Nav pullRight>
+      <ul className="nav navbar-nav navbar-right">
+        <li><Link id="termsnav" to="/terms" className="nav navbar-nav" >Terms</Link></li>
+        <li><Link id="aboutnav" to="/about" className="nav navbar-nav">About</Link></li>
+        <li><Link id="helpnav" to="/help" className="nav navbar-nav">Help</Link></li>
+        <li><a href="/logout" onClick={this.logOut}>log out {localStorage.username}</a></li>
+      </ul>
+  </Nav>
+</Navbar.Collapse>
+</Navbar> */}
 // <NavDropdown eventKey={3} title="More" id="morenav" className="nav navbar-nav">
 //   <MenuItem eventKey={3.1} id="privacynav" className="nav navbar-nav">Privacy Policy</MenuItem>
 //   <MenuItem eventKey={3.2} id="cookienav"  className="nav navbar-nav">Cookie Policy</MenuItem>

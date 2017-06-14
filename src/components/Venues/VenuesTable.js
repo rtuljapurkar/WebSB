@@ -13,16 +13,16 @@ function renderSortArrow (sortKey, sortDesc, sortId) {
 //  --------------------------------------------------------------------------------------------------------------//
 const VenuesTable = ({venue, venues }) => {
     return (
-        <div className="blackBg">            
+        <div className="blackBg">
             <div className="ib" >
-                <div className="ib" style={{"max-width":"100%"}}>
+                <div className="ib" style={{"maxWidth":"100%"}}>
                       {venue["VName"]} <br/>
                       {venue["VCity"]}
                 </div>
-                <div className="ib" style={{"max-width":"100%"}}>
+                <div className="ib" style={{"maxWidth":"100%"}}>
                     {venue["VDescription"]}
                 </div>
-                <div className="ib" style={{"max-width":"100%"}}>
+                <div className="ib" style={{"maxWidth":"100%"}}>
                     <div className="ibInline">
                             <Link to={"/amenities/"+venue.id}>
                                 <Button bsStyle="primary" bsSize="small"  >

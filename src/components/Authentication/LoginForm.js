@@ -1,6 +1,7 @@
 import React from 'react';
 import TextInput from '../common/TextInput';
-import {Button, Glyphicon} from 'react-bootstrap';
+// import {Button, Glyphicon} from 'bootstrap';
+import {PropTypes} from 'prop-types';
 
 const LoginForm = ({credentials, onSave, onChange, saving, errors}) => {
   return (
@@ -33,9 +34,9 @@ const LoginForm = ({credentials, onSave, onChange, saving, errors}) => {
                 <div style={{"paddingTop":"15px"}}>
                     <label>Need An Account?&nbsp;&nbsp;</label>
                     <a href={"/register"}>
-                        <Button bsize="xsmall" className="btn btn-primary">
-                            Register <Glyphicon glyph="Register"/>
-                        </Button>
+                        <button  bsize="xsmall" className="btn btn-primary">
+                            Register
+                        </button >
                     </a>
                 </div>
             </form>
@@ -43,11 +44,11 @@ const LoginForm = ({credentials, onSave, onChange, saving, errors}) => {
 };
 
 LoginForm.propTypes = {
-  onSave: React.PropTypes.func.isRequired,
-  onChange: React.PropTypes.func.isRequired,
-  credentials: React.PropTypes.object.isRequired,
-  saving: React.PropTypes.bool,
-  errors: React.PropTypes.object
+  onSave: PropTypes.func.isRequired,
+  onChange: PropTypes.func.isRequired,
+  credentials: PropTypes.object.isRequired,
+  saving: PropTypes.bool,
+  errors: PropTypes.object
 };
 
 export default LoginForm;
