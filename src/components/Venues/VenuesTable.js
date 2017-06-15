@@ -16,7 +16,8 @@ const VenuesTable = ({venue, venues }) => {
         <div className="blackBg">
             <div className="ib" >
                 <div className="ib" style={{"maxWidth":"100%"}}>
-                      {venue["VName"]} <br/>
+                      {venue["VName"]} <br/><br/>
+                      {venue["VAddress"]}<br/>
                       {venue["VCity"]}
                 </div>
                 <div className="ib" style={{"maxWidth":"100%"}}>

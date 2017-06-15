@@ -1,6 +1,6 @@
 import React from 'react';
 import TextInput from '../common/TextInput';
-import {Button, Glyphicon} from 'react-bootstrap';
+// import {Button, Glyphicon} from 'react-bootstrap';
 import {PropTypes} from 'prop-types';
 
 const RegisterForm = ({user, onSave, onChange, saving, errors, venue}) => {

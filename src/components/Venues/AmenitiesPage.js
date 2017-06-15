@@ -10,6 +10,10 @@ import {DisplayMap} from '../common/DisplayMap';
 import {PropTypes} from 'prop-types';
 
 class AmenitiesPage extends React.Component {
+  constructor(props){
+      super(props);
+      this.handleFilterDropdownChange = this.handleFilterDropdownChange.bind(this);
+  }
   componentWillMount() {
     if (this.props.params.venueId > 0 && this.props.params.venueId != this.props.amenities.venue.id ) {
             this.LoadProps(this.props.params.venueId);
@@ -17,11 +21,12 @@ class AmenitiesPage extends React.Component {
     }
     componentWillReceiveProps (nextProps) {
        if(nextProps.params.venueId !== this.props.params.venueId) {
-        this.LoadProps(nextProps.params.venueId);
+           this.LoadProps(nextProps.params.venueId);
        }
     }
 
     LoadProps(venueId){
+          debugger;
         this.props.actions.getVenueByID(venueId)
         .then()
         .catch( error => {

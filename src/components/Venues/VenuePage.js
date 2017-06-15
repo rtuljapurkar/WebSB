@@ -60,25 +60,26 @@ constructor(props){
         const { filterString, sortKey, sortDesc } = this.props.venues;
         const venues = this.props.venues.data;
         let localData = this.sortData();
-        localData = this.filterData(localData);
-
+        localData = this.filterData(localData);        
+        const venuesFound = (localData.length > 1 || (localData.length == 1 && localData[0].id > 0));
         return (
           <div className="col-md-12">
             <h1>Venues</h1> {this.props.loading && <h4><b><LoadingDots interval={100} dots={20}/></b></h4>}
 
-            {!this.props.loading && <input className="filter-input" value={filterString}
+            {!this.props.loading && venuesFound &&
+                <input className="filter-input" value={filterString}
               onChange={this.handleFilterStringChange()}
               type="text" placeholder="Filter Rows"
               autoCorrect="off" autoCapitalize="off" spellCheck="false" />}
             <br /><br />
                 <div style={{"maxHeight":"650px", "overflow": "auto"}}>
-                      {!this.props.loading && localData.length > 1 &&
+                      {!this.props.loading && venuesFound &&
                               localData.map((venue, index) => {
                                     return(
                                             <VenuesTable  key={venue.id} venue={venue} venues={venues} />
                                       );})
                       }
-                      {!this.props.loading && localData.length == 1 &&
+                      {!this.props.loading && !venuesFound &&
                           <h3>No Venues found</h3>
                       }
                </div>

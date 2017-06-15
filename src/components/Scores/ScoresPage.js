@@ -83,7 +83,7 @@ changeDate(event){
     let totalDates = availableDates.length;
 
     let selectDateIndex = this.findByAttribute(availableDates, "Dates", dateNow); // availableDates.indexOf(this.props.scores.dateSelected);
-console.log(selectDateIndex);
+
     if(type=="minus"){
         if(selectDateIndex > 0)
         {
@@ -106,14 +106,14 @@ console.log(selectDateIndex);
     let dateSelected = this.props.scores.dateSelected;
     let scoresData = this.props.scores.data;
     scoresData = this.filterData(scoresData);
-    //console.log(dateSelected);
+    const scoresFound = (scoresData.length > 1 || (scoresData.length == 1 && scoresData[0].id > 0));
     return (
             <div className="col-md-12"  style={{"marginBottom": "50px","paddingLeft": "4px","paddingRight": "4px"}}  >
-                {this.props.loading &&
+                {this.props.loading && scoresFound &&
                         <div className="blackBg" style={{"textAlign":"left", "width":"100%"}} >
                                  <h4><LoadingDots interval={100} dots={5}/></h4>
                         </div>}
-                {!this.props.loading && //scoresData.length > 1 &&
+                {!this.props.loading && scoresFound &&
                 <div className="blackBg" style={{"textAlign":"center", "width":"100%"}} >
                                 <span className="glyphicon glyphicon-chevron-left text-warning"
                                      style={{"textAlign":"left"}} data-type="minus" onClick={this.changeDate}>
@@ -126,7 +126,7 @@ console.log(selectDateIndex);
                                      disabled="true" onClick={this.changeDate}>
                                 </span>
                 </div>}
-                {!this.props.loading && //scoresData.length > 1 &&
+                {!this.props.loading && scoresFound &&
                     <div style={{"height":"200px", "width":"100%","overflow": "auto"}}>
                         {scoresData.map((score, index) => {
                                       return(
@@ -134,7 +134,7 @@ console.log(selectDateIndex);
                                           );
                                 })}
                 </div>}
-                {!this.props.loading && scoresData.length <=1 &&
+                {!this.props.loading && !scoresFound &&
                     <div style={{"height":"20px"}}>
                         <div className="blackBg">
                             Scores Not found

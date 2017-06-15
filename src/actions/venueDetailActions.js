@@ -2,7 +2,6 @@ import * as types from './actionTypes';
 import venuesApi from '../api/venuesApi';
 import {beginAjaxCall, beginVenueDetailsAjaxCall, ajaxCallError} from './ajaxStatusActions';
 import postsApi from '../api/postsApi';
-import VenuesApi from '../api/venuesApi';
 import sessionApi from '../api/sessionApi';
 
 export function sortBy (sortKey) {
