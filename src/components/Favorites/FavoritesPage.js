@@ -30,7 +30,7 @@ class FavoritesPage extends React.Component {
 
 
   render() {
-    const favorites = this.props.favorites.data;
+    const favorites = this.props.favorites.data;    
     const favoritesFound = (favorites.length > 1 || (favorites.length == 1 && favorites[0].id > 0));
     return (
 

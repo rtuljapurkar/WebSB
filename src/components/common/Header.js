@@ -22,7 +22,7 @@ class  Header extends React.Component {
         let embedCode = this.state.scriptString; // <script>//my js script code</script>
         let testScript = "$('.nav a').on('click', function(){" + embedCode + "})";
         script.innerHTML = testScript;
-        //script.innerHTML = "alert('asdasdasd')";        
+        //script.innerHTML = "alert('asdasdasd')";
         $("#activeTracker").append( script );
     }
 
@@ -48,9 +48,9 @@ render(){
                                                    <span className="icon-bar"></span>
                                                    <span className="icon-bar"></span>
                                                </button>
-                                               <a className="navbar-brand" href="http://www.stadiumbee.com">React</a>
-                                                {/*<a class="navbar-brand" href="http://www.stadiumbee.com">
-                                           <span style={{"color":"white", "fontFamily":"Montserrat"}}>Stadium</span><span style={{"color":"yellow"}}>Bee</span></a> */}
+                                               {/* <a className="navbar-brand" href="http://www.stadiumbee.com">React</a> */}
+                                                <a className="navbar-brand" href="http://www.stadiumbee.com">
+                                           <span style={{"color":"white", "fontFamily":"Montserrat"}}>Stadium</span><span style={{"color":"#ffcb45"}}>Bee</span></a>
                                 </div>
                                 <div className="collapse navbar-collapse" id="myNavbar">
                                     <ul className="nav navbar-nav">

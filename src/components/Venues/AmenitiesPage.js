@@ -25,8 +25,7 @@ class AmenitiesPage extends React.Component {
        }
     }
 
-    LoadProps(venueId){
-          debugger;
+    LoadProps(venueId){        
         this.props.actions.getVenueByID(venueId)
         .then()
         .catch( error => {

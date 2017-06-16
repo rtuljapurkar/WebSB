@@ -69,12 +69,13 @@ class LoginPage extends React.Component {
     }
     this.setState({saving: true});
     this.props.actions.loginUser(this.state.credentials)
-    .then(() => this.redirect())
+    .then(
+            () => this.redirect()
+        )
     .catch(error => {
           toastr.error(error);
           this.setState({saving: false});
     });
-
   }
 
     redirect() {
@@ -86,6 +87,11 @@ class LoginPage extends React.Component {
 
 
   render() {
+      if(this.props.session.isUserLoggedIn === true)
+      {
+          browserHistory.push('/venues');
+          return (<h1>Welcome to SB</h1>);
+      }
         return (
                 <LoginForm
                   credentials={this.state.credentials}
@@ -113,7 +119,7 @@ function mapDispatchToProps(dispatch) {
     actions: bindActionCreators(sessionActions, dispatch)
   };
 }
-function mapStateToProps(state, ownProps) {
+function mapStateToProps(state, ownProps) {  
     return {
         session: state.session
     };

@@ -1,6 +1,5 @@
 import {fetchWithDelay} from './delay';
 
-
 const md5 = require('md5');
 
 function handleErrors(response) {
@@ -16,6 +15,7 @@ function handleErrors(response) {
  }
 
 class SessionApi {
+
         static login(credentials) {
             let obj = null;
             if(validateEmail(credentials.PEmailA1))
@@ -31,9 +31,7 @@ class SessionApi {
             }
 
             let url = `${process.env.API_HOST}/sb_users/count?where=` + JSON.stringify(obj);
-            // obj.PEmailA1 = "456@test.com"; // obj.PPassword ="e10adc3949ba59abbe56e057f20f883e";
-
-            return fetch(url)
+            return fetchWithDelay(url)
             .then(handleErrors)
             .then(response => {
               return response.json();
@@ -44,25 +42,23 @@ class SessionApi {
           }
 
           static getUser(credentials) {
-            //   let obj = null;
-            //   let isEmailPresent = false;
-            //   if(validateEmail(credentials.PEmailA1))
-            //   {
-            //       isEmailPresent = true;
-            //   }
-            //   if(validateEmail(credentials.PEmailA1))
-            //   {
-            //       obj =  credentials;
-            //       obj.PEmailA1 =  obj.PEmailA1.toLowerCase();
-            //   }
-            //   else {
-            //       obj =  {PUserName: "", PPassword: ""};
-            //       obj.PUserName =  credentials.PEmailA1.toLowerCase();
-            //   }
-            // const url = `${process.env.API_HOST}/sb_users/findOne?filter=` + JSON.stringify(obj);
-            // const url = `${process.env.API_HOST}/sb_users` + JSON.stringify(obj);
-            const url = `${process.env.API_HOST}/sb_users`;
-            return fetch(url)
+            let isEmailPresent = false;
+            let filter = "";
+            if(validateEmail(credentials.PEmailA1))
+            {
+              isEmailPresent = true;
+            }
+            if(isEmailPresent){
+              filter = "filter[where][PEmailA1]=" + credentials.PEmailA1.toLowerCase();
+            }
+            else {
+              filter = "filter[where][PUserName]=" +credentials.PEmailA1.toLowerCase();
+            }
+            const request = new Request(`${process.env.API_HOST}/sb_users?` + filter, {
+            method: 'GET'
+            });
+
+            return fetch(request)
             .then(handleErrors)
             .then(response => {
                 return response.json();
@@ -114,6 +110,7 @@ class SessionApi {
               submitUser.PEmailA1 = user.PEmailA1.toLowerCase();
               submitUser.PUserName = user.PUserName.toLowerCase();
               const url = `${process.env.API_HOST}/sb_users`;
+              //DO NOT USE fetchWithDelay
               return fetch(url, {
                    method: 'POST',
                    headers: {

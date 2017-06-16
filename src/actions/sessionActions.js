@@ -16,6 +16,7 @@ function validateEmail (email) {
         return re.test(email);
 }
 
+
 export function loginUser(credentials) {
     let isEmailPresent = false;
     if(validateEmail(credentials.PEmailA1))
@@ -23,39 +24,40 @@ export function loginUser(credentials) {
         isEmailPresent = true;
     }
     return function(dispatch) {
-    return sessionApi.login(credentials).then(response => {
-
-          if(response && response.count && response.count === 1)
-          {
-              localStorage.setItem('jwt', response.count);
-              localStorage.setItem('username', credentials.PEmailA1);
-              sessionApi.getUser(credentials).then(response => {
-                     if(isEmailPresent == true){
-                          response = response.filter( r => r.PEmailA1.toLowerCase() == credentials.PEmailA1.toLowerCase() );
-                      }
-                      else {
-                          response = response.filter( r => r.PUserName.toLowerCase() == credentials.PEmailA1.toLowerCase() );
-                      }
-                    if(response && response[0] && response[0].id && response[0].id > 0)
-                    {
-                        localStorage.setItem('username', response[0].PUserName);
-                        localStorage.setItem('userid', response[0].id);
-                    }
+          dispatch(beginAjaxCall());
+        return sessionApi.login(credentials).
+            then(response =>{
+                if(response && response.count && response.count === 1)
+                  {
+                      localStorage.setItem('jwt', true);
+                      localStorage.setItem('username', credentials.PEmailA1.toLowerCase());
+                      sessionApi.getUser(credentials).then(userresponse => {
+                             if(isEmailPresent == true){
+                                  userresponse = userresponse.filter( r => r.PEmailA1.toLowerCase() == credentials.PEmailA1.toLowerCase() );
+                              }
+                              else {
+                                  userresponse = userresponse.filter( r => r.PUserName.toLowerCase() == credentials.PEmailA1.toLowerCase() );
+                              }
+                            if(userresponse && userresponse[0] && userresponse[0].id && userresponse[0].id > 0)
+                            {
+                                localStorage.setItem('jwt', true);
+                                localStorage.setItem('username', userresponse[0].PUserName);
+                                localStorage.setItem('userid', userresponse[0].id);
+                            }
+                    });
+                    dispatch(loginSuccess());
+                }
+               else
+                  {  if(response && response.count && response.count > 1){
+                         throw("Multiple Accounts Found");
+                     }
+                     else {
+                         throw("Login Email/Password incorrect");
+                     }
+                   }
+                }).catch(error => {
+                  throw(error);
                 });
-              dispatch(loginSuccess());
-          }
-          else
-          {
-             if(response && response.count && response.count > 1){
-                 throw("Multiple Accounts Found");
-             }
-             else {
-                 throw("Login Email/Password incorrect");
-             }
-           }
-    }).catch(error => {
-      throw(error);
-    });
   };
 }
 
@@ -95,30 +97,35 @@ export function isEmailTaken(email) {
       };
   }
 
-
 export function saveUser(user) {
     return function (dispatch, getState) {
         dispatch(beginAjaxCall());
         return sessionApi.saveUser(user)
         .then(response => {
-            localStorage.setItem('jwt', true);
-            localStorage.setItem('username', user.PUserName);
-            sessionApi.getUser(user).then(response => {
-                response = response.filter( r => r.PEmailA1.toLowerCase() == user.PEmailA1.toLowerCase() );
-                if(response && response[0] && response[0].id && response[0].id > 0)
-                  {
-                      localStorage.setItem('username', response[0].PUserName);
-                      localStorage.setItem('userid', response[0].id);
-                  }
-              });
-            dispatch(userCreateSuccess(user));
-    }).catch(error => {
+            if(response && response.id > 0){
+                localStorage.setItem('jwt', true);
+                localStorage.setItem('username', user.PUserName);
+                sessionApi.getUser(user)
+                .then(userResponse => {
+                    userResponse = userResponse.filter( r => r.PEmailA1.toLowerCase() == user.PEmailA1.toLowerCase() );
+                    if(userResponse && userResponse[0] && userResponse[0].id && userResponse[0].id > 0)
+                      {
+                          localStorage.setItem('jwt', true);
+                          localStorage.setItem('username', userResponse[0].PUserName);
+                          localStorage.setItem('userid', userResponse[0].id);
+                      }
+                  });
+                }
+            else {
+                    throw("Error occured while registering..");
+                }
+    dispatch(userCreateSuccess(user));
+    }).catch(error => {    
       dispatch(ajaxCallError(error));
       throw(error);
     });
   };
 }
-
 
 export function logOutUser() {
   auth.logOut();

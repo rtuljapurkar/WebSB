@@ -7,6 +7,11 @@ import toastr from 'toastr';
 import {Link, browserHistory} from 'react-router';
 import {PropTypes} from 'prop-types';
 
+function validateEmail (email) {
+        let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(email);
+}
+
 class RegisterPage extends React.Component {
   constructor(props, context) {
     super(props, context);
@@ -28,7 +33,9 @@ class RegisterPage extends React.Component {
   userFormIsValid() {
     let formIsValid = true;
     let errors = {};
-    if (this.state.user.PEmailA1 == "") {
+    if ( (this.state.user.PEmailA1 == "") ||
+            !validateEmail(this.state.user.PEmailA1) )
+    {
       errors.PEmailA1 = 'Valid email address must be entered';
       formIsValid = false;
     }
@@ -62,13 +69,15 @@ class RegisterPage extends React.Component {
               this.props.actions.isUserNameTaken(this.state.user.PUserName)
               .then(resp2 => {
                                if(resp2) {
-                                   errors.PUserName = 'Username is already registered';
-                                   this.setState({errors: errors});
-                                   formIsValid = false;
+                                       errors.PUserName = 'Username is already registered';
+                                       this.setState({errors: errors});
+                                       formIsValid = false;
                                     }
-                               if(formIsValid){
+                               else{
                                        this.props.actions.saveUser(this.state.user)
-                                       .then(() => this.redirect())
+                                       .then(
+                                           () => this.redirect()
+                                       )
                                        .catch(error => {
                                                toastr.error(error);
                                                this.setState({saving: false});
@@ -104,7 +113,7 @@ class RegisterPage extends React.Component {
   }
 
   redirect() {
-    this.setState({saving: false});
+    //this.setState({saving: false});
     toastr.success('Registration Successful');
     //browserHistory.push('/venues');
      window.location = "/home";
