@@ -74,8 +74,8 @@ const VenueDetailTable = ({post, venue, amenities, pointOfInterests, users}) => 
         {
             poiName = "POI: " + post.POIID ;
             try{
-                poiName = pointOfInterests[post.POIID].POIName;
-                poiImage = pointOfInterests[post.POIID].POIImage;
+                poiName = pointOfInterests[post.POIID-1].POIName;
+                poiImage = pointOfInterests[post.POIID-1].POIImage;
             }catch(ex){
                 poiName = "";
                 poiImage = "";

@@ -25,9 +25,9 @@ export function loginUser(credentials) {
     }
     return function(dispatch) {
           dispatch(beginAjaxCall());
-        return sessionApi.login(credentials).
-            then(response =>{
-                if(response && response.count && response.count === 1)
+        return sessionApi.login(credentials)
+            .then(response =>{
+                  if(response && response.count && response.count === 1)
                   {
                       localStorage.setItem('jwt', true);
                       localStorage.setItem('username', credentials.PEmailA1.toLowerCase());
@@ -38,6 +38,8 @@ export function loginUser(credentials) {
                               else {
                                   userresponse = userresponse.filter( r => r.PUserName.toLowerCase() == credentials.PEmailA1.toLowerCase() );
                               }
+                              console.log("here");
+                               console.log(userresponse[0].id);
                             if(userresponse && userresponse[0] && userresponse[0].id && userresponse[0].id > 0)
                             {
                                 localStorage.setItem('jwt', true);
@@ -120,7 +122,7 @@ export function saveUser(user) {
                     throw("Error occured while registering..");
                 }
     dispatch(userCreateSuccess(user));
-    }).catch(error => {    
+    }).catch(error => {
       dispatch(ajaxCallError(error));
       throw(error);
     });

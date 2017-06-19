@@ -33,7 +33,7 @@ const LoginForm = ({credentials, onSave, onChange, saving, errors}) => {
 
                 <div style={{"paddingTop":"15px"}}>
                     <label>Need An Account?&nbsp;&nbsp;</label>
-                    <a href={"/register"} class="btn btn-primary">
+                    <a href={"/register"} className="btn btn-primary">
                             Register
                     </a>
                 </div>

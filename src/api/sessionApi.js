@@ -1,9 +1,10 @@
-import {fetchWithDelay} from './delay';
+import {fetchWithDelay2} from './delay';
+import axios from 'axios';
 
 const md5 = require('md5');
 
 function handleErrors(response) {
-       if (!response.ok) {
+       if (!response.status == "200")  {
             throw Error(response.statusText);
         }
         return response;
@@ -31,10 +32,10 @@ class SessionApi {
             }
 
             let url = `${process.env.API_HOST}/sb_users/count?where=` + JSON.stringify(obj);
-            return fetchWithDelay(url)
+            return fetchWithDelay2(url)
             .then(handleErrors)
             .then(response => {
-              return response.json();
+              return response.data;
             }).catch(error => {
               throw error;
             });
@@ -54,14 +55,16 @@ class SessionApi {
             else {
               filter = "filter[where][PUserName]=" +credentials.PEmailA1.toLowerCase();
             }
-            const request = new Request(`${process.env.API_HOST}/sb_users?` + filter, {
-            method: 'GET'
-            });
+            // const request = new Request(`${process.env.API_HOST}/sb_users?` + filter, {
+            // method: 'GET'
+            // });
+            const request = `${process.env.API_HOST}/sb_users?` + filter;
 
-            return fetch(request)
+            return fetchWithDelay2(request)
             .then(handleErrors)
             .then(response => {
-                return response.json();
+
+                return response.data;
             }).catch(error => {
               throw error;
             });
@@ -69,10 +72,10 @@ class SessionApi {
 
           static getAllUsers() {
             const url = `${process.env.API_HOST}/sb_users`;
-            return fetchWithDelay(url)
+            return fetchWithDelay2(url)
             .then(handleErrors)
             .then(response => {
-                return response.json();
+                return response.data;
             }).catch(error => {
               throw error;
             });
@@ -82,10 +85,10 @@ class SessionApi {
             let obj = {"PEmailA1": ""};
             obj.PEmailA1 = email.toLowerCase();
             const url = `${process.env.API_HOST}/sb_users/count?where=` + JSON.stringify(obj);
-            return fetch(url)
+            return fetchWithDelay2(url)
             .then(handleErrors)
             .then(response => {
-                    return response.json();
+                    return response.data;
             }).catch(error => {
               throw error;
             });
@@ -95,10 +98,10 @@ class SessionApi {
             let obj = {"PUserName": ""};
             obj.PUserName = username.toLowerCase();
             const url = `${process.env.API_HOST}/sb_users/count?where=` + JSON.stringify(obj) ;
-            return fetch(url)
+            return fetchWithDelay2(url)
             .then(handleErrors)
             .then(response => {
-              return response.json();
+              return response.data;
             }).catch(error => {
              throw error;
             });
@@ -111,19 +114,29 @@ class SessionApi {
               submitUser.PUserName = user.PUserName.toLowerCase();
               const url = `${process.env.API_HOST}/sb_users`;
               //DO NOT USE fetchWithDelay
-              return fetch(url, {
-                   method: 'POST',
-                   headers: {
-                     'Content-Type': 'application/json'
-                   },
-                   body: JSON.stringify(submitUser)
-               })
-               .then(handleErrors)
-               .then(response => {
-                    return response.json();
-              }).catch(error => {
-                    throw error;
-              });
+            //   return fetch(url, {
+            //        method: 'POST',
+            //        headers: {
+            //          'Content-Type': 'application/json'
+            //        },
+            //        body: JSON.stringify(submitUser)
+            //    })
+            //    .then(handleErrors)
+            //    .then(response => {
+            //         return response.json();
+            //   }).catch(error => {
+            //         throw error;
+            //   });
+
+             return axios
+             .post(url,submitUser)
+             .then(handleErrors)
+             .then(response => {
+                  return response.data;
+            }).catch(error => {
+                  throw error;
+            });
+
             }
     }
 

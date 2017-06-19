@@ -1,7 +1,8 @@
-import {fetchWithDelay} from  './delay';
+import {fetchWithDelay2} from  './delay';
+import axios from 'axios';
 
 function handleErrors(response) {
-     if (!response.ok) {
+    if (!response.status == "200")  {
          throw Error(response.statusText);
      }
      return response;
@@ -13,13 +14,14 @@ class PostsApi {
             let filter ="";
             filter = "filter[where][Active]=1";
             const host = `${process.env.API_HOST}`;
-            const request = new Request(`${process.env.API_HOST}/sb_post_venue?` + filter, {
-              method: 'GET'
-            });            
-            return fetchWithDelay(request)
+            // const request = new Request(`${process.env.API_HOST}/sb_post_venue?` + filter, {
+            //   method: 'GET'
+            // });
+            const request = `${process.env.API_HOST}/sb_post_venue?` + filter;
+            return fetchWithDelay2(request)
             .then(handleErrors)
             .then(response => {
-                    return response.json();
+                    return response.data;
                 }).catch(error => {
                     throw error;
                 });
@@ -34,14 +36,14 @@ class PostsApi {
                   filter = "filter[where][VenueID]=0&filter[where][Active]=1"; //131
                 }
             const host = `${process.env.API_HOST}`;
-            const request = new Request(`${process.env.API_HOST}/sb_post_venue?` + filter, {
-              method: 'GET'
-            });
-
-            return fetch(request)
+            // const request = new Request(`${process.env.API_HOST}/sb_post_venue?` + filter, {
+            //   method: 'GET'
+            // });
+            const request = `${process.env.API_HOST}/sb_post_venue?` + filter;
+            return fetchWithDelay2(request)
             .then(handleErrors)
             .then(response => {
-                    return response.json();
+                    return response.data;
                 }).catch(error => {
                     throw error;
                 });
@@ -56,14 +58,14 @@ class PostsApi {
                   filter = "filter[where][VenueID]=0&filter[where][Active]=1"; //131
                 }
             const host = `${process.env.API_HOST}`;
-            const request = new Request(`${process.env.API_HOST}/sb_post_venue_amenity?` + filter, {
-              method: 'GET'
-            });
-
-            return fetch(request)
+            // const request = new Request(`${process.env.API_HOST}/sb_post_venue_amenity?` + filter, {
+            //   method: 'GET'
+            // });
+            const request = `${process.env.API_HOST}/sb_post_venue_amenity?` + filter;
+            return fetchWithDelay2(request)
             .then(handleErrors)
             .then(response => {
-                    return response.json();
+                    return response.data;
                 }).catch(error => {
                     throw error;
                 });
@@ -78,14 +80,14 @@ class PostsApi {
                       filter = "filter[where][VenueID]=0&filter[where][Active]=1"; //131
                     }
                 const host = `${process.env.API_HOST}`;
-                const request = new Request(`${process.env.API_HOST}/sb_post_venue_poi?` + filter, {
-                  method: 'GET'
-                });
-
-                return fetch(request)
+                // const request = new Request(`${process.env.API_HOST}/sb_post_venue_poi?` + filter, {
+                //   method: 'GET'
+                // });
+                const request = `${process.env.API_HOST}/sb_post_venue_poi?` + filter;
+                return fetchWithDelay2(request)
                 .then(handleErrors)
                 .then(response => {
-                        return response.json();
+                        return response.data;
                     }).catch(error => {
                         throw error;
                     });
@@ -93,14 +95,14 @@ class PostsApi {
 
         static getVenueByID(ID) {
               const host = `${process.env.API_HOST}`;
-              const request = new Request(`${process.env.API_HOST}/sb_venue/`+ ID, {
-                method: 'GET'
-              });
-
-              return fetch(request)
+            //   const request = new Request(`${process.env.API_HOST}/sb_venue/`+ ID, {
+            //     method: 'GET'
+            //   });
+              const request = `${process.env.API_HOST}/sb_venue/`+ ID;
+              return fetchWithDelay2(request)
               .then(handleErrors)
               .then(response => {
-                      return response.json();
+                      return response.data;
                   }).catch(error => {
                       throw error;
                   });
@@ -108,14 +110,14 @@ class PostsApi {
 
           static getAmenityByID(ID) {
                     const host = `${process.env.API_HOST}`;
-                    const request = new Request(`${process.env.API_HOST}/sb_amenity/`+ ID, {
-                      method: 'GET'
-                    });
-
-                    return fetch(request)
+                    // const request = new Request(`${process.env.API_HOST}/sb_amenity/`+ ID, {
+                    //   method: 'GET'
+                    // });
+                    const request = `${process.env.API_HOST}/sb_amenity/`+ ID;
+                    return fetchWithDelay2(request)
                     .then(handleErrors)
                     .then(response => {
-                            return response.json();
+                            return response.data;
                         }).catch(error => {
                             throw error;
                         });
@@ -123,14 +125,15 @@ class PostsApi {
 
             static getPOIByID(ID) {
                       const host = `${process.env.API_HOST}`;
-                      const request = new Request(`${process.env.API_HOST}/sb_POI/`+ ID, {
-                        method: 'GET'
-                      });
+                    //   const request = new Request(`${process.env.API_HOST}/sb_POI/`+ ID, {
+                    //     method: 'GET'
+                    //   });
+                      const request = `${process.env.API_HOST}/sb_POI/`+ ID;
 
-                      return fetch(request)
+                      return fetchWithDelay2(request)
                       .then(handleErrors)
                       .then(response => {
-                              return response.json();
+                              return response.data;
                           }).catch(error => {
                               throw error;
                           });
@@ -149,19 +152,28 @@ class PostsApi {
                 else if(post.AmenityID == 0 && post.POIID != 0){
                          url = `${process.env.API_HOST}/sb_post_venue_poi`;
                     }
+                // return fetch(url, {
+                //      method: 'POST',
+                //      headers: {
+                //        'Content-Type': 'application/json'
+                //      },
+                //      body: JSON.stringify(post)
+                //  }).then(handleErrors)
+                //  .then(response => {
+                //   return response.json();
+                // }).catch(error => {
+                //   throw error;
+                // });
 
-                return fetch(url, {
-                     method: 'POST',
-                     headers: {
-                       'Content-Type': 'application/json'
-                     },
-                     body: JSON.stringify(post)
-                 }).then(handleErrors)
+                return axios
+                .post(url,post)
+                .then(handleErrors)
                  .then(response => {
-                  return response.json();
+                  return response.data;
                 }).catch(error => {
                   throw error;
                 });
+
               }
 
 }
