@@ -67,21 +67,21 @@ class LoginPage extends React.Component {
     if (!this.userFormIsValid()) {
       return;
     }
-    this.setState({saving: true});
+    //this.setState({saving: true});
     this.props.actions.loginUser(this.state.credentials)
     .then(
             () => this.redirect()
         )
     .catch(error => {
           toastr.error(error);
-          this.setState({saving: false});
+         // this.setState({saving: false});
     });
   }
 
     redirect() {
-          this.setState({saving: false});
+         // this.setState({saving: false});
           toastr.success('Login Successful');
-          //this.context.router.push('/home');
+          //this.context.router.push('/home');        
           window.location = "/home";
     }
 
@@ -119,7 +119,7 @@ function mapDispatchToProps(dispatch) {
     actions: bindActionCreators(sessionActions, dispatch)
   };
 }
-function mapStateToProps(state, ownProps) {  
+function mapStateToProps(state, ownProps) {
     return {
         session: state.session
     };
